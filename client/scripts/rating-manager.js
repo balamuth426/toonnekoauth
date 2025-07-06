@@ -20,7 +20,7 @@ class RatingManager {
     }
 
     console.log('🌐 Fetching rating from API for:', seriesId);
-    const apiBase = window.APP_CONFIG?.API_BASE || '/api';
+    const apiBase = 'https://toonnekoauth-api.onrender.com/api';
     const apiUrl = `${apiBase}/ratings/${seriesId}/average`;
     console.log('📍 API URL:', apiUrl);
     

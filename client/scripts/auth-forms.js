@@ -119,7 +119,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
 
             try {
-                const response = await fetch(`${getApiBase()}/auth/register`, {
+                const response = await fetch('https://toonnekoauth-api.onrender.com/api/auth/register', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -195,7 +195,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             try {
                 console.log('Login denemesi başlatılıyor...');
-                const response = await fetch(`${getApiBase()}/auth/login`, {
+                const response = await fetch('https://toonnekoauth-api.onrender.com/api/auth/login', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
