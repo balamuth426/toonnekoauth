@@ -664,7 +664,7 @@ router.post('/create-series', async (req, res) => {
     }
     
     const fileId = fileIdMatch[1];
-    const proxyImageUrl = `http://localhost:5506/api/image/proxy-image/${fileId}`;
+    const proxyImageUrl = `https://toonnekoauth-api.onrender.com/api/image/proxy-image/${fileId}`;
     
     console.log('Creating series with proxy URL:', proxyImageUrl);
 
@@ -785,7 +785,7 @@ router.post('/create-chapter-with-images', async (req, res) => {
       const fileIdMatch = url.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
       if (fileIdMatch) {
         const fileId = fileIdMatch[1];
-        return `http://localhost:5506/api/image/proxy-image/${fileId}`;
+        return `https://toonnekoauth-api.onrender.com/api/image/proxy-image/${fileId}`;
       }
       return url;
     });
@@ -1130,7 +1130,7 @@ router.put('/update-chapter', async (req, res) => {
     const proxyImageUrls = imageUrls.map(url => {
       const fileId = extractDriveFileId(url);
       if (fileId) {
-        return `http://localhost:5506/api/image/proxy-image/${fileId}`;
+        return `https://toonnekoauth-api.onrender.com/api/image/proxy-image/${fileId}`;
       }
       return url;
     });

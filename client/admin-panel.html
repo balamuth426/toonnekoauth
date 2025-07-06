@@ -1391,7 +1391,7 @@
     <script src="config.js?v=5"></script>
     <script>
         // API Base URL - local development için
-        const API_BASE = 'http://localhost:5506/api';
+        const API_BASE = 'https://toonnekoauth-api.onrender.com/api';
         
         // Giriş kontrolü
         function checkAuthentication() {
@@ -1441,7 +1441,7 @@
             const errorDiv = document.getElementById('login-error');
             
             try {
-                const response = await fetch('http://localhost:5506/api/auth/login', {
+                const response = await fetch('https://toonnekoauth-api.onrender.com/api/auth/login', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -2382,7 +2382,7 @@
         // Edit sekmesi için seri listesini yükle
         async function loadEditSeriesList() {
             try {
-                const response = await fetch('http://localhost:5506/client/data/manhwalar.json');
+                const response = await fetch('https://toonnekoauth-api.onrender.com/client/data/manhwalar.json');
                 const series = await response.json();
                 
                 const select = document.getElementById('edit-series-select');
@@ -2446,7 +2446,7 @@
             }
 
             try {
-                const response = await fetch('http://localhost:5506/client/data/manhwalar.json');
+                const response = await fetch('https://toonnekoauth-api.onrender.com/client/data/manhwalar.json');
                 const series = await response.json();
                 const selectedSeries = series.find(s => s.seriesId === seriesId);
 
@@ -2520,7 +2520,7 @@
             const driveMatch = url.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
             if (driveMatch) {
                 const fileId = driveMatch[1];
-                imageUrl = `http://localhost:5506/api/image/proxy-image/${fileId}`;
+                imageUrl = `https://toonnekoauth-api.onrender.com/image/proxy-image/${fileId}`;
             }
 
             // Loading göster
@@ -2619,12 +2619,12 @@
                 const driveMatch = editData.image.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
                 if (driveMatch) {
                     const fileId = driveMatch[1];
-                    editData.image = `http://localhost:5506/api/image/proxy-image/${fileId}`;
+                    editData.image = `https://toonnekoauth-api.onrender.com/api/image/proxy-image/${fileId}`;
                 }
 
                 console.log('Gönderilen veri:', editData); // Debug için
 
-                const response = await fetch('http://localhost:5506/api/manhwa/edit', {
+                const response = await fetch('https://toonnekoauth-api.onrender.com/api/manhwa/edit', {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',
@@ -2687,7 +2687,7 @@
                 console.log('Kullanıcıları yüklemeye çalışıyor...');
 
                 // Test endpoint kullan (geçici çözüm)
-                const response = await fetch('http://localhost:5506/api/admin/test-users', {
+                const response = await fetch('https://toonnekoauth-api.onrender.com/api/admin/test-users', {
                     headers: {
                         'Content-Type': 'application/json'
                     }
@@ -2979,7 +2979,7 @@
         // Token doğrulama fonksiyonu
         async function verifyToken(token) {
             try {
-                const response = await fetch('http://localhost:5506/api/admin/test-users', {
+                const response = await fetch('https://toonnekoauth-api.onrender.com/api/admin/test-users', {
                     headers: {
                         'Content-Type': 'application/json'
                     }
@@ -3464,7 +3464,7 @@
             try {
                 showStatus('Duyuru ekleniyor...', 'info');
                 
-                const response = await fetch('http://localhost:5506/api/announcements', {
+                const response = await fetch('https://toonnekoauth-api.onrender.com/api/announcements', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -3491,7 +3491,7 @@
         async function loadAnnouncements() {
             try {
                 const filter = document.getElementById('announcement-filter').value;
-                const response = await fetch(`http://localhost:5506/api/announcements?page=${announcementCurrentPage}&limit=${announcementItemsPerPage}&filter=${filter}`, {
+                const response = await fetch(`https://toonnekoauth-api.onrender.com/api/announcements?page=${announcementCurrentPage}&limit=${announcementItemsPerPage}&filter=${filter}`, {
                     headers: {
                         'Authorization': 'Bearer ' + localStorage.getItem('token')
                     }
@@ -3606,7 +3606,7 @@
 
         async function toggleAnnouncement(announcementId, isActive) {
             try {
-                const response = await fetch(`http://localhost:5506/api/announcements/${announcementId}/toggle`, {
+                const response = await fetch(`https://toonnekoauth-api.onrender.com/api/announcements/${announcementId}/toggle`, {
                     method: 'PATCH',
                     headers: {
                         'Authorization': 'Bearer ' + localStorage.getItem('token')
@@ -3633,7 +3633,7 @@
             }
 
             try {
-                const response = await fetch(`http://localhost:5506/api/announcements/${announcementId}`, {
+                const response = await fetch(`https://toonnekoauth-api.onrender.com/api/announcements/${announcementId}`, {
                     method: 'DELETE',
                     headers: {
                         'Authorization': 'Bearer ' + localStorage.getItem('token')
@@ -3656,7 +3656,7 @@
 
         async function editAnnouncement(announcementId) {
             try {
-                const response = await fetch(`http://localhost:5506/api/announcements/${announcementId}`, {
+                const response = await fetch(`https://toonnekoauth-api.onrender.com/api/announcements/${announcementId}`, {
                     headers: {
                         'Authorization': 'Bearer ' + localStorage.getItem('token')
                     }
@@ -3708,7 +3708,7 @@
             try {
                 showStatus('Duyuru güncelleniyor...', 'info');
                 
-                const response = await fetch(`http://localhost:5506/api/announcements/${announcementId}`, {
+                const response = await fetch(`https://toonnekoauth-api.onrender.com/api/announcements/${announcementId}`, {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',

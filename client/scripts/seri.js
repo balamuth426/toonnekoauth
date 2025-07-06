@@ -263,7 +263,7 @@ function displayAverageStars(average) {
 function displayAverageInUserStars(average) {
   // Eğer average verilmediyse, backend'den al
   if (average === undefined) {
-    fetch(`http://localhost:5506/api/ratings/${seriesId}/average`)
+    fetch(`${window.APP_CONFIG.API_BASE}/ratings/${seriesId}/average`)
       .then(r => r.json())
       .then(data => {
         displayAverageInUserStars(data.average || 0);
