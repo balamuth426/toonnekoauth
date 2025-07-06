@@ -1,7 +1,7 @@
 // Bölüm okuma takibi için fonksiyonlar
 class ReadingTracker {
   constructor() {
-    this.baseUrl = 'http://localhost:5506/api';
+    this.baseUrl = getApiBase();
     this.tracked = new Set(); // Aynı session'da birden fazla track edilmesini önle
   }
 
@@ -192,3 +192,7 @@ document.addEventListener('visibilitychange', () => {
     }, 1000);
   }
 });
+
+function getApiBase() {
+  return window.APP_CONFIG?.API_BASE || '/api';
+}

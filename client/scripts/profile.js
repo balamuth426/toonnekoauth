@@ -47,7 +47,7 @@ class ProfileManager {
 
     // Token'ın geçerli olup olmadığını kontrol et
     try {
-      const response = await fetch('http://localhost:5506/api/profile', {
+      const response = await fetch(`${getApiBase()}/profile`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -104,7 +104,7 @@ class ProfileManager {
   async loadUserData() {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('http://localhost:5506/api/profile', {
+      const response = await fetch(`${getApiBase()}/profile`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -206,7 +206,7 @@ class ProfileManager {
   async loadFavorites() {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('http://localhost:5506/api/favorites', {
+      const response = await fetch(`${getApiBase()}/favorites`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -326,7 +326,7 @@ class ProfileManager {
   async removeFavorite(seriesName) {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('http://localhost:5506/api/favorites/remove', {
+      const response = await fetch(`${getApiBase()}/favorites/remove`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -711,7 +711,7 @@ class ProfileManager {
     const token = localStorage.getItem('token');
     console.log('Avatar güncelleme başlıyor:', filename, 'Token:', token ? 'Var' : 'Yok');
     try {
-      const response = await fetch('http://localhost:5506/api/profile/update', {
+      const response = await fetch(`${getApiBase()}/profile/update`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -796,7 +796,7 @@ class ProfileManager {
       const token = localStorage.getItem('token');
       console.log('Token mevcut:', !!token);
       
-      const response = await fetch('http://localhost:5506/api/profile/update', {
+      const response = await fetch(`${getApiBase()}/profile/update`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -860,7 +860,7 @@ class ProfileManager {
       
       this.showAlert('Hesap siliniyor...', 'info');
       
-      const response = await fetch('http://localhost:5506/api/profile/delete', {
+      const response = await fetch(`${getApiBase()}/profile/delete`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`
@@ -1561,3 +1561,8 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 });
+
+// API base URL fonksiyonu
+function getApiBase() {
+  return window.APP_CONFIG?.API_BASE || '/api';
+}

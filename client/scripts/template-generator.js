@@ -1,7 +1,7 @@
 // Yeni seri ve bölüm template generator
 class TemplateGenerator {
   constructor() {
-    this.baseUrl = 'http://localhost:5506/api';
+    this.baseUrl = getApiBase();
   }
 
   // Yeni seri sayfası template'i oluştur
@@ -370,3 +370,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Global olarak erişilebilir yap
 window.TemplateGenerator = TemplateGenerator;
+
+function getApiBase() {
+  return window.APP_CONFIG?.API_BASE || '/api';
+}

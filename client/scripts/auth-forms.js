@@ -119,7 +119,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
 
             try {
-                const response = await fetch('http://localhost:5506/api/auth/register', {
+                const response = await fetch(`${getApiBase()}/auth/register`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -195,7 +195,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             try {
                 console.log('Login denemesi başlatılıyor...');
-                const response = await fetch('http://localhost:5506/api/auth/login', {
+                const response = await fetch(`${getApiBase()}/auth/login`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -273,3 +273,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     console.log('Auth Forms Script başarıyla kuruldu!');
 });
+
+// Yardımcı fonksiyon: API base'i al
+function getApiBase() {
+  return window.APP_CONFIG?.API_BASE || '/api';
+}

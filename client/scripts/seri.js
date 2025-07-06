@@ -42,7 +42,7 @@ if (titleElem) {
 function loadAverageRating() {
   if (!seriesId) return;
   console.log('Loading rating for series:', seriesId);
-  fetch(`http://localhost:5506/api/ratings/${seriesId}/average`)
+  fetch(`${getApiBase()}/ratings/${seriesId}/average`)
     .then(r => r.json())
     .then(data => {
       console.log('Rating data received:', data);
@@ -121,7 +121,7 @@ function renderUserRatingArea() {
       
       console.log('Submitting rating:', i, 'for series:', seriesId);
       
-      fetch('http://localhost:5506/api/ratings', {
+      fetch(`${getApiBase()}/ratings`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -312,6 +312,10 @@ function initAuthListener() {
 document.addEventListener('DOMContentLoaded', function() {
   initAuthListener();
 });
+
+function getApiBase() {
+  return window.APP_CONFIG?.API_BASE || '/api';
+}
 
 
 

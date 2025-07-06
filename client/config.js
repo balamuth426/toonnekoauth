@@ -2,7 +2,7 @@
 const CONFIG = {
     // Development
     development: {
-        API_BASE: 'http://localhost:3000/api'
+        API_BASE: 'https://toonnekoauth-api.onrender.com/api'
     },
     
     // Production - Deploy edildiğinde güncellenecek

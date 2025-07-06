@@ -1,3 +1,8 @@
+// API taban URL'sini getir
+function getApiBase() {
+  return window.APP_CONFIG?.API_BASE || '/api';
+}
+
 // Favoriler yönetimi
 class FavoritesManager {
   constructor() {
@@ -16,7 +21,7 @@ class FavoritesManager {
       }
 
       console.log('Favoriler yükleniyor...');
-      const response = await fetch('http://localhost:5506/api/favorites', {
+      const response = await fetch(`${getApiBase()}/favorites`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -46,7 +51,7 @@ class FavoritesManager {
         throw new Error('Token bulunamadı');
       }
 
-      const response = await fetch('http://localhost:5506/api/favorites/toggle', {
+      const response = await fetch(`${getApiBase()}/favorites/toggle`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

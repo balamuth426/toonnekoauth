@@ -36,7 +36,8 @@ class AnnouncementManager {
   async loadActiveAnnouncement() {
     try {
       console.log('🔄 Loading active announcement...');
-      const response = await fetch('http://localhost:5506/api/announcements/active');
+      const apiBase = window.APP_CONFIG?.API_BASE || '/api';
+      const response = await fetch(`${apiBase}/announcements/active`);
       
       console.log('📊 Response status:', response.status);
       console.log('📋 Response headers:', [...response.headers.entries()]);

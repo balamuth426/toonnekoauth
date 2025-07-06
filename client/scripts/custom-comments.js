@@ -1,11 +1,15 @@
 // Custom Yorum Sistemi - Mevcut backend entegrasyonu
 // Kullanıcı girişi gerekiyor, tamamen kontrol edilebilir
 
+function getApiBase() {
+  return window.APP_CONFIG?.API_BASE || '/api';
+}
+
 class CommentSystem {
   constructor(containerId, seriesId) {
     this.container = document.getElementById(containerId);
     this.seriesId = seriesId;
-    this.apiBase = 'http://localhost:5506/api';
+    this.apiBase = getApiBase();
     this.init();
   }
 

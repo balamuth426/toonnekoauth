@@ -117,7 +117,7 @@ git branch -M main
 1. Bu komutu yazın, `Enter` basın
 2. Ana branch'i main yapar
 
-```bash
+```bashgit push -u origin mainbalamuth426
 git remote add origin https://github.com/KULLANICI_ADINIZ/toonnekoauth.git
 ```
 **ÖNEMLİ**: `KULLANICI_ADINIZ` yazan yeri GitHub kullanıcı adınızla değiştirin!

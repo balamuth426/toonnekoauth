@@ -1,3 +1,8 @@
+// API taban URL'sini döndüren yardımcı fonksiyon
+function getApiBase() {
+  return window.APP_CONFIG?.API_BASE || '/api';
+}
+
 // Bölüm listesini dinamik olarak yükleyen sınıf
 class ChaptersManager {
   constructor(seriesId) {
@@ -19,7 +24,7 @@ class ChaptersManager {
   // Bölüm istatistiklerini yükle
   async loadChapterStats() {
     try {
-      const response = await fetch(`http://localhost:5506/api/stats/admin/detailed-stats?seriesId=${this.seriesId}&limit=100`);
+      const response = await fetch(`${getApiBase()}/stats/admin/detailed-stats?seriesId=${this.seriesId}&limit=100`);
       if (response.ok) {
         const data = await response.json();
         if (data.success && data.data) {
@@ -55,7 +60,7 @@ class ChaptersManager {
   async loadChapters() {
     try {
       // Server API'sinden bölümleri yükle
-      const response = await fetch(`http://localhost:5506/api/chapters/${this.seriesId}`);
+      const response = await fetch(`${getApiBase()}/chapters/${this.seriesId}`);
       if (!response.ok) {
         throw new Error('Bölümler yüklenemedi');
       }

@@ -1,7 +1,7 @@
 // Popüler bölümler için JavaScript
 class PopularSections {
   constructor() {
-    this.baseUrl = 'http://localhost:5506/api';
+    this.baseUrl = getApiBase();
     this.manhwalarData = null;
     this.init();
   }
@@ -452,6 +452,11 @@ class PopularSections {
     
     return null;
   }
+}
+
+// API tabanını döndür (varsayılan olarak '/api')
+function getApiBase() {
+  return window.APP_CONFIG?.API_BASE || '/api';
 }
 
 // Sayfa yüklendiğinde popüler bölümleri başlat

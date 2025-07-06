@@ -379,7 +379,7 @@ class DynamicNavigation {
         
         try {
             // API'den seri bilgilerini al
-            const response = await fetch('http://localhost:5506/api/manhwa/');
+            const response = await fetch(`${getApiBase()}/manhwa/`);
             if (response.ok) {
                 const seriesData = await response.json();
                 const currentSeries = seriesData.find(series => series.seriesId === this.currentSeries);
@@ -622,3 +622,7 @@ if (document.readyState === 'loading') {
 }
 
 } // End of duplicate prevention check
+
+function getApiBase() {
+  return window.APP_CONFIG?.API_BASE || '/api';
+}

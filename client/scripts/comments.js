@@ -212,8 +212,8 @@ class CommentsUI {
     try {
       // Bölüm-özel yorumlar varsa bölüm numarası ile API çağrısı yap
       const apiUrl = this.chapterNumber 
-        ? `http://localhost:5506/api/comments/${this.seriesId}/${this.chapterNumber}`
-        : `http://localhost:5506/api/comments/${this.seriesId}`;
+        ? `${getApiBase()}/comments/${this.seriesId}/${this.chapterNumber}`
+        : `${getApiBase()}/comments/${this.seriesId}`;
       
       // Add cache busting
       const cacheBustingUrl = apiUrl + (apiUrl.includes('?') ? '&' : '?') + 't=' + Date.now();
@@ -400,7 +400,7 @@ class CommentsUI {
         user: this.user.username
       });
       
-      const res = await fetch('http://localhost:5506/api/comments', {
+      const res = await fetch(`${getApiBase()}/comments`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -824,6 +824,11 @@ class CommentsUI {
 
     return modal;
   }
+}
+
+// Yardımcı fonksiyon: API base'i al
+function getApiBase() {
+  return window.APP_CONFIG?.API_BASE || '/api';
 }
 
 // Global debugging

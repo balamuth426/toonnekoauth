@@ -20,7 +20,8 @@ class RatingManager {
     }
 
     console.log('🌐 Fetching rating from API for:', seriesId);
-    const apiUrl = `http://localhost:5506/api/ratings/${seriesId}/average`;
+    const apiBase = window.APP_CONFIG?.API_BASE || '/api';
+    const apiUrl = `${apiBase}/ratings/${seriesId}/average`;
     console.log('📍 API URL:', apiUrl);
     
     const promise = fetch(apiUrl, {
