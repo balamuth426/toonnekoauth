@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Omniscient Reader</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles/navbar.css?v=5">
+  <link rel="stylesheet" href="../../styles/ornek-navbar-ek.css?v=5">
+  <link rel="stylesheet" href="../../styles/seri.css?v=5">
+  <link rel="stylesheet" href="../../styles/comments.css?v=5">
+  <link rel="stylesheet" href="../../styles/chapters.css?v=5">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css?v=5">
+  <style>
+    /* Sadece sayfaya özel stil bırakıldı, ortak başlıklar kaldırıldı */
+  </style>
+</head>
+<body>
+<header>
+  <div class="logo-area">
+    <a href="../../index.html" class="logo-link">
+      <img src="../../images/ToonNekoLogo.png" alt="Logo" />
+      <span>ToonNeko</span>
+    </a>
+  </div>
+  <nav class="desktop-navbar">
+    <ul>
+      <li><a href="../../index.html" style="text-decoration:none;">Anasayfa</a></li>
+      <li><a href="../../tum-seriler.html" style="text-decoration:none;" class="active">Tüm Seriler</a></li>
+      <li><a href="../../profile.html" style="text-decoration:none;">Profilim</a></li>
+      <li><a href="../../hakkinda.html" style="text-decoration:none;">Hakkında</a></li>
+      <li><a href="../../iletisim.html" style="text-decoration:none;">İletişim</a></li>
+      
+      <!-- Auth Buttons (Logged Out) -->
+      <li id="auth-buttons-nav">
+        <button id="open-register-modal-navbar" class="auth-btn" style="background:#ff6f61; color:#fff; border:none; border-radius:20px; padding:6px 14px; margin-left:8px; font-size:0.9rem; cursor:pointer; transition:background 0.2s;">Kayıt Ol</button>
+      </li>
+      <li id="auth-buttons-nav-2">
+        <button id="open-login-modal-navbar" class="auth-btn" style="background:#fff; color:#ff6f61; border:1.5px solid #ff6f61; border-radius:20px; padding:6px 14px; margin-left:4px; font-size:0.9rem; cursor:pointer; transition:background 0.2s, color 0.2s;">Giriş Yap</button>
+      </li>
+      
+      <!-- User Info (Logged In) -->
+      <li id="user-info-nav" style="display: none;">
+        <span id="username-display" style="color:#fff; margin-right:8px; font-weight:500; font-size:0.95rem;"></span>
+      </li>
+      <li id="user-info-nav-2" style="display: none;">
+        <button id="logout-btn" class="auth-btn" style="background:#fff; color:#ff6f61; border:1.5px solid #ff6f61; border-radius:20px; padding:6px 14px; margin-left:4px; font-size:0.9rem; cursor:pointer; transition:background 0.2s, color 0.2s;">Çıkış Yap</button>
+      </li>
+    </ul>
+  </nav>
+  <div class="hamburger"><span></span><span></span><span></span></div>
+</header>
+<nav class="side-menu" id="sideMenu">
+  <button class="close-btn" id="closeMenu">×</button>
+  <ul>
+    <li><a href="../../index.html" style="text-decoration:none;">Anasayfa</a></li>
+    <li><a href="../../tum-seriler.html" style="text-decoration:none;" class="active">Tüm Seriler</a></li>
+    <li><a href="../../profile.html" style="text-decoration:none;">Profilim</a></li>
+    <li><a href="../../hakkinda.html" style="text-decoration:none;">Hakkında</a></li>
+    <li><a href="../../iletisim.html" style="text-decoration:none;">İletişim</a></li>
+    
+    <!-- Auth Buttons (Logged Out) -->
+    <div id="side-auth-buttons">
+      <li><button id="open-register-modal-side" class="auth-btn" style="background:#ff6f61; color:#fff; border:none; border-radius:20px; padding:10px 16px; margin:10px 0 0 0; font-size:1rem; cursor:pointer; width:90%;">Kayıt Ol</button></li>
+      <li><button id="open-login-modal-side" class="auth-btn" style="background:#fff; color:#ff6f61; border:1.5px solid #ff6f61; border-radius:20px; padding:10px 16px; margin:8px 0 0 0; font-size:1rem; cursor:pointer; width:90%;">Giriş Yap</button></li>
+    </div>
+    
+    <!-- User Info (Logged In) -->
+    <div id="side-user-info" style="display: none;">
+      <li><span id="side-username-display" style="color:#fff; margin:15px 0; font-weight:500; display:block; text-align:center; font-size:1.1rem;"></span></li>
+      <li><button id="side-logout-btn" class="auth-btn" style="background:#fff; color:#ff6f61; border:1.5px solid #ff6f61; border-radius:20px; padding:10px 16px; margin:8px 0 0 0; font-size:1rem; cursor:pointer; width:90%;">Çıkış Yap</button></li>
+    </div>
+  </ul>
+</nav>
+<div class="side-overlay" id="sideOverlay"></div>
+
+<!-- Arama Çubuğu -->
+<div class="search-container">
+  <input type="text" id="search-input" placeholder="Manhwa ara...">
+  <div id="search-results" class="results-box hidden"></div>
+</div>
+
+<!-- Alert Box -->
+<div id="alert-box"></div>
+<div class="cover-info-wrapper">
+  <img src="../../images/kapaklar/omniscient.jpg.webp" alt="Kapak" class="cover">
+  <div class="info-card">
+    <div class="details">
+      <div class="info-row">
+        <span class="label">Durum:</span>
+        <span class="value">Devam Ediyor</span>
+      </div>
+      <div class="info-row">
+        <span class="label">Tür:</span>
+        <span class="value">Aksiyon, Fantastik, Dram, Bilim-Kurgu</span>
+      </div>
+      <div class="info-row">
+        <span class="label">Yazar:</span>
+        <span class="value">Sing Shong</span>
+      </div>
+      <div class="info-row">
+        <span class="label">Çizer:</span>
+        <span class="value">Sleepy-C (Redice Studio)</span>
+      </div>
+      <div class="info-row">
+        <span class="label">Yayıncı:</span>
+        <span class="value">Naver Webtoon, Webnovel</span>
+      </div>
+      <div class="info-row" id="rating-row">
+        <span class="label">Puan:</span>
+        <span class="value">
+          <span id="average-rating">Yükleniyor...</span>
+          <span id="rating-count"></span>
+          <br>
+          <small style="color:#666;">Kullanıcı Puanı:</small>
+          <span id="user-rating-area" style="margin-left:5px;"></span>
+        </span>
+      </div>
+    </div>
+    <button id="favorite-btn" class="favorite-btn" data-series="Omniscient Reader">
+      <i class="far fa-heart"></i>
+      <span class="favorite-text">Favorilere Ekle</span>
+    </button>
+  </div>
+</div>
+<div class="title">Omniscient Reader</div>
+<div class="section">
+  <div class="section-bar">Özet</div>
+  <div class="summary-card">
+    <p>Kim Dokja'nın tek okuru olduğu bir web roman, gerçek dünyaya dönüşür. Dokja, romanın baş kahramanı olmadan hayatta kalmaya çalışır.</p>
+  </div>
+</div>
+<div class="section">
+  <div class="section-bar">Bölümler</div>
+  <div class="buttons">
+    <button onclick="window.location.href='../../chapters/omniscient reader chapters/bölüm1.html'" style="cursor: pointer;">İlk Bölüm (1)</button>
+    <button onclick="window.location.href='../../chapters/omniscient reader chapters/bölüm1.html'" style="cursor: pointer;">Son Bölüm (1)</button>
+  </div>
+  <div class="search">
+    <input type="text" id="searchInput" placeholder="Bölüm ara...">
+  </div>
+  <div class="chapters" id="chapters-list">
+    <div class="chapters-loader">Bölümler yükleniyor...</div>
+  </div>
+</div>
+<div class="section">
+  <div class="section-bar">Benzer Seriler</div>
+  <div class="related-grid" id="related-grid"></div>
+</div>
+
+<!-- Yorumlar Kısmı -->
+<div class="section">
+  <div class="section-bar">Yorumlar <span id="comments-count"></span></div>
+  <div class="comments-section">
+    <div class="comments-title">
+      <span>Yorumlarınızı Paylaşın</span>
+      <span class="comments-rules">Topluluk kurallarına uygun, saygılı ve yapıcı yorumlar yazınız.</span>
+    </div>
+    <div class="comment-form">
+      <textarea id="comment-textarea" placeholder="Yorumunuzu yazın..." rows="4" maxlength="500"></textarea>
+      <div class="comment-form-bottom">
+        <span id="comment-char-count">0/500</span>
+        <button id="submit-comment-btn">Yorum Yap</button>
+      </div>
+    </div>
+    <div class="comments-toolbar">
+      <label for="sort-comments">Sırala:</label>
+      <select id="sort-comments">
+        <option value="newest">En Yeni</option>
+        <option value="oldest">En Eski</option>
+        <option value="top">En Beğenilen</option>
+      </select>
+    </div>
+    <div class="comments-list" id="comments-list">
+      <div class="comments-loader">Yorumlar yükleniyor...</div>
+    </div>
+  </div>
+</div>
+
+<button id="scrollTopBtn" title="Yukarı Çık"><i class="fas fa-arrow-up"></i></button>
+
+<!-- Auth Modal'ları -->
+<!-- Kayıt Formu (Modal) -->
+<div id="register-modal" class="modal" >
+  <div class="modal-content">
+    <button id="close-register-modal" class="modal-close">&times;</button>
+    <h2 style="margin-bottom:18px; text-align:center; color:#333;">Kayıt Ol</h2>
+    <form id="register-form">
+      <input id="register-username" type="text" placeholder="Kullanıcı Adı" required style="width:100%; padding:10px; margin-bottom:12px; border-radius:6px; border:1px solid #ccc; box-sizing:border-box;">
+      <input id="register-email" type="email" placeholder="E-posta" required style="width:100%; padding:10px; margin-bottom:12px; border-radius:6px; border:1px solid #ccc; box-sizing:border-box;">
+      <input id="register-password" type="password" placeholder="Şifre" required style="width:100%; padding:10px; margin-bottom:18px; border-radius:6px; border:1px solid #ccc; box-sizing:border-box;">
+      <button type="submit" style="width:100%; padding:10px; background:#ff6f61; color:#fff; border:none; border-radius:6px; font-size:16px; cursor:pointer;">Kayıt Ol</button>
+    </form>
+    <p style="text-align:center; color:#666; margin-top:15px;">Zaten hesabın var mı? <a href="#" id="switch-to-login" style="color:#ff6f61; text-decoration:none;">Giriş yap</a></p>
+  </div>
+</div>
+
+<!-- Giriş Formu (Modal) -->
+<div id="login-modal" class="modal" >
+  <div class="modal-content">
+    <button id="close-login-modal" class="modal-close">&times;</button>
+    <h2 style="margin-bottom:18px; text-align:center; color:#333;">Giriş Yap</h2>
+    <form id="login-form">
+      <input id="login-identifier" type="text" placeholder="E-posta veya Kullanıcı Adı" required style="width:100%; padding:10px; margin-bottom:12px; border-radius:6px; border:1px solid #ccc; box-sizing:border-box;">
+      <input id="login-password" type="password" placeholder="Şifre" required style="width:100%; padding:10px; margin-bottom:18px; border-radius:6px; border:1px solid #ccc; box-sizing:border-box;">
+      <button type="submit" style="width:100%; padding:10px; background:#ff6f61; color:#fff; border:none; border-radius:6px; font-size:16px; cursor:pointer;">Giriş Yap</button>
+    </form>
+    <p style="text-align:center; color:#666; margin-top:15px;">Hesabın yok mu? <a href="#" id="switch-to-register" style="color:#ff6f61; text-decoration:none;">Kayıt ol</a></p>
+  </div>
+</div>
+
+<div id="logout-modal" class="modal" >
+    <div class="modal-content">
+      <button id="close-logout-modal" style="position:absolute; top:12px; right:12px; background:none; border:none; font-size:22px; cursor:pointer;">&times;</button>
+      <h2 style="margin-bottom:18px; text-align:center;">Çıkış Yap</h2>
+      <p style="margin-bottom:24px; text-align:center;">Çıkış yapmak istediğinize emin misiniz?</p>
+      <div style="display:flex; justify-content:space-between;">
+        <button id="confirm-logout" style="flex:1; padding:10px; background:#ff6f61; color:#fff; border:none; border-radius:6px; font-size:16px; cursor:pointer; margin-right:8px;">Evet, Çıkış Yap</button>
+        <button id="cancel-logout" style="flex:1; padding:10px; background:#f1f1f1; color:#333; border:none; border-radius:6px; font-size:16px; cursor:pointer;">Hayır, Kal</button>
+      </div>
+    </div>
+  </div>
+  <div id="alert-box" style="display:none;position:fixed;top:30px;left:50%;transform:translateX(-50%);z-index:2000;min-width:220px;max-width:90vw;padding:16px 28px;border-radius:8px;font-size:16px;font-weight:500;text-align:center;box-shadow:0 2px 12px rgba(0,0,0,0.13);background:#fff;color:#ff6f61;border:1.5px solid #ff6f61;transition:opacity 0.3s;"></div>
+  <script src="../../scripts/navbar.js?v=5"></script>
+<script src="../../scripts/auth-navbar.js?v=5"></script>
+<script src="../../scripts/auth-forms.js?v=5"></script>
+
+<script src="../../scripts/seri.js?v=5"></script>
+<script src="../../scripts/benzer-seriler.js?v=5"></script>
+<script src="../../scripts/favorites.js?v=5"></script>
+<script src="../../scripts/series-page-loader.js?v=5"></script>
+<script src="../../scripts/chapters.js?v=5"></script>
+<script src="../../scripts/arama.js?v=5"></script>
+<script src="../../scripts/comments.js?v=5"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Seri sayfası yükleyicisini başlat
+    window.seriesLoader = new SeriesPageLoader('omniscientreader');
+    
+    window.commentsUI = new CommentsUI('omniscientreader');
+    window.chaptersManager = new ChaptersManager('omniscientreader');
+  });
+</script>
+<script>
+  const scrollBtn = document.getElementById('scrollTopBtn');
+  window.onscroll = function() {
+    if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+      scrollBtn.style.display = 'block';
+    } else {
+      scrollBtn.style.display = 'none';
+    }
+  };
+  scrollBtn.onclick = function() {
+    window.scrollTo({top: 0, behavior: 'smooth'});
+  };
+</script>
+</body>
+</html>

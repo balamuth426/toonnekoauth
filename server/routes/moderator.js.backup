@@ -1,0 +1,746 @@
+const express = require('express');
+const router = express.Router();
+const verifyToken = require('../middleware/verifyToken');
+const { verifyModerator, verifySeriesModerator } = require('../middleware/verifyModerator');
+const fs = require('fs').promises;
+const path = require('path');
+const { 
+  getSeriesFolderName, 
+  getSeriesDisplayName, 
+  isValidSeriesId, 
+  validateChapterData 
+} = require('../utils/seriesHelper');
+
+// Moderatörün yönettiği serileri getir
+router.get('/my-series', verifyToken, verifyModerator, async (req, res) => {
+  try {
+    const user = req.moderatorUser;
+    
+    if (user.isAdmin) {
+      // Admin tüm serileri görebilir
+      const dataPath = path.join(__dirname, '../../client/da    // Chapter details'i sırala
+    series.chapterDetails.sort((a, b) => a.number - b.number);
+    
+    // 🚀 YENİ ÖZELLİK: Seriyi en başa getir (Son Yüklenenler için)
+    // Güncellenen seriyi diziden çıkar ve en başa ekle
+    const updatedSeries = manhwalar.splice(seriesIndex, 1)[0];
+    manhwalar.unshift(updatedSeries);
+    console.log(`📌 ${series.title} serisi listenin en başına taşındı (Moderator v2)`);
+    
+    // Dosyaya kaydet
+    await fs.writeFile(dataPath, JSON.stringify(manhwalar, null, 2));
+    
+    res.json({
+      success: true,
+      message: `Bölüm ${chapterNumber} başarıyla eklendi`,lar.json');
+      const data = await fs.readFile(dataPath, 'utf8');
+      const manhwalar = JSON.parse(data);
+      
+      return res.json({
+        userType: 'admin',
+        series: manhwalar.map(series => ({
+          id: series.seriesId,
+          title: series.title || series.name,
+          status: series.status,
+          author: series.author,
+          artist: series.artist,
+          publisher: series.publisher,
+          summary: series.summary,
+          genres: series.genres,
+          image: series.image,
+          label: series.label,
+          chapters: series.chapters || []
+        }))
+      });
+    }
+    
+    if (user.isModerator) {
+      // Moderatör sadece atanmış serileri görebilir
+      const dataPath = path.join(__dirname, '../../client/data/manhwalar.json');
+      const data = await fs.readFile(dataPath, 'utf8');
+      const manhwalar = JSON.parse(data);
+      
+      const moderatorSeries = manhwalar.filter(series => 
+        user.moderatorSeries.includes(series.seriesId)
+      );
+      
+      return res.json({
+        userType: 'moderator',
+        assignedSeries: user.moderatorSeries,
+        series: moderatorSeries.map(series => ({
+          id: series.seriesId,
+          title: series.title || series.name,
+          status: series.status,
+          author: series.author,
+          artist: series.artist,
+          publisher: series.publisher,
+          summary: series.summary,
+          genres: series.genres,
+          image: series.image,
+          label: series.label,
+          chapters: series.chapters || []
+        }))
+      });
+    }
+    
+    res.status(403).json({ error: 'Yetkisiz erişim' });
+  } catch (error) {
+    console.error('Moderatör serileri getirme hatası:', error);
+    res.status(500).json({ error: 'Moderatör serileri getirilemedi' });
+  }
+});
+
+// Belirli bir seri için moderatör yetkisi kontrolü
+router.get('/check-series-permission/:seriesId', verifyToken, verifyModerator, async (req, res) => {
+  try {
+    const { seriesId } = req.params;
+    const user = req.moderatorUser;
+    
+    let hasPermission = false;
+    
+    if (user.isAdmin) {
+      hasPermission = true;
+    } else if (user.isModerator && user.moderatorSeries.includes(seriesId)) {
+      hasPermission = true;
+    }
+    
+    res.json({
+      hasPermission,
+      userType: user.isAdmin ? 'admin' : 'moderator',
+      seriesId
+    });
+  } catch (error) {
+    console.error('Seri yetki kontrolü hatası:', error);
+    res.status(500).json({ error: 'Yetki kontrolü yapılamadı' });
+  }
+});
+
+// Belirli bir seriyi getir
+router.get('/series/:seriesId', verifyToken, verifyModerator, async (req, res) => {
+  try {
+    const { seriesId } = req.params;
+    const user = req.moderatorUser;
+    
+    // Yetki kontrolü
+    if (!user.isAdmin && (!user.isModerator || !user.moderatorSeries.includes(seriesId))) {
+      return res.status(403).json({ error: 'Bu seri için yetkiniz yok' });
+    }
+    
+    const dataPath = path.join(__dirname, '../../client/data/manhwalar.json');
+    const data = await fs.readFile(dataPath, 'utf8');
+    const manhwalar = JSON.parse(data);
+    
+    const series = manhwalar.find(s => s.seriesId === seriesId);
+    if (!series) {
+      return res.status(404).json({ error: 'Seri bulunamadı' });
+    }
+    
+    res.json({
+      id: series.seriesId,
+      title: series.title || series.name,
+      status: series.status,
+      author: series.author,
+      artist: series.artist,
+      publisher: series.publisher,
+      summary: series.summary,
+      genres: series.genres,
+      image: series.image,
+      label: series.label,
+      chapters: series.chapters || []
+    });
+  } catch (error) {
+    console.error('Seri detayları getirme hatası:', error);
+    res.status(500).json({ error: 'Seri detayları alınamadı' });
+  }
+});
+
+// Moderatör profili
+router.get('/profile', verifyToken, verifyModerator, async (req, res) => {
+  try {
+    const user = req.moderatorUser;
+    
+    res.json({
+      id: user._id,
+      username: user.username,
+      email: user.email,
+      isAdmin: user.isAdmin,
+      isModerator: user.isModerator,
+      moderatorSeries: user.moderatorSeries || [],
+      createdAt: user.createdAt
+    });
+  } catch (error) {
+    console.error('Moderatör profil hatası:', error);
+    res.status(500).json({ error: 'Profil bilgileri alınamadı' });
+  }
+});
+
+// Seri bilgilerini güncelle
+router.put('/update-series/:seriesId', verifyToken, verifyModerator, async (req, res) => {
+  try {
+    const { seriesId } = req.params;
+    const { title, status, author, artist, publisher, summary, genres, image, label } = req.body;
+    const user = req.moderatorUser;
+    
+    // Seri ID validasyonu
+    if (!isValidSeriesId(seriesId)) {
+      return res.status(400).json({ 
+        error: 'Geçersiz seri ID', 
+        validIds: require('../utils/seriesHelper').getAllSeriesIds() 
+      });
+    }
+    
+    // Yetki kontrolü
+    if (!user.isAdmin && (!user.isModerator || !user.moderatorSeries.includes(seriesId))) {
+      return res.status(403).json({ error: 'Bu seri için yetkiniz yok' });
+    }
+    
+    const dataPath = path.join(__dirname, '../../client/data/manhwalar.json');
+    const data = await fs.readFile(dataPath, 'utf8');
+    const manhwalar = JSON.parse(data);
+    
+    const seriesIndex = manhwalar.findIndex(series => series.seriesId === seriesId);
+    if (seriesIndex === -1) {
+      return res.status(404).json({ error: 'Seri bulunamadı' });
+    }
+    
+    // Seri bilgilerini güncelle
+    manhwalar[seriesIndex] = {
+      ...manhwalar[seriesIndex],
+      title: title || manhwalar[seriesIndex].title,
+      status: status || manhwalar[seriesIndex].status,
+      author: author || manhwalar[seriesIndex].author,
+      artist: artist || manhwalar[seriesIndex].artist,
+      publisher: publisher || manhwalar[seriesIndex].publisher,
+      summary: summary || manhwalar[seriesIndex].summary,
+      genres: genres || manhwalar[seriesIndex].genres,
+      image: image || manhwalar[seriesIndex].image,
+      lastUpdated: new Date().toISOString().split('T')[0]
+    };
+    
+    // Etiket bilgilerini güncelle
+    if (label !== undefined) {
+      if (label === null) {
+        // Etiketi kaldır
+        delete manhwalar[seriesIndex].label;
+      } else {
+        // Etiketi güncelle
+        manhwalar[seriesIndex].label = label;
+      }
+    }
+    
+    // Dosyayı güncelle
+    await fs.writeFile(dataPath, JSON.stringify(manhwalar, null, 2));
+    
+    res.json({ 
+      message: 'Seri başarıyla güncellendi',
+      series: manhwalar[seriesIndex]
+    });
+  } catch (error) {
+    console.error('Seri güncelleme hatası:', error);
+    res.status(500).json({ error: 'Seri güncellenirken hata oluştu' });
+  }
+});
+
+// Bölüm ekle
+router.post('/add-chapter/:seriesId', verifyToken, verifyModerator, async (req, res) => {
+  try {
+    const { seriesId } = req.params;
+    const { chapterNumber, title, imageUrls } = req.body;
+    const user = req.moderatorUser;
+    
+    // Yetki kontrolü
+    if (!user.isAdmin && (!user.isModerator || !user.moderatorSeries.includes(seriesId))) {
+      return res.status(403).json({ error: 'Bu seri için yetkiniz yok' });
+    }
+    
+    // Validasyon
+    if (!chapterNumber || !imageUrls || !Array.isArray(imageUrls) || imageUrls.length === 0) {
+      return res.status(400).json({ error: 'Bölüm numarası ve en az bir görsel URL gerekli' });
+    }
+    
+    const dataPath = path.join(__dirname, '../../client/data/manhwalar.json');
+    const data = await fs.readFile(dataPath, 'utf8');
+    const manhwalar = JSON.parse(data);
+    
+    const seriesIndex = manhwalar.findIndex(series => series.seriesId === seriesId);
+    if (seriesIndex === -1) {
+      return res.status(404).json({ error: 'Seri bulunamadı' });
+    }
+    
+    const series = manhwalar[seriesIndex];
+    
+    // Chapters array'ini kontrol et/oluştur
+    if (!series.chapters) {
+      series.chapters = [];
+    }
+    
+    // Bölüm çakışma kontrolü
+    const existingChapterIndex = series.chapters.findIndex(ch => ch.number === chapterNumber);
+    
+    const newChapter = {
+      number: chapterNumber,
+      title: title || `Bölüm ${chapterNumber}`,
+      filename: `bölüm${chapterNumber}.html`,
+      imageCount: imageUrls.length,
+      uploadDate: new Date().toISOString(),
+      imageUrls: imageUrls
+    };
+    
+    if (existingChapterIndex !== -1) {
+      // Mevcut bölümü güncelle
+      series.chapters[existingChapterIndex] = newChapter;
+    } else {
+      // Yeni bölüm ekle
+      series.chapters.push(newChapter);
+    }
+    
+    // Bölümleri numaraya göre sırala
+    series.chapters.sort((a, b) => a.number - b.number);
+    
+    // Seri bilgilerini güncelle
+    series.chapterCount = series.chapters.length;
+    series.lastChapter = `Bölüm ${Math.max(...series.chapters.map(ch => ch.number))}`;
+    series.lastUpdated = new Date().toISOString().split('T')[0];
+    series.availableChapters = series.chapters.map(ch => ch.number);
+    
+    // chapterDetails array'ini güncelle  
+    if (!series.chapterDetails) {
+      series.chapterDetails = [];
+    }
+    
+    // Folder name mapping
+    const folderNameMap = {
+      'blackcrow': 'blackcrow chapters',
+      'sololeveling': 'solo leveling chapters', 
+      'nanomachine': 'nanomachine chapters',
+      'damnreincarnation': 'damn reincarnation chapters',
+      'omniscientreader': 'omniscient reader chapters',
+      'martialgodregressedtolevel2': 'martial god regressed to level 2 chapters'
+    };
+    
+    const folderName = folderNameMap[seriesId] || `${seriesId} chapters`;
+    
+    // Yeni chapter detail ekle/güncelle
+    const newChapterDetail = {
+      number: chapterNumber,
+      filename: `bölüm${chapterNumber}.html`,
+      url: `chapters/${folderName}/bölüm${chapterNumber}.html`
+    };
+    
+    const existingDetailIndex = series.chapterDetails.findIndex(detail => detail.number === chapterNumber);
+    if (existingDetailIndex !== -1) {
+      series.chapterDetails[existingDetailIndex] = newChapterDetail;
+    } else {
+      series.chapterDetails.push(newChapterDetail);
+    }
+    
+    // Chapter details'i sırala
+    series.chapterDetails.sort((a, b) => a.number - b.number);
+    
+    // Dosyaya kaydet
+    await fs.writeFile(dataPath, JSON.stringify(manhwalar, null, 2));
+    
+    res.json({
+      success: true,
+      message: `Bölüm ${chapterNumber} başarıyla ${existingChapterIndex !== -1 ? 'güncellendi' : 'eklendi'}`,
+      chapter: newChapter,
+      imageCount: imageUrls.length
+    });
+    
+  } catch (error) {
+    console.error('Bölüm ekleme hatası:', error);
+    res.status(500).json({ error: 'Bölüm eklenemedi' });
+  }
+});
+
+// Bölüm güncelle
+router.put('/update-chapter/:seriesId/:chapterNumber', verifyToken, verifyModerator, async (req, res) => {
+  try {
+    const { seriesId, chapterNumber } = req.params;
+    const { newNumber, title, imageUrls } = req.body;
+    const user = req.moderatorUser;
+    
+    // Yetki kontrolü
+    if (!user.isAdmin && (!user.isModerator || !user.moderatorSeries.includes(seriesId))) {
+      return res.status(403).json({ error: 'Bu seri için yetkiniz yok' });
+    }
+    
+    const dataPath = path.join(__dirname, '../../client/data/manhwalar.json');
+    const data = await fs.readFile(dataPath, 'utf8');
+    const manhwalar = JSON.parse(data);
+    
+    const seriesIndex = manhwalar.findIndex(series => series.seriesId === seriesId);
+    if (seriesIndex === -1) {
+      return res.status(404).json({ error: 'Seri bulunamadı' });
+    }
+    
+    const series = manhwalar[seriesIndex];
+    if (!series.chapters) {
+      return res.status(404).json({ error: 'Bölüm bulunamadı' });
+    }
+    
+    const chapterIndex = series.chapters.findIndex(ch => ch.number === parseInt(chapterNumber));
+    if (chapterIndex === -1) {
+      return res.status(404).json({ error: 'Bölüm bulunamadı' });
+    }
+    
+    // Eğer bölüm numarası değişiyorsa çakışma kontrolü
+    if (newNumber !== parseInt(chapterNumber)) {
+      const conflictIndex = series.chapters.findIndex(ch => ch.number === newNumber);
+      if (conflictIndex !== -1 && conflictIndex !== chapterIndex) {
+        return res.status(400).json({ error: `Bölüm ${newNumber} zaten mevcut` });
+      }
+    }
+    
+    // Bölümü güncelle
+    series.chapters[chapterIndex] = {
+      ...series.chapters[chapterIndex],
+      number: newNumber || parseInt(chapterNumber),
+      title: title || series.chapters[chapterIndex].title,
+      imageUrls: imageUrls || series.chapters[chapterIndex].imageUrls,
+      imageCount: imageUrls ? imageUrls.length : series.chapters[chapterIndex].imageCount,
+      filename: `bölüm${newNumber || chapterNumber}.html`
+    };
+    
+    // Bölümleri numaraya göre sırala
+    series.chapters.sort((a, b) => a.number - b.number);
+    
+    // Seri bilgilerini güncelle
+    series.chapterCount = series.chapters.length;
+    series.lastChapter = `Bölüm ${Math.max(...series.chapters.map(ch => ch.number))}`;
+    series.lastUpdated = new Date().toISOString().split('T')[0];
+    series.availableChapters = series.chapters.map(ch => ch.number);
+    
+    // Dosyaya kaydet
+    await fs.writeFile(dataPath, JSON.stringify(manhwalar, null, 2));
+    
+    res.json({
+      success: true,
+      message: `Bölüm başarıyla güncellendi`,
+      chapter: series.chapters[chapterIndex]
+    });
+    
+  } catch (error) {
+    console.error('Bölüm güncelleme hatası:', error);
+    res.status(500).json({ error: 'Bölüm güncellenemedi' });
+  }
+});
+
+// Bölüm sil
+router.delete('/delete-chapter/:seriesId/:chapterNumber', verifyToken, verifyModerator, async (req, res) => {
+  try {
+    const { seriesId, chapterNumber } = req.params;
+    const user = req.moderatorUser;
+    
+    // Yetki kontrolü
+    if (!user.isAdmin && (!user.isModerator || !user.moderatorSeries.includes(seriesId))) {
+      return res.status(403).json({ error: 'Bu seri için yetkiniz yok' });
+    }
+    
+    const dataPath = path.join(__dirname, '../../client/data/manhwalar.json');
+    const data = await fs.readFile(dataPath, 'utf8');
+    const manhwalar = JSON.parse(data);
+    
+    const seriesIndex = manhwalar.findIndex(series => series.seriesId === seriesId);
+    if (seriesIndex === -1) {
+      return res.status(404).json({ error: 'Seri bulunamadı' });
+    }
+    
+    const series = manhwalar[seriesIndex];
+    if (!series.chapters) {
+      return res.status(404).json({ error: 'Bölüm bulunamadı' });
+    }
+    
+    const chapterIndex = series.chapters.findIndex(ch => ch.number === parseInt(chapterNumber));
+    if (chapterIndex === -1) {
+      return res.status(404).json({ error: 'Bölüm bulunamadı' });
+    }
+    
+    // Bölümü sil
+    series.chapters.splice(chapterIndex, 1);
+    
+    // chapterDetails array'inden de sil
+    if (series.chapterDetails) {
+      const detailIndex = series.chapterDetails.findIndex(ch => ch.number === parseInt(chapterNumber));
+      if (detailIndex !== -1) {
+        series.chapterDetails.splice(detailIndex, 1);
+      }
+    }
+    
+    // Fiziksel HTML dosyasını sil
+    try {
+      const folderNameMap = {
+        'blackcrow': 'blackcrow chapters',
+        'sololeveling': 'solo leveling chapters',
+        'nanomachine': 'nanomachine chapters',
+        'damnreincarnation': 'damn reincarnation chapters',
+        'omniscientreader': 'omniscient reader chapters',
+        'martialgodregressedtolevel2': 'martial god regressed to level 2 chapters'
+      };
+      
+      const folderName = folderNameMap[seriesId] || `${seriesId} chapters`;
+      const chapterFilePath = path.join(__dirname, '../../client/chapters', folderName, `bölüm${chapterNumber}.html`);
+      
+      console.log(`🔍 Fiziksel dosya silmeye çalışılıyor: ${chapterFilePath}`);
+      
+      // Dosya varsa sil
+      try {
+        await fs.access(chapterFilePath);
+        await fs.unlink(chapterFilePath);
+        console.log(`✅ Fiziksel dosya başarıyla silindi: ${chapterFilePath}`);
+      } catch (fileError) {
+        console.log(`⚠️ Fiziksel dosya bulunamadı veya zaten silinmişti: ${chapterFilePath}`);
+        console.log(`📝 Dosya silme hatası detayı: ${fileError.message}`);
+      }
+      
+      // Ayrıca varsa ilgili görsel klasörünü de sil
+      const imageDir = path.join(__dirname, '../../client/images/bölümler', folderName.replace(' chapters', ''), `bölüm${chapterNumber}`);
+      try {
+        await fs.rmdir(imageDir, { recursive: true });
+        console.log(`✅ Görsel klasörü silindi: ${imageDir}`);
+      } catch (imageDirError) {
+        console.log(`⚠️ Görsel klasörü bulunamadı: ${imageDir}`);
+      }
+      
+    } catch (fileDeleteError) {
+      console.error('❌ Fiziksel dosya silme hatası:', fileDeleteError);
+      // Hata olsa bile JSON'dan silmeyi tamamla
+    }
+    
+    // Seri bilgilerini güncelle
+    series.chapterCount = series.chapters.length;
+    if (series.chapters.length > 0) {
+      series.lastChapter = `Bölüm ${Math.max(...series.chapters.map(ch => ch.number))}`;
+      series.availableChapters = series.chapters.map(ch => ch.number);
+      
+      // chapterDetails'i chapters array'i ile senkronize et
+      if (series.chapterDetails && Array.isArray(series.chapterDetails)) {
+        series.chapterDetails = series.chapterDetails.filter(detail => 
+          series.chapters.some(ch => ch.number === detail.number)
+        );
+      }
+    } else {
+      series.lastChapter = '';
+      series.availableChapters = [];
+      // Hiç bölüm kalmadıysa chapterDetails'i de temizle
+      series.chapterDetails = [];
+    }
+    series.lastUpdated = new Date().toISOString().split('T')[0];
+    
+    // Dosyaya kaydet
+    await fs.writeFile(dataPath, JSON.stringify(manhwalar, null, 2));
+    
+    res.json({
+      success: true,
+      message: `Bölüm ${chapterNumber} başarıyla silindi`
+    });
+    
+  } catch (error) {
+    console.error('Bölüm silme hatası:', error);
+    res.status(500).json({ error: 'Bölüm silinemedi' });
+  }
+});
+
+// Bölüm güncelleme endpoint'i
+router.put('/update-chapter/:seriesId/:chapterNumber', verifyToken, verifyModerator, async (req, res) => {
+  try {
+    const { seriesId, chapterNumber } = req.params;
+    const { title, imageUrls, newChapterNumber } = req.body;
+    const user = req.moderatorUser;
+    
+    // Seri ID validasyonu
+    if (!isValidSeriesId(seriesId)) {
+      return res.status(400).json({ 
+        error: 'Geçersiz seri ID', 
+        validIds: require('../utils/seriesHelper').getAllSeriesIds() 
+      });
+    }
+    
+    // Yetki kontrolü
+    if (!user.isAdmin && (!user.isModerator || !user.moderatorSeries.includes(seriesId))) {
+      return res.status(403).json({ error: 'Bu seri için yetkiniz yok' });
+    }
+    
+    // Bölüm verisi validasyonu
+    if (newChapterNumber) {
+      const chapterData = { seriesId, chapterNumber: newChapterNumber, imageUrls };
+      const validation = validateChapterData(chapterData);
+      
+      if (!validation.isValid) {
+        return res.status(400).json({ 
+          error: 'Validasyon hatası', 
+          details: validation.errors 
+        });
+      }
+    }
+    
+    const dataPath = path.join(__dirname, '../../client/data/manhwalar.json');
+    const data = await fs.readFile(dataPath, 'utf8');
+    const manhwalar = JSON.parse(data);
+    
+    const seriesIndex = manhwalar.findIndex(series => series.seriesId === seriesId);
+    if (seriesIndex === -1) {
+      return res.status(404).json({ error: 'Seri bulunamadı' });
+    }
+    
+    const series = manhwalar[seriesIndex];
+    if (!series.chapters) {
+      return res.status(404).json({ error: 'Bölüm bulunamadı' });
+    }
+    
+    const chapterIndex = series.chapters.findIndex(ch => ch.number === parseInt(chapterNumber));
+    if (chapterIndex === -1) {
+      return res.status(404).json({ error: 'Bölüm bulunamadı' });
+    }
+    
+    // Bölümü güncelle
+    const chapter = series.chapters[chapterIndex];
+    if (title) chapter.title = title;
+    if (imageUrls && Array.isArray(imageUrls)) {
+      chapter.imageUrls = imageUrls;
+      chapter.imageCount = imageUrls.length;
+    }
+    if (newChapterNumber && newChapterNumber !== parseInt(chapterNumber)) {
+      chapter.number = parseInt(newChapterNumber);
+    }
+    
+    // Seri bilgilerini güncelle
+    series.lastUpdated = new Date().toISOString().split('T')[0];
+    
+    // Dosyaya kaydet
+    await fs.writeFile(dataPath, JSON.stringify(manhwalar, null, 2));
+    
+    res.json({
+      success: true,
+      message: 'Bölüm başarıyla güncellendi',
+      chapter: chapter
+    });
+    
+  } catch (error) {
+    console.error('Bölüm güncelleme hatası:', error);
+    res.status(500).json({ error: 'Bölüm güncellenemedi' });
+  }
+});
+
+// Bölüm ekleme endpoint'i
+router.post('/add-chapter/:seriesId', verifyToken, verifyModerator, async (req, res) => {
+  try {
+    const { seriesId } = req.params;
+    const { chapterNumber, title, imageUrls } = req.body;
+    const user = req.moderatorUser;
+    
+    // Seri ID validasyonu
+    if (!isValidSeriesId(seriesId)) {
+      return res.status(400).json({ 
+        error: 'Geçersiz seri ID', 
+        validIds: require('../utils/seriesHelper').getAllSeriesIds() 
+      });
+    }
+    
+    // Yetki kontrolü
+    if (!user.isAdmin && (!user.isModerator || !user.moderatorSeries.includes(seriesId))) {
+      return res.status(403).json({ error: 'Bu seri için yetkiniz yok' });
+    }
+    
+    // Bölüm verisi validasyonu
+    const chapterData = { seriesId, chapterNumber, imageUrls };
+    const validation = validateChapterData(chapterData);
+    
+    if (!validation.isValid) {
+      return res.status(400).json({ 
+        error: 'Validasyon hatası', 
+        details: validation.errors 
+      });
+    }
+    
+    const dataPath = path.join(__dirname, '../../client/data/manhwalar.json');
+    const data = await fs.readFile(dataPath, 'utf8');
+    const manhwalar = JSON.parse(data);
+    
+    const seriesIndex = manhwalar.findIndex(series => series.seriesId === seriesId);
+    if (seriesIndex === -1) {
+      return res.status(404).json({ error: 'Seri bulunamadı' });
+    }
+    
+    const series = manhwalar[seriesIndex];
+    if (!series.chapters) {
+      series.chapters = [];
+    }
+    
+    // Aynı numaralı bölüm var mı kontrol et
+    const existingChapter = series.chapters.find(ch => ch.number === parseInt(chapterNumber));
+    if (existingChapter) {
+      return res.status(409).json({ error: 'Bu numaralı bölüm zaten mevcut' });
+    }
+    
+    // Yeni bölümü oluştur
+    const newChapter = {
+      number: parseInt(chapterNumber),
+      title: title || `Bölüm ${chapterNumber}`,
+      filename: `bölüm${chapterNumber}.html`,
+      imageCount: imageUrls.length,
+      uploadDate: new Date().toISOString(),
+      imageUrls: imageUrls
+    };
+    
+    // Bölümü ekle ve sırala
+    series.chapters.push(newChapter);
+    series.chapters.sort((a, b) => a.number - b.number);
+    
+    // Seri bilgilerini güncelle
+    series.chapterCount = series.chapters.length;
+    series.lastChapter = `Bölüm ${Math.max(...series.chapters.map(ch => ch.number))}`;
+    series.availableChapters = series.chapters.map(ch => ch.number);
+    series.lastUpdated = new Date().toISOString().split('T')[0];
+    
+    // chapterDetails array'ini güncelle
+    if (!series.chapterDetails) {
+      series.chapterDetails = [];
+    }
+    
+    // Folder name mapping
+    const folderNameMap = {
+      'blackcrow': 'blackcrow chapters',
+      'sololeveling': 'solo leveling chapters',
+      'nanomachine': 'nanomachine chapters',
+      'damnreincarnation': 'damn reincarnation chapters',
+      'omniscientreader': 'omniscient reader chapters',
+      'martialgodregressedtolevel2': 'martial god regressed to level 2 chapters'
+    };
+    
+    const folderName = folderNameMap[seriesId] || `${seriesId} chapters`;
+    
+    // Yeni chapter detail ekle
+    const newChapterDetail = {
+      number: parseInt(chapterNumber),
+      filename: `bölüm${chapterNumber}.html`,
+      url: `chapters/${folderName}/bölüm${chapterNumber}.html`
+    };
+    
+    // Var olan chapter detail'i değiştir ya da ekle
+    const existingDetailIndex = series.chapterDetails.findIndex(detail => detail.number === parseInt(chapterNumber));
+    if (existingDetailIndex !== -1) {
+      series.chapterDetails[existingDetailIndex] = newChapterDetail;
+    } else {
+      series.chapterDetails.push(newChapterDetail);
+    }
+    
+    // Chapter details'i sırala
+    series.chapterDetails.sort((a, b) => a.number - b.number);
+    
+    // Dosyaya kaydet
+    await fs.writeFile(dataPath, JSON.stringify(manhwalar, null, 2));
+    
+    res.json({
+      success: true,
+      message: 'Bölüm başarıyla eklendi',
+      chapter: newChapter
+    });
+    
+  } catch (error) {
+    console.error('Bölüm ekleme hatası:', error);
+    res.status(500).json({ error: 'Bölüm eklenemedi' });
+  }
+});
+
+module.exports = router;

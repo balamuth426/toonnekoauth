@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cache Temizleyici</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f0f0f0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        button {
+            background: #ff6f61;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 10px;
+            display: block;
+            width: 100%;
+        }
+        button:hover {
+            background: #e55a4f;
+        }
+        .info {
+            background: #e7f3ff;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            border-left: 4px solid #2196F3;
+        }
+        .result {
+            background: #f0f8f0;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            border-left: 4px solid #4CAF50;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧹 ToonNeko Cache Temizleyici</h1>
+        
+        <div class="info">
+            <strong>Amaç:</strong> Solo Leveling ve diğer serilerde yorum problemi yaşıyorsanız, bu araç browser cache'ini tamamen temizler.
+        </div>
+        
+        <button onclick="clearCache()">🗑️ Tüm Cache'i Temizle</button>
+        <button onclick="clearLocalStorage()">📦 Local Storage Temizle</button>
+        <button onclick="clearSessionStorage()">💾 Session Storage Temizle</button>
+        <button onclick="clearAllAndReload()">🔄 Hepsini Temizle ve Sayfayı Yenile</button>
+        
+        <div class="result" id="result"></div>
+        
+        <div class="info">
+            <strong>Adımlar:</strong><br>
+            1. "Hepsini Temizle ve Sayfayı Yenile" butonuna tıklayın<br>
+            2. Solo Leveling bölümlerine gidin<br>
+            3. Browser Developer Tools'u açın (F12)<br>
+            4. Console tab'ına bakın<br>
+            5. Her bölümde farklı yorumlar göründüğünü kontrol edin
+        </div>
+        
+        <button onclick="window.location.href='chapters/solo leveling chapters/bölüm1.html'">
+            📖 Solo Leveling Bölüm 1'e Git
+        </button>
+        <button onclick="window.location.href='chapters/solo leveling chapters/bölüm2.html'">
+            📖 Solo Leveling Bölüm 2'ye Git
+        </button>
+    </div>
+
+    <script>
+        function showResult(message) {
+            const result = document.getElementById('result');
+            result.textContent = message;
+            result.style.display = 'block';
+            setTimeout(() => {
+                result.style.display = 'none';
+            }, 3000);
+        }
+
+        function clearCache() {
+            if ('caches' in window) {
+                caches.keys().then(function(names) {
+                    names.forEach(function(name) {
+                        caches.delete(name);
+                    });
+                });
+            }
+            showResult('✅ Browser cache temizlendi!');
+        }
+
+        function clearLocalStorage() {
+            localStorage.clear();
+            showResult('✅ Local Storage temizlendi!');
+        }
+
+        function clearSessionStorage() {
+            sessionStorage.clear();
+            showResult('✅ Session Storage temizlendi!');
+        }
+
+        function clearAllAndReload() {
+            // Clear all types of cache
+            if ('caches' in window) {
+                caches.keys().then(function(names) {
+                    names.forEach(function(name) {
+                        caches.delete(name);
+                    });
+                });
+            }
+            
+            localStorage.clear();
+            sessionStorage.clear();
+            
+            // Force reload without cache
+            window.location.reload(true);
+        }
+
+        // Auto clear cache on page load
+        window.addEventListener('load', function() {
+            console.log('🧹 Cache temizleyici yüklendi. Developer Console\'u açık tutun.');
+        });
+    </script>
+</body>
+</html>

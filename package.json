@@ -1,0 +1,30 @@
+{
+  "name": "toonnekoauth",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "cd server && node server.js",
+    "dev": "cd server && nodemon server.js",
+    "build": "cd server && npm install",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "check-consistency": "node check-consistency.js"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  },
+  "keywords": ["manhwa", "webtoon", "reading", "manga"],
+  "author": "ToonNeko Team",
+  "license": "ISC",
+  "description": "ToonNeko - Manhwa Reading Platform",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "bcryptjs": "^3.0.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.16.0",
+    "node-fetch": "^3.3.2"
+  }
+}

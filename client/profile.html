@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profil | ToonNeko</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles/navbar.css?v=5">
+  <link rel="stylesheet" href="styles/ornek-navbar-ek.css?v=5">
+  <link rel="stylesheet" href="styles/seri.css?v=5">
+  <link rel="stylesheet" href="styles/profile.css?v=5">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css?v=5">
+  
+  <style>
+    .logo-link {
+      display: flex;
+      align-items: center;
+      text-decoration: none !important;
+      color: inherit !important;
+      cursor: pointer;
+    }
+    .logo-link:visited, .logo-link:active, .logo-link:hover {
+      color: inherit !important;
+      text-decoration: none !important;
+    }
+    
+    /* Force consistent logo size */
+    .logo-area img {
+      height: 64px !important;
+      width: auto !important;
+    }
+    .logo-area span {
+      font-size: 3.2rem !important;
+      font-weight: bold !important;
+    }
+    
+    /* Force consistent navbar margin */
+    .desktop-navbar {
+      margin-left: 20px !important;
+    }
+    header {
+      padding: 10px 15px !important;
+    }
+    .logo-link img {
+      margin-right: 8px;
+    }
+    #scrollTopBtn {
+      display: none;
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      z-index: 99;
+      font-size: 22px;
+      background: #222;
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      width: 48px;
+      height: 48px;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      transition: background 0.3s, transform 0.2s;
+    }
+    #scrollTopBtn:hover {
+      background: #ff6f61;
+      transform: scale(1.1);
+    }
+    /* Responsive navbar adjustments */
+    @media (max-width: 480px) {
+      #scrollTopBtn {
+        bottom: 20px;
+        right: 20px;
+        width: 40px;
+        height: 40px;
+        font-size: 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="logo-area">
+      <a href="index.html" class="logo-link">
+        <img src="images/ToonNekoLogo.png" alt="Logo" />
+        <span>ToonNeko</span>
+      </a>
+    </div>
+    <nav class="desktop-navbar">
+      <ul>
+        <li><a href="index.html" style="text-decoration:none;">Anasayfa</a></li>
+        <li><a href="tum-seriler.html" style="text-decoration:none;">Tüm Seriler</a></li>
+        <li><a href="profile.html" style="text-decoration:none;" class="active">Profilim</a></li>
+        <li><a href="hakkinda.html" style="text-decoration:none;">Hakkında</a></li>
+        <li><a href="iletisim.html" style="text-decoration:none;">İletişim</a></li>
+        
+        <!-- Auth Buttons (Logged Out) -->
+        <li id="auth-buttons-nav">
+          <button id="open-register-modal-navbar" class="auth-btn" style="background:#ff6f61; color:#fff; border:none; border-radius:20px; padding:6px 14px; margin-left:8px; font-size:0.9rem; cursor:pointer; transition:background 0.2s;">Kayıt Ol</button>
+        </li>
+        <li id="auth-buttons-nav-2">
+          <button id="open-login-modal-navbar" class="auth-btn" style="background:#fff; color:#ff6f61; border:1.5px solid #ff6f61; border-radius:20px; padding:6px 14px; margin-left:4px; font-size:0.9rem; cursor:pointer; transition:background 0.2s, color 0.2s;">Giriş Yap</button>
+        </li>
+        
+        <!-- User Info (Logged In) -->
+        <li id="user-info-nav" style="display: none;">
+          <span id="username-display" style="color:#fff; margin-right:8px; font-weight:500; font-size:0.95rem;"></span>
+        </li>
+        <li id="user-info-nav-2" style="display: none;">
+          <button id="logout-btn" class="auth-btn" style="background:#fff; color:#ff6f61; border:1.5px solid #ff6f61; border-radius:20px; padding:6px 14px; margin-left:4px; font-size:0.9rem; cursor:pointer; transition:background 0.2s, color 0.2s;">Çıkış Yap</button>
+        </li>
+      </ul>
+    </nav>
+    <div class="hamburger"><span></span><span></span><span></span></div>
+  </header>
+
+  <!-- Side Menu -->
+  <nav class="side-menu" id="sideMenu">
+    <button class="close-btn" id="closeMenu">×</button>
+    <ul>
+      <li><a href="index.html" style="text-decoration:none;">Anasayfa</a></li>
+      <li><a href="tum-seriler.html" style="text-decoration:none;">Tüm Seriler</a></li>
+      <li><a href="profile.html" style="text-decoration:none;" class="active">Profilim</a></li>
+      <li><a href="hakkinda.html" style="text-decoration:none;">Hakkında</a></li>
+      <li><a href="iletisim.html" style="text-decoration:none;">İletişim</a></li>
+      
+      <!-- Auth Buttons (Logged Out) -->
+      <div id="side-auth-buttons">
+        <li><button id="open-register-modal-side" class="auth-btn" style="background:#ff6f61; color:#fff; border:none; border-radius:20px; padding:10px 16px; margin:10px 0 0 0; font-size:1rem; cursor:pointer; width:90%;">Kayıt Ol</button></li>
+        <li><button id="open-login-modal-side" class="auth-btn" style="background:#fff; color:#ff6f61; border:1.5px solid #ff6f61; border-radius:20px; padding:10px 16px; margin:8px 0 0 0; font-size:1rem; cursor:pointer; width:90%;">Giriş Yap</button></li>
+      </div>
+      
+      <!-- User Info (Logged In) -->
+      <div id="side-user-info" style="display: none;">
+        <li><span id="side-username-display" style="color:#fff; margin:15px 0; font-weight:500; display:block; text-align:center; font-size:1.1rem;"></span></li>
+        <li><button id="side-logout-btn" class="auth-btn" style="background:#fff; color:#ff6f61; border:1.5px solid #ff6f61; border-radius:20px; padding:10px 16px; margin:8px 0 0 0; font-size:1rem; cursor:pointer; width:90%;">Çıkış Yap</button></li>
+      </div>
+    </ul>
+  </nav>
+  <div class="side-overlay" id="sideOverlay"></div>
+
+<!-- Alert Box -->
+<div id="alert-box"></div>
+
+  <!-- Search Container -->
+  <div class="search-container">
+    <input type="text" id="search-input" placeholder="Manhwa ara...">
+    <div id="search-results" class="results-box hidden"></div>
+  </div>
+
+  <!-- Main Content Wrapper -->
+  <div class="profile-container">
+    <!-- Profil Header -->
+    <div class="profile-header">
+      <div class="profile-banner">
+        <div class="profile-info">
+          <div class="profile-avatar" id="profile-avatar-container">
+            <img id="profile-avatar-img" src="images/avatars/bunnygirl.png" alt="Avatar" style="width:80px;height:80px;border-radius:50%;object-fit:cover;border:3px solid #ff6f61;background:#fff;">
+            <button id="change-avatar-btn" style="margin-top:8px;display:block;width:100%;background:#ff6f61;color:#fff;border:none;border-radius:20px;padding:6px 0;font-size:0.95rem;cursor:pointer;">Avatarı Değiştir</button>
+          </div>
+          <div class="profile-details">
+            <h1 id="profile-username">Kullanıcı</h1>
+            <p id="profile-member-since">Üye olma tarihi: -</p>
+            <div class="profile-stats">
+              <div class="stat-item">
+                <span class="stat-number" id="favorites-count">0</span>
+                <span class="stat-label">Favori</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-number" id="reading-count">0</span>
+                <span class="stat-label">Okuyor</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-number" id="completed-count">0</span>
+                <span class="stat-label">Tamamladı</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-number" id="chapters-read">0</span>
+                <span class="stat-label">Okunan Bölüm</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Profil Sekmeler -->
+    <div class="profile-tabs">
+      <button class="tab-btn active" data-tab="favorites">
+        <i class="fas fa-heart"></i>
+        <span>Profilim</span>
+      </button>
+      <button class="tab-btn" data-tab="reading">
+        <i class="fas fa-book-open"></i>
+        <span>Okuyorum</span>
+      </button>
+      <button class="tab-btn" data-tab="completed">
+        <i class="fas fa-check-circle"></i>
+        <span>Tamamladım</span>
+      </button>
+      <button class="tab-btn" data-tab="settings">
+        <i class="fas fa-cog"></i>
+        <span>Ayarlar</span>
+      </button>
+    </div>
+
+    <!-- Profil İçerik -->
+    <div class="profile-content">
+    <!-- Favori Manhwalar Sekmesi -->
+    <div class="tab-content active" id="favorites-tab">
+      <div class="section-header">
+        <h2><i class="fas fa-heart"></i> Favori Serilerim</h2>
+        <p>Beğendiğin serileri buradan takip edebilirsin</p>
+      </div>
+      
+      <div class="favorites-grid" id="favorites-grid">
+        <!-- Favori seriler buraya JS ile eklenecek -->
+      </div>
+      
+      <div class="empty-state" id="favorites-empty" style="display: none;">
+        <div class="empty-icon">
+          <i class="far fa-heart"></i>
+        </div>
+        <h3>Henüz favori serin yok</h3>
+        <p>Beğendiğin serileri favorilere ekleyerek buradan kolayca erişebilirsin</p>
+        <a href="tum-seriler.html" class="cta-btn">
+          <i class="fas fa-search"></i>
+          Seri Keşfet
+        </a>
+      </div>
+    </div>
+
+    <!-- Okuyorum Sekmesi -->
+    <div class="tab-content" id="reading-tab">
+      <div class="section-header">
+        <h2><i class="fas fa-book-open"></i> Okumaya Devam Et</h2>
+        <p>Bookmark'ladığın bölümlerden kaldığın yerden devam et</p>
+      </div>
+      
+      <div class="bookmarks-grid" id="reading-grid">
+        <!-- Bookmark'lar buraya JS ile eklenecek -->
+      </div>
+      
+      <div class="empty-state" id="reading-empty">
+        <div class="empty-icon">
+          <i class="fas fa-bookmark"></i>
+        </div>
+        <h3>Henüz bookmark'ladığın bölüm yok</h3>
+        <p>Okuduğun bölümleri bookmark'layarak kaldığın yerden kolayca devam edebilirsin</p>
+        <a href="index.html" class="cta-btn">
+          <i class="fas fa-fire"></i>
+          Popüler Serilere Bak
+        </a>
+      </div>
+    </div>
+
+    <!-- Tamamladım Sekmesi -->
+    <div class="tab-content" id="completed-tab">
+      <div class="section-header">
+        <h2><i class="fas fa-check-circle"></i> Tamamladığım Seriler</h2>
+        <p>Sonuna kadar okuduğun seriler</p>
+      </div>
+      
+      <div class="completed-grid" id="completed-grid">
+        <!-- Tamamlanan seriler buraya JS ile eklenecek -->
+      </div>
+      
+      <div class="empty-state" id="completed-empty">
+        <div class="empty-icon">
+          <i class="fas fa-trophy"></i>
+        </div>
+        <h3>Henüz tamamladığın seri yok</h3>
+        <p>Sonuna kadar okuduğun seriler burada görünecek</p>
+        <a href="index.html" class="cta-btn">
+          <i class="fas fa-play"></i>
+          Okumaya Başla
+        </a>
+      </div>
+    </div>
+
+    <!-- Ayarlar Sekmesi -->
+    <div class="tab-content" id="settings-tab">
+      <div class="section-header">
+        <h2><i class="fas fa-cog"></i> Hesap Ayarları</h2>
+        <p>Profil bilgilerini düzenle</p>
+      </div>
+      
+      <div class="settings-grid">
+        <div class="settings-card">
+          <h3><i class="fas fa-user"></i> Profil Bilgileri</h3>
+          <div class="setting-item">
+            <label>Kullanıcı Adı</label>
+            <input type="text" id="username-input" placeholder="Kullanıcı adın">
+          </div>
+          <div class="setting-item">
+            <label>E-posta</label>
+            <input type="email" id="email-input" placeholder="E-posta adresin">
+          </div>
+          <button class="save-btn" id="save-profile">
+            <i class="fas fa-save"></i>
+            Değişiklikleri Kaydet
+          </button>
+        </div>
+        
+        <div class="settings-card danger">
+          <h3><i class="fas fa-exclamation-triangle"></i> Tehlikeli İşlemler</h3>
+          <p>Bu işlemler geri alınamaz</p>
+          <button class="danger-btn" id="delete-account">
+            <i class="fas fa-trash"></i>
+            Hesabı Sil
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scroll to top button -->
+  <button id="scrollTopBtn" title="Yukarı Çık"><i class="fas fa-arrow-up"></i></button>
+
+  <!-- Login required modal -->
+  <div id="login-required-modal" class="modal" style="display:none;">
+    <div class="modal-content">
+      <h2><i class="fas fa-lock"></i> Giriş Gerekli</h2>
+      <p>Bu sayfayı görüntülemek için giriş yapmalısın</p>
+      <div class="modal-buttons">
+        <button id="go-to-login" class="primary-btn">
+          <i class="fas fa-sign-in-alt"></i>
+          Giriş Yap
+        </button>
+        <button id="go-to-register" class="secondary-btn">
+          <i class="fas fa-user-plus"></i>
+          Kayıt Ol
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Kayıt Formu (Modal) -->
+  <div id="register-modal" class="modal" style="display:none; position:fixed; z-index:1000; left:0; top:0; width:100vw; height:100vh; background:rgba(0,0,0,0.5); justify-content:center; align-items:center;">
+    <div style="background:#fff; padding:32px 24px; border-radius:12px; max-width:350px; width:90%; box-shadow:0 4px 24px rgba(0,0,0,0.18); position:relative;">
+      <button id="close-register-modal" style="position:absolute; top:12px; right:12px; background:none; border:none; font-size:22px; cursor:pointer; color:#333;">&times;</button>
+      <h2 style="margin-bottom:18px; text-align:center; color:#333;">Kayıt Ol</h2>
+      <form id="register-form">
+        <input id="register-username" type="text" placeholder="Kullanıcı Adı" required style="width:100%; padding:10px; margin-bottom:12px; border-radius:6px; border:1px solid #ccc; box-sizing:border-box;">
+        <input id="register-email" type="email" placeholder="E-posta" required style="width:100%; padding:10px; margin-bottom:12px; border-radius:6px; border:1px solid #ccc; box-sizing:border-box;">
+        <input id="register-password" type="password" placeholder="Şifre" required style="width:100%; padding:10px; margin-bottom:18px; border-radius:6px; border:1px solid #ccc; box-sizing:border-box;">
+        <button type="submit" style="width:100%; padding:10px; background:#ff6f61; color:#fff; border:none; border-radius:6px; font-size:16px; cursor:pointer;">Kayıt Ol</button>
+      </form>
+      <p style="text-align:center; color:#666; margin-top:15px;">Zaten hesabın var mı? <a href="#" id="switch-to-login" style="color:#ff6f61; text-decoration:none;">Giriş yap</a></p>
+    </div>
+  </div>
+
+  <!-- Giriş Formu (Modal) -->
+  <div id="login-modal" class="modal" style="display:none; position:fixed; z-index:1000; left:0; top:0; width:100vw; height:100vh; background:rgba(0,0,0,0.5); justify-content:center; align-items:center;">
+    <div style="background:#fff; padding:32px 24px; border-radius:12px; max-width:350px; width:90%; box-shadow:0 4px 24px rgba(0,0,0,0.18); position:relative;">
+      <button id="close-login-modal" style="position:absolute; top:12px; right:12px; background:none; border:none; font-size:22px; cursor:pointer; color:#333;">&times;</button>
+      <h2 style="margin-bottom:18px; text-align:center; color:#333;">Giriş Yap</h2>
+      <form id="login-form">
+        <input id="login-identifier" type="text" placeholder="E-posta veya Kullanıcı Adı" required style="width:100%; padding:10px; margin-bottom:12px; border-radius:6px; border:1px solid #ccc; box-sizing:border-box;">
+        <input id="login-password" type="password" placeholder="Şifre" required style="width:100%; padding:10px; margin-bottom:18px; border-radius:6px; border:1px solid #ccc; box-sizing:border-box;">
+        <button type="submit" style="width:100%; padding:10px; background:#ff6f61; color:#fff; border:none; border-radius:6px; font-size:16px; cursor:pointer;">Giriş Yap</button>
+      </form>
+      <p style="text-align:center; color:#666; margin-top:15px;">Hesabın yok mu? <a href="#" id="switch-to-register" style="color:#ff6f61; text-decoration:none;">Kayıt ol</a></p>
+    </div>
+  </div>
+
+  <!-- Avatar Seçim Modalı -->
+  <div id="avatar-modal" class="modal" style="display:none;position:fixed;z-index:2000;left:0;top:0;width:100vw;height:100vh;background:rgba(0,0,0,0.5);justify-content:center;align-items:center;">
+    <div style="background:#fff;padding:28px 18px;border-radius:14px;max-width:400px;width:92%;box-shadow:0 4px 24px rgba(0,0,0,0.18);position:relative;">
+      <button id="close-avatar-modal" style="position:absolute;top:10px;right:10px;background:none;border:none;font-size:22px;cursor:pointer;color:#333;">&times;</button>
+      <h2 style="text-align:center;margin-bottom:18px;font-size:1.3rem;color:#222;">Avatarını Seç</h2>
+      <div id="avatar-list" style="display:flex;flex-wrap:wrap;gap:16px;justify-content:center;align-items:center;">
+        <!-- JS ile avatarlar eklenecek -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Completion Suggestion Modal -->
+  <div id="completion-modal" class="modal" style="display:none;">
+    <div class="modal-content completion-modal-content">
+      <div class="completion-modal-header">
+        <div class="completion-icon">
+          <i class="fas fa-trophy"></i>
+        </div>
+        <h2 id="completion-modal-title">Seri Tamamlandı!</h2>
+        <p id="completion-modal-message">Bu seriyi tamamladın olarak işaretlemek ister misin?</p>
+      </div>
+      
+      <div class="completion-progress-info">
+        <div class="progress-stats">
+          <div class="stat-item">
+            <span class="stat-label">Okunan Bölüm:</span>
+            <span class="stat-value" id="completion-chapters-read">0/0</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">İlerleme:</span>
+            <span class="stat-value" id="completion-percentage">0%</span>
+          </div>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" id="completion-progress-bar" style="width: 0%"></div>
+        </div>
+      </div>
+
+      <div class="completion-rating-section">
+        <h3><i class="fas fa-star"></i> Bu seri için puanınız?</h3>
+        <div class="rating-stars-input">
+          <span class="star" data-rating="1"><i class="far fa-star"></i></span>
+          <span class="star" data-rating="2"><i class="far fa-star"></i></span>
+          <span class="star" data-rating="3"><i class="far fa-star"></i></span>
+          <span class="star" data-rating="4"><i class="far fa-star"></i></span>
+          <span class="star" data-rating="5"><i class="far fa-star"></i></span>
+        </div>
+        <p class="rating-text">İsteğe bağlı - Yıldızlara tıklayarak puanlayın</p>
+      </div>
+
+      <div class="completion-review-section">
+        <h3><i class="fas fa-comment"></i> Kısa bir yorum ekler misiniz?</h3>
+        <textarea id="completion-review" placeholder="Bu seri hakkında düşüncelerinizi paylaşın... (isteğe bağlı)" rows="3"></textarea>
+      </div>
+
+      <div class="modal-buttons">
+        <button id="complete-series-btn" class="primary-btn completion-btn">
+          <i class="fas fa-check-circle"></i>
+          Tamamladım
+        </button>
+        <button id="cancel-completion-btn" class="secondary-btn">
+          <i class="fas fa-times"></i>
+          İptal
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="scripts/navbar.js?v=5"></script>
+  <script src="scripts/auth-navbar.js?v=5"></script>
+  <script src="scripts/auth-forms.js?v=5"></script>
+  <script src="scripts/arama.js?v=5"></script>
+  <script src="scripts/bookmark-manager.js?v=50"></script>
+  <script src="scripts/reading-progress-tracker.js?v=5"></script>
+  <script src="scripts/completed-series-tracker.js?v=5"></script>
+  <script src="scripts/favorites.js?v=5"></script>
+  <script src="scripts/profile.js?v=50"></script>
+  
+  <script>
+    // Sayfa yüklendiğinde fade-in animasyonu
+    window.addEventListener('load', function() {
+      document.body.classList.add('loaded');
+    });
+
+    // Scroll to top button
+    const scrollBtn = document.getElementById('scrollTopBtn');
+    window.onscroll = function() {
+      if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+        scrollBtn.style.display = 'block';
+      } else {
+        scrollBtn.style.display = 'none';
+      }
+    };
+    scrollBtn.onclick = function() {
+      window.scrollTo({top: 0, behavior: 'smooth'});
+    };
+  </script>
+</body>
+</html>

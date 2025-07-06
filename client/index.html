@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <title>ToonNeko - Manhwa Sitesi</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles/navbar.css?v=5">
+  <link rel="stylesheet" href="styles/ornek-navbar-ek.css?v=5">
+  <link rel="stylesheet" href="styles/seri.css?v=5">
+  <link rel="stylesheet" href="styles/anasayfa.css?v=5">
+  <!-- Font Awesome CDN for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css?v=5">
+
+  <style>
+    .logo-link {
+      display: flex;
+      align-items: center;
+      text-decoration: none !important;
+      color: inherit !important;
+      cursor: pointer;
+    }
+    .logo-link:visited, .logo-link:active, .logo-link:hover {
+      color: inherit !important;
+      text-decoration: none !important;
+    }
+    .logo-link img {
+      margin-right: 8px;
+    }
+    
+    /* Force consistent logo size */
+    .logo-area img {
+      height: 64px !important;
+      width: auto !important;
+    }
+    .logo-area span {
+      font-size: 3.2rem !important;
+      font-weight: bold !important;
+    }
+    
+    /* Force consistent navbar margin */
+    .desktop-navbar {
+      margin-left: 20px !important;
+    }
+    header {
+      padding: 10px 15px !important;
+    }
+    #scrollTopBtn {
+      display: none;
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      z-index: 99;
+      font-size: 22px;
+      background: #222;
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      width: 48px;
+      height: 48px;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      transition: background 0.3s, transform 0.2s;
+    }
+    #scrollTopBtn:hover {
+      background: #ff6f61;
+      transform: scale(1.1);
+    }
+    /* Masaüstünde başlıklar sola hizalı */
+    @media (min-width: 900px) {
+      .anasayfa-basliklar {
+        max-width: 1000px;
+        margin: 40px auto 0 auto;
+        padding-left: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .anasayfa-basliklar .section-title {
+        margin: 0 0 8px 0;
+        padding: 0;
+      }
+    }
+    
+    /* Duyuru Stilleri - Modern ve Unsaturated */
+    .announcement-section {
+      background: rgba(44, 44, 44, 0.95);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      margin: 20px auto;
+      max-width: 1000px;
+      border-radius: 8px;
+      backdrop-filter: blur(10px);
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(-10px);
+      transition: all 0.3s ease;
+    }
+    
+    .announcement-section.announcement-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .announcement-container {
+      padding: 16px 20px;
+      color: #f0f0f0;
+    }
+    
+    .announcement-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    
+    .announcement-icon {
+      font-size: 1.2rem;
+      margin-right: 8px;
+      color: #64b5f6;
+    }
+    
+    .announcement-title {
+      font-size: 1.1rem;
+      font-weight: 500;
+      margin: 0;
+      flex: 1;
+      color: #ffffff;
+    }
+    
+    .announcement-close {
+      background: rgba(255,255,255,0.1);
+      border: none;
+      color: #ccc;
+      width: 24px;
+      height: 24px;
+      border-radius: 4px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+      font-size: 12px;
+    }
+    
+    .announcement-close:hover {
+      background: rgba(255,255,255,0.2);
+      color: #ffffff;
+    }
+    
+    .announcement-content {
+      font-size: 0.95rem;
+      line-height: 1.5;
+      margin-bottom: 8px;
+      color: #e0e0e0;
+    }
+    
+    .announcement-date {
+      font-size: 0.8rem;
+      color: #aaa;
+      text-align: right;
+    }
+    
+    /* Duyuru Tipleri - Subtle accent colors */
+    .announcement-section.announcement-warning {
+      border-left: 3px solid #ff9800;
+    }
+    
+    .announcement-section.announcement-warning .announcement-icon {
+      color: #ffb74d;
+    }
+    
+    .announcement-section.announcement-success {
+      border-left: 3px solid #4caf50;
+    }
+    
+    .announcement-section.announcement-success .announcement-icon {
+      color: #81c784;
+    }
+    
+    .announcement-section.announcement-info {
+      border-left: 3px solid #2196f3;
+    }
+    
+    .announcement-section.announcement-info .announcement-icon {
+      color: #64b5f6;
+    }
+    
+    @media (max-width: 768px) {
+      .announcement-section {
+        margin: 15px;
+        border-radius: 6px;
+      }
+      
+      .announcement-container {
+        padding: 12px 16px;
+      }
+      
+      .announcement-title {
+        font-size: 1.1rem;
+      }
+      
+      .announcement-content {
+        font-size: 0.95rem;
+      }
+    }
+
+    /* Seri Etiket Stilleri */
+    .image-wrapper {
+      position: relative;
+      display: inline-block;
+    }
+
+    .series-label {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      padding: 4px 8px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 600;
+      color: white;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      z-index: 2;
+      backdrop-filter: blur(4px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    /* Popülerler Bölümü Stilleri - 4'lü Grid Mantığı */
+    .popular-container {
+      max-width: 1200px;
+      margin: 0 auto 40px auto;
+      padding: 0 20px;
+    }
+
+    .popular-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr); /* 4 sütun sabit */
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    .popular-card {
+      background: rgba(44, 44, 44, 0.9);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      position: relative;
+      cursor: pointer;
+    }
+
+    .popular-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(255, 111, 97, 0.2);
+      border-color: rgba(255, 111, 97, 0.3);
+    }
+
+    .popular-rank {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: linear-gradient(135deg, #ff6f61, #ff8a80);
+      color: white;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 14px;
+      z-index: 3;
+      box-shadow: 0 2px 8px rgba(255, 111, 97, 0.4);
+    }
+
+    .popular-card-image {
+      width: 100%;
+      height: 240px;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    .popular-card:hover .popular-card-image {
+      transform: scale(1.05);
+    }
+
+    .popular-card-content {
+      padding: 15px;
+    }
+
+    .popular-card-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: white;
+      margin: 0 0 8px 0;
+      line-height: 1.3;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    /* Popüler kartlar için ek istatistik alanları */
+    .popular-stats {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .popular-stats > div {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      color: #ccc;
+    }
+
+    .popular-stats i {
+      width: 12px;
+      flex-shrink: 0;
+      color: #ff6f61;
+    }
+
+    .popular-score {
+      font-weight: 600;
+      color: #ffd700 !important;
+    }
+
+    .popular-avg {
+      color: #90c695 !important;
+    }
+
+    .popular-reads {
+      color: #87ceeb !important;
+    }
+
+    .popular-chapters {
+      color: #dda0dd !important;
+    }
+
+    .popular-reads {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .popular-reads i {
+      color: #ff6f61;
+    }
+
+    .popular-chapters {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .popular-chapters i {
+      color: #4a9eff;
+    }
+
+    .popular-chapter-info {
+      font-size: 11px;
+      color: #888;
+      margin-top: 5px;
+    }
+
+    /* Loading ve empty state */
+    .popular-loading {
+      text-align: center;
+      padding: 40px;
+      color: #bbb;
+      font-size: 14px;
+    }
+
+    .popular-empty {
+      text-align: center;
+      padding: 40px;
+      color: #888;
+      font-size: 14px;
+    }
+
+    /* Responsive - Popüler Grid için */
+    @media (max-width: 768px) {
+      .popular-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 15px;
+      }
+      
+      .popular-card-image {
+        height: 200px;
+      }
+      
+      .popular-rank {
+        width: 25px;
+        height: 25px;
+        font-size: 12px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .popular-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+      }
+      
+      .popular-card-image {
+        height: 180px;
+      }
+    }
+
+    /* Masaüstü için: Popüler bölümlerde kart sayısı az olduğunda sola yaslama */
+    @media (min-width: 769px) {
+      .popular-grid.only-one {
+        grid-template-columns: repeat(4, 1fr) !important;
+      }
+      .popular-grid.only-one .popular-card {
+        grid-column: 1 / span 1; /* İlk slotta konumlandır */
+      }
+      
+      .popular-grid.only-two {
+        grid-template-columns: repeat(4, 1fr) !important;
+      }
+      .popular-grid.only-two .popular-card:first-child {
+        grid-column: 1 / span 1;
+      }
+      .popular-grid.only-two .popular-card:last-child {
+        grid-column: 2 / span 1;
+      }
+      
+      .popular-grid.only-three {
+        grid-template-columns: repeat(4, 1fr) !important;
+      }
+      .popular-grid.only-three .popular-card:nth-child(1) {
+        grid-column: 1 / span 1;
+      }
+      .popular-grid.only-three .popular-card:nth-child(2) {
+        grid-column: 2 / span 1;
+      }
+      .popular-grid.only-three .popular-card:nth-child(3) {
+        grid-column: 3 / span 1;
+      }
+    }
+  </style>
+
+</head>
+<body>
+  <header>
+  <div class="logo-area">
+    <a href="index.html" class="logo-link">
+      <img src="images/ToonNekoLogo.png" alt="Logo" />
+      <span>ToonNeko</span>
+    </a>
+  </div>
+  <nav class="desktop-navbar">
+    <ul>
+      <li><a href="index.html" style="text-decoration:none;" class="active">Anasayfa</a></li>
+      <li><a href="tum-seriler.html" style="text-decoration:none;">Tüm Seriler</a></li>
+      <li><a href="profile.html" style="text-decoration:none;">Profilim</a></li>
+      <li><a href="hakkinda.html" style="text-decoration:none;">Hakkında</a></li>
+      <li><a href="iletisim.html" style="text-decoration:none;">İletişim</a></li>
+      
+      <!-- Auth Buttons (Logged Out) -->
+      <li id="auth-buttons-nav">
+        <button id="open-register-modal-navbar" class="auth-btn" style="background:#ff6f61; color:#fff; border:none; border-radius:20px; padding:6px 14px; margin-left:8px; font-size:0.9rem; cursor:pointer; transition:background 0.2s;">Kayıt Ol</button>
+      </li>
+      <li id="auth-buttons-nav-2">
+        <button id="open-login-modal-navbar" class="auth-btn" style="background:#fff; color:#ff6f61; border:1.5px solid #ff6f61; border-radius:20px; padding:6px 14px; margin-left:4px; font-size:0.9rem; cursor:pointer; transition:background 0.2s, color 0.2s;">Giriş Yap</button>
+      </li>
+      
+      <!-- User Info (Logged In) -->
+      <li id="user-info-nav" style="display: none;">
+        <span id="username-display" style="color:#fff; margin-right:8px; font-weight:500; font-size:0.95rem;"></span>
+      </li>
+      <li id="user-info-nav-2" style="display: none;">
+        <button id="logout-btn" class="auth-btn" style="background:#fff; color:#ff6f61; border:1.5px solid #ff6f61; border-radius:20px; padding:6px 14px; margin-left:4px; font-size:0.9rem; cursor:pointer; transition:background 0.2s, color 0.2s;">Çıkış Yap</button>
+      </li>
+    </ul>
+  </nav>
+  <div class="hamburger"><span></span><span></span><span></span></div>
+</header>
+
+<nav class="side-menu" id="sideMenu">
+  <button class="close-btn" id="closeMenu">×</button>
+  <ul>
+    <li><a href="index.html" style="text-decoration:none;" class="active">Anasayfa</a></li>
+    <li><a href="tum-seriler.html" style="text-decoration:none;">Tüm Seriler</a></li>
+    <li><a href="profile.html" style="text-decoration:none;">Profilim</a></li>
+    <li><a href="hakkinda.html" style="text-decoration:none;">Hakkında</a></li>
+    <li><a href="iletisim.html" style="text-decoration:none;">İletişim</a></li>
+    
+    <!-- Auth Buttons (Logged Out) -->
+    <div id="side-auth-buttons">
+      <li><button id="open-register-modal-side" class="auth-btn" style="background:#ff6f61; color:#fff; border:none; border-radius:20px; padding:10px 16px; margin:10px 0 0 0; font-size:1rem; cursor:pointer; width:90%;">Kayıt Ol</button></li>
+      <li><button id="open-login-modal-side" class="auth-btn" style="background:#fff; color:#ff6f61; border:1.5px solid #ff6f61; border-radius:20px; padding:10px 16px; margin:8px 0 0 0; font-size:1rem; cursor:pointer; width:90%;">Giriş Yap</button></li>
+    </div>
+    
+    <!-- User Info (Logged In) -->
+    <div id="side-user-info" style="display: none;">
+      <li><span id="side-username-display" style="color:#fff; margin:15px 0; font-weight:500; display:block; text-align:center; font-size:1.1rem;"></span></li>
+      <li><button id="side-logout-btn" class="auth-btn" style="background:#fff; color:#ff6f61; border:1.5px solid #ff6f61; border-radius:20px; padding:10px 16px; margin:8px 0 0 0; font-size:1rem; cursor:pointer; width:90%;">Çıkış Yap</button></li>
+    </div>
+  </ul>
+</nav>
+<div class="side-overlay" id="sideOverlay"></div>
+<!-- Arama Çubuğu -->
+
+
+<div class="search-container">
+  <input type="text" id="search-input" placeholder="Manhwa ara...">
+  <div id="search-results" class="results-box hidden"></div>
+</div>
+
+
+
+  
+    <!-- Duyuru Bölümü -->
+    <div id="announcement-section" class="announcement-section" style="display: none;">
+      <div class="announcement-container">
+        <div class="announcement-header">
+          <i class="fas fa-bullhorn announcement-icon"></i>
+          <h3 class="announcement-title">Duyuru</h3>
+          <button class="announcement-close" id="close-announcement" aria-label="Duyuruyu Kapat">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div class="announcement-content" id="announcement-content">
+          <!-- Duyuru içeriği buraya gelecek -->
+        </div>
+        </div>
+        <div class="announcement-date" id="announcement-date">
+          <!-- Duyuru tarihi buraya gelecek -->
+        </div>
+      </div>
+    </div>
+
+    <!-- 8 Manhwa Kartı -->
+    <section class="anasayfa-basliklar">
+    <h2 class="section-title">🆕 Yeni Manhwalar</h2>
+  </section>
+  <div class="carousel-container">
+    <div class="carousel-controls">
+      <button class="carousel-arrow left" id="carousel-left" aria-label="Sola Kaydır">&#8592;</button>
+      <button class="carousel-arrow right" id="carousel-right" aria-label="Sağa Kaydır">&#8594;</button>
+    </div>
+    <div class="carousel-row carousel-3d" id="yeni-seriler"></div>
+  </div>
+<!-- manhwa önerisi -->
+ <section>
+<div class="oner-kutusu">
+  <h2>Manhwa Önerisi Al</h2>
+  <div class="slider">
+    <img id="preview-image" src="images/kapaklar/sololeveling.jpg" alt="Kapak">
+  </div>
+  <div id="preview-title" class="seri-baslik hidden">Solo Leveling</div>
+  <button id="oner-button">Manhwa Öner</button>
+</div>
+</section>
+
+<!-- Popülerler Bölümü -->
+<section class="anasayfa-basliklar">
+  <h2 class="section-title">🔥 Haftanın Popülerleri</h2>
+</section>
+<div class="popular-container" id="weekly-popular-container">
+  <div class="popular-grid" id="weekly-popular-grid">
+    <!-- Haftalık popüler seriler buraya gelecek -->
+  </div>
+</div>
+
+<!-- 20 Manhwa Kartı -->  
+<section class="anasayfa-basliklar">
+  <h2 class="section-title">Son Yüklenen Bölümler</h2>
+</section>
+<div class="grid" id="son-yuklenenler"></div>
+<div id="pagination" class="pagination"></div>
+
+<!-- En alta taşınan: Tüm Zamanların En Çok Okunanları -->
+<section class="anasayfa-basliklar">
+  <h2 class="section-title">⭐ Tüm Zamanların En Çok Okunanları</h2>
+</section>
+<div class="popular-container" id="all-time-popular-container">
+  <div class="popular-grid" id="all-time-popular-grid">
+    <!-- Tüm zamanların popülerleri buraya gelecek -->
+  </div>
+</div>
+
+  <!-- Scroll to top button -->
+  <button id="scrollTopBtn" title="Yukarı Çık"><i class="fas fa-arrow-up"></i></button>
+
+  <!-- Kayıt Formu (Modal) -->
+  <div id="register-modal" class="modal">
+    <div class="modal-content">
+      <button id="close-register-modal" class="modal-close">&times;</button>
+      <h2>Kayıt Ol</h2>
+      <form id="register-form">
+        <input id="register-username" type="text" placeholder="Kullanıcı Adı" required>
+        <input id="register-email" type="email" placeholder="E-posta" required>
+        <input id="register-password" type="password" placeholder="Şifre" required>
+        <button type="submit">Kayıt Ol</button>
+      </form>
+      <p class="modal-switch">Zaten hesabın var mı? <a href="#" id="switch-to-login">Giriş yap</a></p>
+    </div>
+  </div>
+
+  <!-- Giriş Formu (Modal) -->
+  <div id="login-modal" class="modal">
+    <div class="modal-content">
+      <button id="close-login-modal" class="modal-close">&times;</button>
+      <h2>Giriş Yap</h2>
+      <form id="login-form">
+        <input id="login-identifier" type="text" placeholder="E-posta veya Kullanıcı Adı" required>
+        <input id="login-password" type="password" placeholder="Şifre" required>
+        <button type="submit">Giriş Yap</button>
+      </form>
+      <p class="modal-switch">Hesabın yok mu? <a href="#" id="switch-to-register">Kayıt ol</a></p>
+    </div>
+  </div>
+
+  <!-- Uyarı kutusu -->
+  <div id="alert-box" style="display:none;position:fixed;top:30px;left:50%;transform:translateX(-50%);z-index:2000;min-width:220px;max-width:90vw;padding:16px 28px;border-radius:8px;font-size:16px;font-weight:500;text-align:center;box-shadow:0 2px 12px rgba(0,0,0,0.13);background:#fff;color:#ff6f61;border:1.5px solid #ff6f61;transition:opacity 0.3s;"></div>
+
+  <script>
+    // Sayfa açılışında fade-in
+    window.addEventListener('DOMContentLoaded', function() {
+      document.body.classList.add('loaded');
+    });
+    // Scroll to top butonu
+    const scrollBtn = document.getElementById('scrollTopBtn');
+    window.onscroll = function() {
+      if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+        scrollBtn.style.display = 'block';
+      } else {
+        scrollBtn.style.display = 'none';
+      }
+    };
+    scrollBtn.onclick = function() {
+      window.scrollTo({top: 0, behavior: 'smooth'});
+    };
+    // Navbar aktif link vurgulama
+    document.querySelectorAll('.desktop-navbar a').forEach(link => {
+      link.addEventListener('click', function() {
+        document.querySelectorAll('.desktop-navbar a').forEach(l => l.classList.remove('active'));
+        this.classList.add('active');
+      });
+    });
+    // Hamburger menü kodları kaldırıldı, sadece navbar.js kullanılacak
+    // Kayıt modalı aç/kapat
+    var openRegisterNavbar = document.getElementById('open-register-modal-navbar');
+    if(openRegisterNavbar) openRegisterNavbar.onclick = function() {
+      var regModal = document.getElementById('register-modal');
+      if(regModal) regModal.style.display = 'flex';
+    };
+    var openRegisterSide = document.getElementById('open-register-modal-side');
+    if(openRegisterSide) openRegisterSide.onclick = function() {
+      var regModal = document.getElementById('register-modal');
+      if(regModal) regModal.style.display = 'flex';
+    };
+    var openLoginNavbar = document.getElementById('open-login-modal-navbar');
+    if(openLoginNavbar) openLoginNavbar.onclick = function() {
+      var loginModal = document.getElementById('login-modal');
+      if(loginModal) loginModal.style.display = 'flex';
+    };
+    var openLoginSide = document.getElementById('open-login-modal-side');
+    if(openLoginSide) openLoginSide.onclick = function() {
+      var loginModal = document.getElementById('login-modal');
+      if(loginModal) loginModal.style.display = 'flex';
+    };
+    var closeRegisterBtn = document.getElementById('close-register-modal');
+    if (closeRegisterBtn) closeRegisterBtn.onclick = function() {
+      var regModal = document.getElementById('register-modal');
+      if(regModal) regModal.style.display = 'none';
+    };
+    var closeLoginBtn = document.getElementById('close-login-modal');
+    if (closeLoginBtn) closeLoginBtn.onclick = function() {
+      var loginModal = document.getElementById('login-modal');
+      if(loginModal) loginModal.style.display = 'none';
+    };
+    window.onclick = function(event) {
+      var regModal = document.getElementById('register-modal');
+      var loginModal = document.getElementById('login-modal');
+      if (regModal && event.target === regModal) {
+        regModal.style.display = 'none';
+      }
+      if (loginModal && event.target === loginModal) {
+        loginModal.style.display = 'none';
+      }
+    };
+
+  </script>
+
+  <script src="scripts/arama.js?v=5"></script>
+  <script src="scripts/rating-manager.js?v=5"></script>
+  <script src="scripts/announcement-manager.js?v=5"></script>
+  <script>
+    // Manuel test - sayfayı yükledikten 2 saniye sonra duyuruyu zorla göster
+    setTimeout(async () => {
+      console.log('🕐 Manual test starting...');
+      try {
+        const response = await fetch('http://localhost:5506/api/announcements/active');
+        const data = await response.json();
+        console.log('📋 API response:', data);
+        
+        if (data.success && data.announcement) {
+          const section = document.getElementById('announcement-section');
+          const content = document.getElementById('announcement-content');
+          
+          if (section && content) {
+            content.innerHTML = `<h4>${data.announcement.title}</h4><p>${data.announcement.content}</p>`;
+            section.style.display = 'block';
+            section.style.opacity = '1';
+            section.style.transform = 'translateY(0)';
+            console.log('✅ Duyuru manuel olarak gösterildi');
+          } else {
+            console.log('❌ Elements not found');
+          }
+        }
+      } catch (error) {
+        console.error('❌ Manuel test error:', error);
+      }
+    }, 2000);
+  </script>
+  <script src="scripts/yeni-manhwalar.js?v=5"></script>
+  <script src="scripts/son-yuklenenler.js?v=5"></script>
+  <script src="scripts/popular-sections.js?v=5"></script>
+  <script src="scripts/oner.js?v=5"></script>
+  <script src="scripts/navbar.js?v=5"></script>
+  <script src="scripts/auth-navbar.js?v=5"></script>
+  <script src="scripts/auth-forms.js?v=5"></script>
+  <script src="scripts.js?v=5"></script>
+</body>
+
+</html>

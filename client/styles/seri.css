@@ -1,0 +1,1030 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(-45deg, #1f1f1f, #2c2c2c, #1a1a1a, #2a2a2a);
+  background-size: 400% 400%;
+  animation: gradientBG 15s ease infinite;
+  color: #f0f0f0;
+  padding-bottom: 40px;
+}
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+header {
+  background-color: #2c2c2c;
+  padding: 10px 15px !important;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+.logo-area {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.logo-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none !important;
+  color: inherit !important;
+  cursor: pointer;
+}
+.logo-link:visited, .logo-link:active, .logo-link:hover {
+  color: inherit !important;
+  text-decoration: none !important;
+}
+.logo-link img {
+  margin-right: 8px;
+}
+.logo-area img {
+  height: 64px !important;
+  width: auto !important;
+}
+.logo-area span {
+  font-size: 3.2rem !important;
+  font-weight: bold !important;
+}
+.desktop-navbar {
+  margin-left: 20px !important;
+}
+nav ul {
+  display: flex;
+  gap: 20px;
+  list-style: none;
+}
+nav a {
+  text-decoration: none;
+  color: #f0f0f0;
+  transition: color 0.3s;
+}
+nav a:hover { color: #ff6f61; }
+.section-title {
+  font-size: 1.8rem;
+  margin: 40px 20px 20px;
+}
+/* HAMBURGER & RESPONSIVE */
+.hamburger {
+  display: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+@media (max-width: 768px) {
+  nav ul { display: none; }
+  .hamburger { display: block; }
+  .scroll-row { gap: 10px; }
+  .scroll-row .manhwa-card { flex: 0 0 90%; }
+}
+footer {
+  padding: 30px;
+  text-align: center;
+}
+footer a {
+  margin: 0 10px;
+  color: #ccc;
+  text-decoration: none;
+}
+footer a:hover {
+  color: #fff;
+}
+
+@media (max-width: 768px) {
+  nav ul {
+    display: none;
+    flex-direction: column;
+    gap: 10px;
+    background-color: #2c2c2c;
+    padding: 10px;
+  }
+  nav ul.show {
+    display: flex;
+  }
+  .hamburger { display: block; }
+  .scroll-row { gap: 10px; }
+  .scroll-row .manhwa-card { flex: 0 0 90%; }
+}
+
+/* ------------------------- */
+
+.search-container {
+  position: relative;
+  width: 90%;
+  max-width: 500px;
+  margin: 20px auto;
+  padding: 0 10px;
+}
+
+#search-input {
+  width: 100%;
+  padding: 12px 16px;
+  font-size: 1rem;
+  background-color: #333;
+  border: none;
+  border-radius: 8px;
+  color: white;
+}
+
+/* 📌 Arama sonuç kutusu */
+.results-box {
+  position: absolute;
+  top: 105%;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  width: 100%;
+  background-color: #2c2c2c;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  max-height: 220px;
+  overflow-y: auto;
+  z-index: 10;
+  box-sizing: border-box;
+}
+
+.result-item {
+  display: flex;
+  gap: 10px;
+  padding: 10px;
+  border-bottom: 1px solid #444;
+  align-items: center;
+}
+
+.result-item img {
+  width: 60px;
+  height: 90px;
+  object-fit: cover;
+  border-radius: 6px;
+  flex-shrink: 0;
+}
+
+.result-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.result-info a {
+  color: #ff6f61;
+  text-decoration: none;
+  font-weight: bold;
+  margin-bottom: 4px;
+  transition: color 0.3s;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.result-info a:hover {
+  color: #9b94ff;
+}
+
+.hidden {
+  display: none;
+}
+
+/* ✅ Mobil uyum için */
+@media (max-width: 600px) {
+  .result-item img {
+    width: 50px;
+    height: 75px;
+  }
+
+  .result-info a {
+    font-size: 0.9rem;
+  }
+
+  #search-input {
+    font-size: 0.95rem;
+    padding: 10px 14px;
+  }
+}
+/* --------------------- */
+
+.cover {
+  width: 95%;
+  max-width: 680px;
+  margin: 20px auto;
+  display: block;
+  border-radius: 12px;
+  aspect-ratio: 3 / 4.2; /* Index sayfasındaki kartlarla aynı oran */
+  object-fit: cover;
+  height: auto;
+}
+.title {
+  text-align: center;
+  font-size: 3.4rem;
+  margin-bottom: 10px;
+}
+
+.info-card {
+  background: #2a2a2a;
+  border-radius: 10px;
+  padding: 16px 20px;
+  margin: 20px;
+  color: #ccc;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  font-size: 0.9rem !important;
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.label {
+  font-weight: 600;
+  color: #aaa;
+  min-width: 90px;
+  font-size: 0.9rem !important;
+}
+
+.value {
+  color: #f0f0f0;
+  text-align: right;
+  flex: 1;
+  font-size: 0.9rem !important;
+}
+
+.section {
+  padding: 0 20px;
+  margin-bottom: 80px;
+}
+.section h2 {
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+}
+.section-bar {
+  background: linear-gradient(90deg, #3c3a68, #333062); /* Mor geçişli */
+  color: white;
+  font-size: 1.4rem;
+  font-weight: bold;
+  padding: 12px 16px;
+  border-radius: 8px;
+  margin-bottom: 14px;
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+}
+
+.summary-card {
+  background-color: #2a2a2a;
+  padding: 16px 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+  font-size: 0.85rem !important;
+  line-height: 1.6;
+  color: #ddd;
+  max-width: 100% !important;
+  margin: 0 !important;
+  padding: 15px !important;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
+  padding: 0 0px; /* 👈 Sayfa kenarlarından 20px içe çeker */
+}
+
+.buttons button {
+  flex: 1;
+  max-width: 65%;
+  padding: 10px 0; /* Daha kompakt yükseklik */
+  background: #ff6f61;
+  border: none;
+  color: white;
+  font-weight: 600;
+  border-radius: 6px;
+  font-size: 1.15rem; /* Daha küçük ve uyumlu yazı boyutu */
+  transition: background 0.3s, transform 0.2s;
+  letter-spacing: 0.01em;
+}
+
+.buttons button:hover {
+  background: #584de0;
+  transform: scale(1.03);         /* 👈 Hover efekti */
+}
+
+.search input {
+  width: 100%;
+  padding: 16px 20px;
+  font-size: 1.6rem;
+  border: none;
+  margin: 20px auto;
+  border-radius: 8px;
+  background: #333;
+  color: white;
+  display: block;
+}
+
+.chapters {
+  max-height: 300px;
+  overflow-y: auto;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  margin-top: 10px;
+}
+.chapter-title {
+  font-size: 2.6rem;        /* Yazı boyutu büyütüldü */
+  font-weight: bold;        /* Vurgulu yazı */
+  margin-bottom: 1px;       /* Alt boşluk */
+  display: block;           /* Satır kaplasın */
+  color: white;             /* Yazı rengi */
+  text-decoration: none;    /* Link ise alt çizgi olmasın */
+  margin-top: 4px;
+}
+
+.chapter-card {
+  background: linear-gradient(135deg, #232323 0%, #313131 100%);
+  color: #fff;
+  text-decoration: none;
+  padding: 8px 12px;
+  border-radius: 7px;
+  transition: all 0.22s cubic-bezier(.4,0,.2,1);
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 1px 6px rgba(0,0,0,0.13);
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+  margin-bottom: 8px;
+  font-size: 0.98rem;
+  min-height: 44px;
+  line-height: 1.35;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.chapter-card .date {
+  font-size: 0.92rem;
+  font-weight: 400;
+  color: #bdbdbd;
+  margin-top: 2px;
+  margin-bottom: 0;
+}
+.chapter-card:hover {
+  transform: translateY(-2px) scale(1.025);
+  box-shadow: 0 4px 16px rgba(255,111,97,0.13);
+  border-color: rgba(255,111,97,0.18);
+}
+
+@media (max-width: 480px) {
+  .chapter-card {
+    padding: 6px 6px;
+    font-size: 0.91rem;
+    border-radius: 6px;
+    min-height: 38px;
+  }
+  .chapter-card .date {
+    font-size: 0.85rem;
+  }
+}
+@media (min-width: 481px) and (max-width: 768px) {
+  .chapter-card {
+    padding: 7px 8px;
+    font-size: 0.95rem;
+    border-radius: 7px;
+    min-height: 40px;
+  }
+  .chapter-card .date {
+    font-size: 0.89rem;
+  }
+}
+
+.related-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+  padding: 20px;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.related-card {
+  background-color: #2c2c2c;
+  border-radius: 10px;
+  padding: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  min-height: 260px;
+  height: 100%;
+  justify-content: space-between;
+}
+
+.related-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 12px #ff6f6188;
+}
+
+.related-card img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 4.2;
+  object-fit: cover;
+  border-radius: 8px 8px 0 0;
+}
+
+.related-card .series-info {
+  padding: 8px 6px 6px;
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.related-card .series-info p {
+  min-height: 36px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 4px;
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+.related-card .series-info a {
+  color: #f0f0f0;
+  text-decoration: none;
+}
+
+.related-card .series-info a:hover {
+  color: #ff6f61;
+}
+
+.related-card .series-info .latest {
+  font-size: 0.75rem;
+  color: #bbb;
+  margin-top: 2px;
+}
+.comments {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 2.4rem;
+}
+
+/* Favori Butonu Stilleri */
+.favorite-btn {
+  background: transparent;
+  border: 2px solid #ff6f61;
+  border-radius: 25px;
+  color: #ff6f61;
+  padding: 10px 16px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 15px;
+  width: 100%;
+  max-width: 200px;
+}
+
+.favorite-btn:hover {
+  background: #ff6f61;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 111, 97, 0.3);
+}
+
+.favorite-btn.favorited {
+  background: #ff6f61;
+  color: white;
+  border-color: #ff6f61;
+}
+
+.favorite-btn.favorited:hover {
+  background: #e55a47;
+  border-color: #e55a47;
+}
+
+.favorite-btn i {
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+}
+
+.favorite-btn.favorited i {
+  color: white;
+}
+
+/* Mobil Responsive */
+@media (max-width: 768px) {
+  .favorite-btn {
+    font-size: 0.85rem;
+    padding: 8px 14px;
+    max-width: 180px;
+  }
+  
+  .favorite-text {
+    display: none;
+  }
+  
+  .favorite-btn {
+    width: auto;
+    padding: 10px;
+    border-radius: 50%;
+    max-width: 45px;
+    height: 45px;
+  }
+  
+  .favorite-btn i {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .favorite-btn {
+    max-width: 40px;
+    height: 40px;
+    padding: 8px;
+  }
+  
+  .favorite-btn i {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .related-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    padding: 15px;
+  }
+}
+
+/* Cover resmi için responsive düzeltmeler */
+@media (max-width: 768px) {
+  .cover {
+    width: 90%;
+    max-width: 400px;
+    aspect-ratio: 3 / 4.2;
+    object-fit: cover;
+  }
+}
+
+@media (max-width: 480px) {
+  .cover {
+    width: 85%;
+    max-width: 300px;
+    aspect-ratio: 3 / 4.2;
+    object-fit: cover;
+  }
+}
+
+@media (min-width: 900px) {
+  .related-grid {
+    max-width: 800px;
+    gap: 20px;
+  }
+}
+
+/* Series sayfası görsel iyileştirmeler */
+
+/* Cover ve info wrapper için modern layout */
+.cover-info-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  gap: 20px;
+}
+
+@media (min-width: 768px) {
+  .cover-info-wrapper {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 30px;
+  }
+  
+  .cover {
+    flex-shrink: 0;
+    width: 300px;
+    max-width: 300px;
+  }
+  
+  .info-card {
+    flex: 1;
+    margin: 0 !important;
+  }
+}
+
+/* Title için modern görünüm */
+.title {
+  text-align: center;
+  font-size: 3.4rem;
+  margin: 20px 0;
+  background: linear-gradient(45deg, #ff6f61, #9b94ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: bold;
+  text-shadow: 0 2px 10px rgba(255, 111, 97, 0.3);
+}
+
+/* Info card modern tasarım */
+.info-card {
+  background: linear-gradient(135deg, #2a2a2a 0%, #333 100%);
+  border-radius: 15px;
+  padding: 20px 25px;
+  margin: 20px;
+  color: #ccc;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  transition: background 0.2s ease;
+}
+
+.info-row:last-child {
+  border-bottom: none;
+}
+
+.info-row:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+/* Section bar modern görünüm */
+.section-bar {
+  background: linear-gradient(135deg, #ff6f61 0%, #9b94ff 100%);
+  color: white;
+  font-size: 1.4rem;
+  font-weight: bold;
+  padding: 15px 20px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(255, 111, 97, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.section-bar::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.section-bar:hover::before {
+  left: 100%;
+}
+
+/* Summary card modern tasarım */
+.summary-card {
+  background: linear-gradient(135deg, #2a2a2a 0%, #333 100%);
+  padding: 20px 25px;
+  border-radius: 15px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+  font-size: 1.6rem;
+  line-height: 1.7;
+  color: #ddd;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+}
+
+.summary-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(180deg, #ff6f61, #9b94ff);
+  border-radius: 0 15px 15px 0;
+}
+
+/* Favorite button modern tasarım */
+.favorite-btn {
+  background: linear-gradient(135deg, #ff6f61 0%, #e55a50 100%);
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 25px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(255, 111, 97, 0.3);
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  justify-content: center;
+}
+
+.favorite-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 111, 97, 0.4);
+}
+
+.favorite-btn.favorited {
+  background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+}
+
+.favorite-btn i {
+  font-size: 1.2rem;
+}
+
+/* Chapter cards modern görünüm */
+.chapter-card {
+  background: linear-gradient(135deg, #232323 0%, #313131 100%);
+  color: #fff;
+  text-decoration: none;
+  padding: 8px 12px;
+  border-radius: 7px;
+  transition: all 0.22s cubic-bezier(.4,0,.2,1);
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 1px 6px rgba(0,0,0,0.13);
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+  margin-bottom: 8px;
+  font-size: 0.98rem;
+  min-height: 44px;
+  line-height: 1.35;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.chapter-card .date {
+  font-size: 0.92rem;
+  font-weight: 400;
+  color: #bdbdbd;
+  margin-top: 2px;
+  margin-bottom: 0;
+}
+.chapter-card .reads {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #ff6f61;
+  margin-top: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+.chapter-card .reads i {
+  font-size: 0.8rem;
+}
+.chapter-card:hover {
+  transform: translateY(-2px) scale(1.025);
+  box-shadow: 0 4px 16px rgba(255,111,97,0.13);
+  border-color: rgba(255,111,97,0.18);
+}
+
+@media (max-width: 480px) {
+  .chapter-card {
+    padding: 6px 6px;
+    font-size: 0.91rem;
+    border-radius: 6px;
+    min-height: 38px;
+  }
+  .chapter-card .date {
+    font-size: 0.85rem;
+  }
+  .chapter-card .reads {
+    font-size: 0.8rem;
+  }
+}
+@media (min-width: 481px) and (max-width: 768px) {
+  .chapter-card {
+    padding: 7px 8px;
+    font-size: 0.95rem;
+    border-radius: 7px;
+    min-height: 40px;
+  }
+  .chapter-card .date {
+    font-size: 0.89rem;
+  }
+  .chapter-card .reads {
+    font-size: 0.83rem;
+  }
+}
+
+.chapter-title {
+  font-size: 1.45rem;
+  font-weight: 600;
+  margin-bottom: 2px;
+  color: #fff;
+  line-height: 1.2;
+}
+
+/* Yukarı Çık (Scroll to Top) Butonu */
+#scrollTopBtn {
+  display: none;
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 99;
+  font-size: 22px;
+  background: #222;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  transition: background 0.3s, transform 0.2s;
+}
+#scrollTopBtn:hover {
+  background: #ff6f61;
+  transform: scale(1.1);
+}
+@media (max-width: 600px) {
+  #scrollTopBtn {
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+    bottom: 18px;
+    right: 16px;
+  }
+}
+
+/* Rating system styles */
+#user-rating-area {
+  white-space: nowrap;
+  display: inline-block;
+}
+
+#user-rating-area > span {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  font-size: 1.3em;
+  margin-right: 3px;
+}
+
+#user-rating-area .average-star {
+  color: #ffb400;
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  width: 0%;
+  pointer-events: none;
+  z-index: 5;
+}
+
+#user-rating-area .user-star {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 10;
+  transition: color 0.2s ease;
+}
+
+/* Mobile responsive styles for rating */
+@media (max-width: 768px) {
+  .info-row .value {
+    display: block;
+    margin-top: 5px;
+  }
+  
+  #user-rating-area {
+    display: block;
+    margin-top: 8px;
+    margin-left: 0 !important;
+  }
+  
+  #user-rating-area > span {
+    margin-right: 5px;
+  }
+}
+
+/* Rating system pointer events fix */
+.user-rating-star {
+  pointer-events: auto !important;
+  cursor: pointer !important;
+}
+
+.user-rating-star .star-element {
+  pointer-events: none;
+}
+
+.user-rating-star:hover .star-element {
+  color: #ff6f61 !important;
+}
+
+/* Tüm seriler sayfası için rating düzenlemeleri */
+.manhwa-card .rating-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 22px;
+  margin: 8px auto;
+  width: 100%;
+  text-align: center;
+}
+
+.manhwa-card .rating-display {
+  margin: 0 auto;
+  font-size: 0.85em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: #555;
+  width: 100%;
+  text-align: center;
+  padding: 0 8px;
+}
+
+.manhwa-card .rating-loading {
+  color: #888;
+  font-style: italic;
+  font-size: 0.8em;
+  margin: 0 auto;
+  text-align: center;
+  width: 100%;
+}
+
+.manhwa-card .rating-display.no-rating {
+  color: #888;
+  font-style: italic;
+  font-size: 0.8em;
+  justify-content: center;
+  text-align: center;
+}
+
+.manhwa-card .rating-stars {
+  display: flex;
+  align-items: center;
+  gap: 1px;
+}
+
+.manhwa-card .rating-star-wrapper {
+  position: relative;
+  display: inline-block;
+  width: 13px;
+  height: 13px;
+  font-size: 13px;
+  line-height: 1;
+}
+
+.manhwa-card .rating-text {
+  color: #555;
+  font-size: 0.85em;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+/* Mobil görünümde tüm seriler sayfası için */
+@media (max-width: 768px) {
+  .manhwa-card .rating-container {
+    min-height: 20px;
+    margin: 4px 0 6px 0;
+  }
+  
+  .manhwa-card .rating-display {
+    font-size: 0.75em;
+  }
+  
+  .manhwa-card .rating-star-wrapper {
+    width: 11px;
+    height: 11px;
+    font-size: 11px;
+  }
+  
+  .manhwa-card .rating-text {
+    font-size: 0.8em;
+  }
+}

@@ -1,0 +1,37 @@
+[
+  {
+    "title": "Solo Leveling",
+    "date": "2025-06-10",
+    "image": "images/kapaklar/sololeveling.jpg",
+    "link": "series/sololeveling/sololevelingseri.html",
+    "chapters": ["Bölüm 10", "Bölüm 9"]
+  },
+  {
+    "title": "Omniscient Reader",
+    "date": "2025-06-05",
+    "image": "images/kapaklar/omniscient.jpg.webp",
+    "link": "series/omniscientreader/omniscientreaderseri.html",
+    "chapters": ["Bölüm 7", "Bölüm 6"]
+  },
+   {
+    "title": "Martial God Regressed to Level 2",
+    "date": "2025-06-05",
+    "image": "images/kapaklar/martialGodRegressedToLevel2.webp",
+    "link": "series/martialgodregressedtolevel2/martialgodregressedtolevel2seri.html",
+    "chapters": ["Bölüm 7", "Bölüm 6"]
+  },
+   {
+    "title": "Nano Machine",
+    "date": "2025-06-05",
+    "image": "images/kapaklar/NanoMachine.png",
+    "link": "series/nanomachine/nanomachineseri.html",
+    "chapters": ["Bölüm 7", "Bölüm 6"]
+  },
+   {
+    "title": "Damn Reincarnation",
+    "date": "2025-06-05",
+    "image": "images/kapaklar/DamnReincarnation.png",
+    "link": "series/damnreincarnation/damnreincarnationseri.html",
+    "chapters": ["Bölüm 7", "Bölüm 6"]
+  }
+]

@@ -1,0 +1,203 @@
+/* Dynamic Navigation Styles */
+.nav-btn {
+    padding: 12px 20px;
+    border-radius: 8px;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 500;
+    min-height: 44px;
+    justify-content: center;
+}
+
+.nav-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.prev-btn {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.prev-btn:hover {
+    background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%);
+}
+
+.next-btn {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    color: white;
+}
+
+.next-btn:hover {
+    background: linear-gradient(135deg, #ed64a6 0%, #f56565 100%);
+}
+
+.info-btn {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    color: white;
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.info-btn:hover {
+    background: linear-gradient(135deg, #43a9f5 0%, #1dd1a1 100%);
+}
+
+/* Navigation Area Styling */
+.okuma-nav-inner {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+/* First Chapter Styling */
+.first-chapter .nav-btn {
+    animation: pulseGlow 2s infinite;
+}
+
+@keyframes pulseGlow {
+    0% { box-shadow: 0 0 5px rgba(245, 87, 108, 0.5); }
+    50% { box-shadow: 0 0 20px rgba(245, 87, 108, 0.8), 0 0 30px rgba(245, 87, 108, 0.6); }
+    100% { box-shadow: 0 0 5px rgba(245, 87, 108, 0.5); }
+}
+
+/* Last Chapter Styling */
+.last-chapter .nav-btn {
+    border: 2px solid #ffd700;
+}
+
+.last-chapter .info-btn {
+    background: linear-gradient(135deg, #ffd700 0%, #ffb347 100%);
+    animation: sparkle 3s infinite;
+}
+
+@keyframes sparkle {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+/* Mobile Responsive - Icon Only Navigation */
+@media (max-width: 600px) {
+    .nav-btn {
+        padding: 10px 16px;
+        font-size: 0.9rem;
+        gap: 6px;
+        min-width: 44px;
+    }
+    
+    .nav-btn span {
+        display: none !important;
+    }
+    
+    .info-btn {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .okuma-nav-inner {
+        gap: 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .nav-btn {
+        padding: 8px 12px;
+        min-height: 36px;
+        min-width: 36px;
+    }
+    
+    .info-btn {
+        width: 36px;
+        height: 36px;
+    }
+    
+    .okuma-nav-inner {
+        gap: 6px;
+    }
+}
+
+/* Loading State */
+.nav-btn.loading {
+    opacity: 0.7;
+    cursor: not-allowed;
+    animation: loadingPulse 1.5s infinite;
+}
+
+@keyframes loadingPulse {
+    0%, 100% { opacity: 0.7; }
+    50% { opacity: 1; }
+}
+
+/* Error State */
+.nav-btn.error {
+    background: #dc3545;
+    color: white;
+}
+
+.nav-btn.error:hover {
+    background: #c82333;
+}
+
+/* Success Animation */
+.nav-btn.success {
+    animation: successFlash 0.6s ease-in-out;
+}
+
+@keyframes successFlash {
+    0% { background: #28a745; }
+    50% { background: #34ce57; transform: scale(1.05); }
+    100% { background: initial; transform: scale(1); }
+}
+
+/* Chapter Position Indicators */
+.chapter-position {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background: #ff6f61;
+    color: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    font-size: 0.7rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.nav-btn {
+    position: relative;
+}
+
+/* Keyboard Hint Enhancement */
+.keyboard-hint {
+    background: rgba(0,0,0,0.8);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 20px;
+    position: fixed;
+    bottom: 80px;
+    right: 20px;
+    font-size: 0.8rem;
+    z-index: 1000;
+    animation: fadeInOut 4s ease-in-out;
+}
+
+@keyframes fadeInOut {
+    0%, 100% { opacity: 0; transform: translateY(10px); }
+    20%, 80% { opacity: 1; transform: translateY(0); }
+}

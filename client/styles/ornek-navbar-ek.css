@@ -1,0 +1,633 @@
+/* ornek-navbar.html için, navbar ve header hariç kalan kısımların (kapak, info, özet, bölümler, benzer seriler, yorumlar) modern ve okunaklı bir CSS dosyası */
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: url('../images/ToonNekoBackground.png') repeat center top fixed !important;
+  background-size: auto !important;
+  color: #f0f0f0;
+  padding-bottom: 40px;
+}
+
+.search-container {
+  position: relative;
+  width: 90%;
+  max-width: 500px;
+  margin: 20px auto;
+  padding: 0 10px;
+}
+#search-input {
+  width: 100%;
+  padding: 12px 16px;
+  font-size: 1rem;
+  background-color: #333;
+  border: none;
+  border-radius: 8px;
+  color: white;
+}
+.results-box {
+  position: absolute;
+  top: 105%;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  width: 100%;
+  background-color: #2c2c2c;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  max-height: 220px;
+  overflow-y: auto;
+  z-index: 10;
+  box-sizing: border-box;
+}
+.result-item {
+  display: flex;
+  gap: 10px;
+  padding: 10px;
+  border-bottom: 1px solid #444;
+  align-items: center;
+}
+.result-item img {
+  width: 60px;
+  height: 90px;
+  object-fit: cover;
+  border-radius: 6px;
+  flex-shrink: 0;
+}
+.result-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+}
+.result-info a {
+  color: #6C63FF;
+  text-decoration: none;
+  font-weight: bold;
+  margin-bottom: 4px;
+  transition: color 0.3s;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.result-info a:hover {
+  color: #9b94ff;
+}
+.hidden {
+  display: none;
+}
+
+.cover {
+  width: 95%;
+  max-width: 680px;
+  margin: 20px auto;
+  display: block;
+  border-radius: 12px;
+}
+.title {
+  text-align: center;
+  font-size: 2.2rem; /* 3.4rem yerine, seri.css ile uyumlu boyut */
+  margin-bottom: 10px;
+}
+.info-card {
+  background: #2a2a2a;
+  border-radius: 10px;
+  padding: 16px 20px;
+  margin: 20px;
+  color: #ccc;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  font-size: 1.1rem; /* 2.05rem yerine, seri.css ile uyumlu */
+}
+.details {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.label {
+  font-weight: 600;
+  color: #aaa;
+  min-width: 90px;
+  font-size: 1.1rem; /* 2.05rem yerine */
+}
+.value {
+  color: #f0f0f0;
+  text-align: right;
+  flex: 1;
+  font-size: 1.1rem; /* 2.05rem yerine */
+}
+.section {
+  padding: 0 20px;
+  margin-bottom: 80px;
+}
+.section-bar {
+  background: linear-gradient(90deg, #3c3a68, #333062);
+  color: white;
+  font-size: 1.1rem; /* 1.4rem yerine */
+  font-weight: bold;
+  padding: 12px 16px;
+  border-radius: 8px;
+  margin-bottom: 14px;
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+}
+.summary-card {
+  background-color: #2a2a2a;
+  padding: 16px 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+  font-size: 1rem; /* 1.6rem yerine */
+  line-height: 1.6;
+  color: #ddd;
+}
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
+  padding: 0 0px;
+  margin-bottom: 10px; /* Eklendi: butonlar ile searchbar arasında boşluk */
+}
+.buttons button {
+  flex: 1;
+  max-width: 65%;
+  padding: 20px; /* 50px yerine */
+  background: #6C63FF;
+  border: none;
+  color: white;
+  font-weight: bold;
+  border-radius: 6px;
+  font-size: 1.1rem; /* 2.8rem yerine */
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+.buttons button:hover {
+  background: #584de0;
+  transform: scale(1.03);
+}
+.search {
+  margin-top: 10px; /* Eklendi: searchbar ile butonlar arasında boşluk */
+}
+.search input {
+  width: 100%;
+  max-width: 400px; /* Eklendi: arama kutusunun genişliği sınırlandı */
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  padding: 12px 16px;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 8px;
+  background: #333;
+  color: white;
+}
+.chapters {
+  max-height: 300px;
+  overflow-y: auto;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 4px; /* Daha az boşluk */
+  margin-top: 10px;
+}
+.chapter-title {
+  font-size: 0.95rem; /* Daha küçük yazı */
+  font-weight: bold;
+  margin-bottom: 1px;
+  display: block;
+  color: white;
+  text-decoration: none;
+  margin-top: 10px; /* Üste biraz boşluk ekle, ortalamaya yaklaşsın */
+}
+.chapter-card .date {
+  font-size: 0.8rem;
+  font-weight: 300;
+  color: #bbb;
+  display: block;
+  margin-top: auto; /* Her zaman en altta kalsın */
+  margin-bottom: 2px;
+}
+.chapter-card {
+  background: #2a2a2a;
+  padding: 6px 8px; /* Daha az iç boşluk */
+  border-radius: 6px;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  margin-bottom: 4px; /* Daha az alt boşluk */
+  border-radius: 8px;
+  background-color: #2d2d2d;
+  text-decoration: none;
+  color: white;
+}
+.chapter-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 12px #6C63FF88;
+}
+.related-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+  padding: 20px;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.related-card {
+  background-color: #2c2c2c;
+  border-radius: 10px;
+  padding: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  min-height: 260px;
+  height: 100%;
+  justify-content: space-between;
+}
+
+.related-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 12px #6C63FF88;
+}
+
+.related-card img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 4.2;
+  object-fit: cover;
+  border-radius: 8px 8px 0 0;
+}
+
+.related-card .series-info {
+  padding: 8px 6px 6px;
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.related-card .series-info p {
+  min-height: 36px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 4px;
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+.related-card .series-info a {
+  color: #f0f0f0;
+  text-decoration: none;
+}
+
+.related-card .series-info a:hover {
+  color: #6C63FF;
+}
+
+.related-card .series-info .latest {
+  font-size: 0.75rem;
+  color: #bbb;
+  margin-top: 2px;
+}
+
+/* Favori Butonu Stilleri */
+.favorite-btn {
+  background: transparent;
+  border: 2px solid #ff6f61;
+  border-radius: 25px;
+  color: #ff6f61;
+  padding: 10px 16px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 15px;
+  width: 100%;
+  max-width: 200px;
+}
+
+.favorite-btn:hover {
+  background: #ff6f61;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 111, 97, 0.3);
+}
+
+.favorite-btn.favorited {
+  background: #ff6f61;
+  color: white;
+  border-color: #ff6f61;
+}
+
+.favorite-btn.favorited:hover {
+  background: #e55a47;
+  border-color: #e55a47;
+}
+
+.favorite-btn i {
+  font-size: 1.2rem;
+  transition: all 0.3s ease;
+}
+
+.favorite-btn.favorited i {
+  color: white;
+}
+.comments {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 1.2rem; /* 2.4rem yerine */
+}
+.series-info {
+  background: #2c2c2c;
+  padding: 10px;
+  border-radius: 6px;
+  margin-top: 6px;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.4);
+}
+.series-info p {
+  margin: 0;
+  font-weight: bold;
+  font-size: 1rem; /* 1.2rem yerine */
+}
+.series-info a {
+  color: #f0f0f0;
+  text-decoration: none;
+}
+.series-info a:hover {
+  color: #6C63FF;
+}
+.series-info .latest {
+  font-size: 0.8rem; /* 1rem yerine */
+  color: #bbb;
+  margin-top: 4px;
+}
+
+/* Modal Styles */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: #fff;
+  margin: auto;
+  padding: 32px 24px;
+  border-radius: 12px;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.18);
+  position: relative;
+  color: #333;
+}
+
+.modal h2 {
+  margin-bottom: 18px;
+  text-align: center;
+  color: #333;
+}
+
+.modal-field {
+  margin-bottom: 16px;
+}
+
+.modal-field label {
+  display: block;
+  margin-bottom: 6px;
+  color: #333;
+  font-weight: 500;
+}
+
+.modal-field input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+.modal-btn {
+  width: 100%;
+  padding: 12px;
+  background: #ff6f61;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.modal-btn:hover {
+  background: #e55a4e;
+}
+
+.modal-footer {
+  text-align: center;
+  margin-top: 16px;
+}
+
+.modal-footer p {
+  margin: 0;
+  color: #666;
+}
+
+.modal-footer a {
+  color: #ff6f61;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.modal-footer a:hover {
+  text-decoration: underline;
+}
+
+.close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: none;
+  border: none;
+  font-size: 22px;
+  cursor: pointer;
+  color: #666;
+  padding: 0;
+  width: auto;
+  height: auto;
+}
+
+.close:hover {
+  color: #333;
+}
+
+@media (max-width: 768px) {
+  .related-grid {
+    gap: 14px;
+    padding: 15px;
+  }
+  .cover {
+    max-width: 98vw;
+  }
+  .info-card, .section, .summary-card {
+    margin: 10px;
+    padding: 10px;
+  }
+  .buttons button {
+    font-size: 1.1rem;
+    padding: 20px;
+  }
+  .chapter-title {
+    font-size: 1.1rem;
+  }
+  .chapter-card .date {
+    font-size: 0.9rem;
+  }
+}
+@media (max-width: 600px) {
+  .search-container {
+    max-width: 98vw;
+    padding: 0 2vw;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  #search-input {
+    font-size: 0.95rem;
+    padding: 10px 14px;
+    width: 100%;
+    box-sizing: border-box;
+    margin-left: 0;
+    margin-right: 0;
+  }
+  .related-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    padding: 12px;
+  }
+  .favorite-btn {
+    font-size: 0.85rem;
+    padding: 8px 14px;
+    max-width: 180px;
+  }
+  
+  .favorite-text {
+    display: none;
+  }
+  
+  .favorite-btn {
+    width: auto;
+    padding: 10px;
+    border-radius: 50%;
+    max-width: 45px;
+    height: 45px;
+  }
+  
+  .favorite-btn i {
+    font-size: 1.2rem;
+  }
+}
+@media (max-width: 480px) {
+  .favorite-btn {
+    max-width: 40px;
+    height: 40px;
+    padding: 8px;
+  }
+  
+  .favorite-btn i {
+    font-size: 1.1rem;
+  }
+}
+
+@media (min-width: 900px) {
+  /* Kapak ve info-card yan yana gelsin, marginler ve boyutlar ayarlansın */
+  .cover-info-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 48px;
+    margin-left: 180px !important;
+    margin-right: 180px !important;
+    margin-bottom: 32px;
+    max-width: calc(100vw - 360px);
+  }
+  .cover-info-wrapper .cover {
+    max-width: 300px;
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    margin: 0;
+    display: block;
+  }
+  .cover-info-wrapper .info-card {
+    flex: 1;
+    min-width: 220px;
+    margin: 0;
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+    min-height: 320px;
+    align-items: stretch; /* hizalamayı varsayılan yap */
+    text-align: unset;
+  }
+  .cover-info-wrapper .details {
+    align-items: stretch; /* hizalamayı varsayılan yap */
+  }
+  .cover-info-wrapper .info-row {
+    justify-content: space-between; /* label sola, value sağa */
+    gap: 24px;
+    padding: 4px 0;
+  }
+  .cover-info-wrapper .label {
+    min-width: 110px;
+    text-align: left; /* label tamamen sola */
+  }
+  .cover-info-wrapper .value {
+    text-align: right; /* value tamamen sağa */
+    flex: 1;
+  }
+  /* Diğer ana elementlerin marginleri */
+  .title,
+  .section,
+  .summary-card,
+  .related-grid,
+  .comments {
+    margin-left: 180px !important;
+    margin-right: 180px !important;
+    max-width: calc(100vw - 360px);
+  }
+  /* Search bar ve bölüm içi search inputları ortalı kalsın */
+  .search-container,
+  .search input {
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+  /* Section içi padding'i de artır */
+  .section {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+}

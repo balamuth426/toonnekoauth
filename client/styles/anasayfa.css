@@ -1,0 +1,1601 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Poppins', sans-serif;
+  background: url('../images/ToonNekoBackground.png') repeat center top fixed !important;
+  background-size: auto !important;
+  color: #f0f0f0;
+}
+
+/* Ana sayfa için header styling'lerini navbar.css'e bırakıyoruz */
+
+/* Header içindeki h1 elementleri için özel styling'ler */
+header h1 {
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+header h1 img {
+  height: 30px;
+}
+nav ul {
+  display: flex;
+  gap: 20px;
+  list-style: none;
+}
+nav a {
+  text-decoration: none;
+  color: #f0f0f0;
+  transition: color 0.3s;
+}
+nav a:hover { color: #ff6f61; }
+.section-title {
+  font-size: 1.8rem;
+  margin: 40px 20px 20px;
+}
+
+/* YENİ MANHWALAR - YATAY KARTLAR */
+.carousel-container {
+  position: relative;
+  width: 100%;
+  max-width: 100vw;
+  overflow: hidden;
+}
+.carousel-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 8px;
+  gap: 380px; /* Kart genişliğinden biraz fazla */
+  padding: 0 16px; /* Mobilde kenarlardan uzak tutmak için */
+}
+.carousel-row {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  position: relative;
+  gap: 20px;
+  width: 100%;
+  overflow: hidden;
+  scroll-behavior: smooth;
+  transition: transform 0.5s cubic-bezier(0.4,0,0.2,1);
+  justify-content: center;
+  align-items: center;
+  min-height: 220px;
+}
+.carousel-arrow {
+  position: static;
+  top: auto;
+  left: auto;
+  right: auto;
+  transform: none;
+  background: #ff6f61;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  opacity: 0.85;
+  transition: background 0.2s;
+}
+.carousel-arrow.left {
+  margin-right: -12px;
+}
+.carousel-arrow.right {
+  margin-left: -12px;
+}
+.carousel-arrow:hover {
+  background: #e55a50;
+}
+.carousel-row .manhwa-card {
+  flex: 0 0 360px;
+  min-width: 360px;
+  max-width: 360px;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  position: relative;
+  height: 220px;
+  background-color: #2c2c2c;
+  border-radius: 10px;
+  padding: 18px;
+  transition: transform 0.3s;
+  min-height: 200px;
+  font-size: 1.08rem;
+}
+.carousel-row .manhwa-card img {
+  width: 120px;
+  height: 170px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-right: 18px;
+}
+.carousel-row .manhwa-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  min-width: 0;
+  position: relative;
+  padding-bottom: 0;
+  height: 100%;
+}
+.carousel-row .manhwa-info h3 {
+  font-size: 1.15rem;
+  margin-bottom: 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 180px;
+  margin-top: 0;
+}
+.carousel-row .manhwa-info p {
+  font-size: 1rem;
+  margin-bottom: 8px;
+  margin-top: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.carousel-row .buttons {
+  position: static;
+  width: 100%;
+  display: flex;
+  gap: 10px;
+  justify-content: flex-start;
+  margin-top: auto;
+  margin-bottom: 0;
+}
+.carousel-row .buttons button {
+  font-size: 0.97rem;
+  padding: 10px 12px;
+  min-width: 90px;
+  max-width: 130px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  box-sizing: border-box;
+  background-color: #ff6f61;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.2s;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+.carousel-row .buttons button:hover {
+  background-color: #e55a50;
+}
+
+/* SON YÜKLENENLER - DİKEY KARTLAR - 4'LÜ GRİD MANTIGI */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* Masaüstünde 4 sütun sabit */
+  gap: 20px;
+  padding: 20px;
+  max-width: 1200px; /* 4 kart için uygun genişlik */
+  margin: 0 auto;
+  justify-content: start; /* Sol tarafa yasla */
+  align-content: start;
+}
+
+/* Tablet için 3 kolon */
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+  }
+}
+
+/* Mobil için 2 kolon */
+@media (max-width: 480px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+}
+
+/* Masaüstü için: Kart sayısı az olduğunda sola yaslama ve sabit boyut */
+@media (min-width: 769px) {
+  .grid.only-one {
+    grid-template-columns: repeat(4, 1fr) !important;
+  }
+  .grid.only-one .manhwa-card {
+    grid-column: 1 / span 1; /* İlk slotta konumlandır */
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+  }
+  
+  .grid.only-two {
+    grid-template-columns: repeat(4, 1fr) !important;
+  }
+  .grid.only-two .manhwa-card:first-child {
+    grid-column: 1 / span 1;
+  }
+  .grid.only-two .manhwa-card:last-child {
+    grid-column: 2 / span 1;
+  }
+  .grid.only-two .manhwa-card {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+  }
+  
+  .grid.only-three {
+    grid-template-columns: repeat(4, 1fr) !important;
+  }
+  .grid.only-three .manhwa-card:nth-child(1) {
+    grid-column: 1 / span 1;
+  }
+  .grid.only-three .manhwa-card:nth-child(2) {
+    grid-column: 2 / span 1;
+  }
+  .grid.only-three .manhwa-card:nth-child(3) {
+    grid-column: 3 / span 1;
+  }
+  .grid.only-three .manhwa-card {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+  }
+}
+
+.grid .buttons {
+  margin-top: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+/* Grid kartlar için */
+.grid .buttons button {
+  padding: 8px 16px !important;
+  background-color: #ff6f61;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  min-width: 100px;
+}
+
+.grid .button-wrapper {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.grid .button-wrapper button {
+  padding: 5px 10px;
+  background-color: #ff6f61;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.grid .button-wrapper button:hover {
+  background-color: #e55a50;
+}
+
+/* Üzerine gelince */
+.grid .buttons button:hover {
+  background-color: #e55a50;
+}
+
+.grid .manhwa-meta p {
+  font-size: 0.75rem;
+  color: #aaa;
+  margin-top: 5px;
+}
+
+.seri-link {
+  color: #f0f0f0; /* Yazı rengi */
+  text-decoration: none; /* Alt çizgiyi kaldırır */
+  transition: color 0.3s;
+}
+
+.seri-link:hover {
+  color: #ff6f61; /* Üzerine gelince renk */
+  text-decoration: underline; /* İsteğe bağlı çizgi */
+}
+
+/* TRENDINGS */
+.trendings {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 15px;
+  padding: 20px;
+  text-align: center;
+}
+.trendings .manhwa-card img {
+  height: 100px;
+  object-fit: cover;
+  width: 100%;
+  border-radius: 8px;
+}
+
+/* HAMBURGER & RESPONSIVE */
+.hamburger {
+  display: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+@media (max-width: 768px) {
+  nav ul { display: none; }
+  .hamburger { display: block; }
+  .scroll-row { gap: 10px; }
+  .scroll-row .manhwa-card { flex: 0 0 90%; }
+}
+footer {
+  padding: 30px;
+  text-align: center;
+}
+footer a {
+  margin: 0 10px;
+  color: #ccc;
+  text-decoration: none;
+}
+footer a:hover {
+  color: #fff;
+}
+
+@media (max-width: 768px) {
+  nav ul {
+    display: none;
+    flex-direction: column;
+    gap: 10px;
+    background-color: #2c2c2c;
+    padding: 10px;
+  }
+  nav ul.show {
+    display: flex;
+  }
+  .hamburger { display: block; }
+  .scroll-row { gap: 10px; }
+  .scroll-row .manhwa-card { flex: 0 0 90%; }
+}
+
+/* Tüm butonları aynı boyutta tut */
+.search-container {
+  position: relative;
+  width: 90%;
+  max-width: 500px;
+  margin: 20px auto;
+  padding: 0 10px;
+  box-sizing: border-box;
+}
+
+#search-input {
+  width: 100%;
+  padding: 12px 16px;
+  font-size: 1rem;
+  background-color: #333;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  box-sizing: border-box;
+}
+
+/* 📌 Arama sonuç kutusu */
+.results-box {
+  position: absolute;
+  top: 105%;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  width: 100%;
+  background-color: #2c2c2c;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  max-height: 220px;
+  overflow-y: auto;
+  z-index: 10;
+  box-sizing: border-box;
+}
+
+.result-item {
+  display: flex;
+  gap: 10px;
+  padding: 10px;
+  border-bottom: 1px solid #444;
+  align-items: center;
+}
+
+.result-item img {
+  width: 60px;
+  height: 90px;
+  object-fit: cover;
+  border-radius: 6px;
+  flex-shrink: 0;
+}
+
+.result-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.result-info a {
+  color: #ff6f61;
+  text-decoration: none;
+  font-weight: bold;
+  margin-bottom: 4px;
+  transition: color 0.3s;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.result-info a:hover {
+  color: #9b94ff;
+}
+
+.hidden {
+  display: none;
+}
+
+/* ✅ Mobil uyum için */
+@media (max-width: 600px) {
+  .result-item img {
+    width: 50px;
+    height: 75px;
+  }
+
+  .result-info a {
+    font-size: 0.9rem;
+  }
+
+  #search-input {
+    font-size: 0.95rem;
+    padding: 10px 14px;
+  }
+}
+
+
+
+/* Kart Hover Efekti */
+.manhwa-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.manhwa-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 12px #ff6f6188;
+}
+
+/* manhwa öneri kısmı */
+.oner-kutusu {
+  background: rgba(44,44,44,0.85);
+  border-radius: 18px;
+  padding: 32px 24px 28px 24px;
+  text-align: center;
+  max-width: 420px;
+  margin: 48px auto 40px auto;
+  box-shadow: 0 8px 32px 0 #ff6f6133, 0 1.5px 8px 0 #0008;
+  backdrop-filter: blur(8px) saturate(1.2);
+  border: 1.5px solid #ff6f6133;
+  position: relative;
+  overflow: visible;
+  animation: fadeInOner 1.2s cubic-bezier(.4,0,.2,1);
+}
+@keyframes fadeInOner {
+  from { opacity: 0; transform: translateY(40px) scale(0.98); }
+  to { opacity: 1; transform: none; }
+}
+.oner-kutusu h2 {
+  color: #fff;
+  margin-bottom: 18px;
+  font-size: 1.45rem;
+  letter-spacing: 0.5px;
+  text-shadow: 0 2px 12px #ff6f6155;
+}
+.slider {
+  width: 100%;
+  height: 210px;
+  margin: 24px 0 14px;
+  border: 2.5px solid #ff6f61;
+  border-radius: 14px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: visible;
+  background: linear-gradient(120deg, #23233a 60%, #ff6f6122 100%);
+  box-shadow: 0 0 24px #ff6f6122;
+  position: relative;
+}
+.slider img {
+  width: 148px;
+  height: 192px;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0 0 16px #ff6f6133;
+  transition: transform 0.35s cubic-bezier(.4,0,.2,1), box-shadow 0.35s;
+  z-index: 1;
+}
+.sparkle {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  pointer-events: none;
+  background: radial-gradient(circle, #fff 60%, #ff6f61 100%);
+  opacity: 0.85;
+  border-radius: 50%;
+  filter: blur(1.5px) brightness(1.2);
+  animation: sparkleAnim 0.9s cubic-bezier(.4,0,.2,1);
+  z-index: 2;
+}
+@keyframes sparkleAnim {
+  0% { opacity: 0; transform: scale(0.2) rotate(0deg); }
+  60% { opacity: 1; transform: scale(1.1) rotate(20deg); }
+  100% { opacity: 0; transform: scale(0.7) rotate(60deg); }
+}
+#preview-title {
+  font-size: 1.13rem;
+  color: #ff6f61;
+  margin-bottom: 22px;
+  transition: opacity 0.4s cubic-bezier(.4,0,.2,1);
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  text-shadow: 0 2px 8px #ff6f6133;
+}
+.seri-baslik.hidden {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s cubic-bezier(.4,0,.2,1);
+}
+.seri-baslik {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.3s cubic-bezier(.4,0,.2,1);
+}
+#oner-button {
+  padding: 12px 28px;
+  background: linear-gradient(90deg, #ff6f61 60%, #e55a50 100%);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 1.08rem;
+  font-weight: 600;
+  box-shadow: 0 2px 12px #ff6f6133;
+  transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+#oner-button:hover, #oner-button:focus {
+  background: linear-gradient(90deg, #e55a50 60%, #ff6f61 100%);
+  transform: scale(1.06) translateY(-2px);
+  box-shadow: 0 4px 24px #ff6f6155;
+}
+#oner-button.loading {
+  pointer-events: none;
+  opacity: 0.7;
+  background: repeating-linear-gradient(90deg, #ff6f61 0 20px, #e55a50 20px 40px);
+  animation: onerBtnLoading 1.2s linear infinite;
+}
+@keyframes onerBtnLoading {
+  0% { filter: brightness(1.1); }
+  50% { filter: brightness(1.3); }
+  100% { filter: brightness(1.1); }
+}
+
+.grid .manhwa-card img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 4.2;
+  object-fit: cover;
+  border-radius: 8px;
+}
+.grid .manhwa-info {
+  margin-top: 10px;
+}
+.grid .manhwa-info h3 {
+  min-height: 48px; /* 2 satır başlık için sabit yükseklik */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 6px;
+  font-size: 1rem;
+}
+.grid .manhwa-info p {
+  font-size: 0.85rem;
+  color: #ccc;
+  margin-bottom: 6px;
+}
+
+.grid .manhwa-card {
+  background-color: #2c2c2c;
+  border-radius: 10px;
+  padding: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  min-height: 340px; /* Kart yüksekliğini sabitle (isteğe göre ayarlanabilir) */
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.grid .manhwa-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 12px #ff6f6188;
+}
+
+/* Görsel kısmı */
+
+
+/* Başlık kısmı */
+.grid .manhwa-info {
+  padding: 10px 8px 6px;
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.grid .manhwa-info h3 {
+  font-size: 1rem;
+  margin-bottom: 6px;
+}
+.grid .manhwa-info h3 a {
+  color: #ffffff;
+  text-decoration: none;
+}
+.grid .manhwa-info h3 a:hover {
+  text-decoration: underline;
+}
+
+/* Güncelleme + butonlar */
+.grid .manhwa-meta {
+  padding: 0 0 12px;
+}
+.grid .manhwa-meta p {
+  font-size: 0.85rem;
+  color: #ccc;
+  margin-bottom: 6px;
+}
+
+
+@media (max-width: 768px) {
+  .grid .buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+  .grid .buttons button {
+    width: 80%;
+    max-width: 160px;
+  }
+}
+
+@media (max-width: 768px) {
+  .grid .manhwa-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 10px;
+  }
+  .grid .manhwa-card .manhwa-info,
+  .grid .manhwa-card .manhwa-meta {
+    width: 100%;
+  }
+  .grid .buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+  .grid .buttons button {
+    width: 85%;
+    max-width: 200px;
+  }
+  .grid .manhwa-info h3, .grid .manhwa-info p {
+    text-align: center;
+  }
+}
+
+/* pagination */
+.pagination {
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 30px auto;
+  width: 100%;
+}
+
+
+.pagination-btn {
+  padding: 8px 14px;
+  margin: 4px;
+  background-color: #444;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.pagination-btn:hover {
+  background-color: #ff6f61;
+}
+
+.pagination-btn.active {
+  background-color: #ff6f61;
+  font-weight: bold;
+}
+
+/* Enerji halkası ve renkli partikül animasyonları */
+.oner-burst-ring {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 120px;
+  height: 120px;
+  transform: translate(-50%, -50%) scale(0.7);
+  border-radius: 50%;
+  border: 3.5px solid #ff6f61;
+  box-shadow: 0 0 32px #ff6f6199, 0 0 0 8px #fff2;
+  opacity: 0.7;
+  pointer-events: none;
+  animation: onerRingAnim 0.9s cubic-bezier(.4,0,.2,1);
+  z-index: 3;
+}
+@keyframes onerRingAnim {
+  0% { opacity: 0.2; transform: translate(-50%, -50%) scale(0.2); }
+  60% { opacity: 0.8; transform: translate(-50%, -50%) scale(1.1); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(1.3); }
+}
+.oner-star-particle {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 18px;
+  height: 18px;
+  pointer-events: none;
+  z-index: 4;
+  transform: translate(-50%, -50%) scale(0.5) rotate(var(--star-rotate,0deg));
+  opacity: 0.92;
+  animation: onerStarAnim 0.9s cubic-bezier(.4,0,.2,1);
+  background: none;
+}
+.oner-star-particle::before {
+  content: '\2605'; /* Unicode yıldız */
+  font-size: 18px;
+  color: #fffbe7;
+  text-shadow: 0 0 8px #ff6f61, 0 0 2px #fff, 0 0 12px #ffe066;
+  display: block;
+}
+@keyframes onerStarAnim {
+  0% { opacity: 0; transform: translate(-50%, -50%) scale(0.2) rotate(var(--star-rotate,0deg)); }
+  60% { opacity: 1; }
+  80% { opacity: 1; }
+  100% {
+    opacity: 0;
+    transform: translate(calc(-50% + var(--x, 0)), calc(-50% + var(--y, 0))) scale(0.7) rotate(var(--star-rotate,0deg));
+  }
+}
+.oner-wave {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 140px;
+  height: 140px;
+  transform: translate(-50%, -50%) scale(0.7);
+  border-radius: 50%;
+  background: radial-gradient(circle, #ff6f6133 60%, #fff0 100%);
+  opacity: 0.45;
+  pointer-events: none;
+  animation: onerWaveAnim 0.7s cubic-bezier(.4,0,.2,1);
+  z-index: 2;
+}
+@keyframes onerWaveAnim {
+  0% { opacity: 0.1; transform: translate(-50%, -50%) scale(0.2); }
+  60% { opacity: 0.45; transform: translate(-50%, -50%) scale(1.1); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(1.3); }
+}
+
+.buttons button,
+.nav-buttons button,
+#oner-button,
+.buttons button,
+.buttons > button,
+button.ilk-bolum,
+button.son-bolum {
+  padding: 12px 28px;
+  background: linear-gradient(90deg, #ff6f61 60%, #e55a50 100%);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 1.08rem;
+  font-weight: 600;
+  box-shadow: 0 2px 12px #ff6f6133;
+  transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+
+/* No Chapter Button Styling */
+.buttons button.no-chapter {
+  background: linear-gradient(90deg, #666 60%, #777 100%) !important;
+  color: #ccc !important;
+  cursor: not-allowed !important;
+  opacity: 0.7;
+}
+.buttons button.no-chapter:hover {
+  background: linear-gradient(90deg, #666 60%, #777 100%) !important;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+.buttons button:hover,
+.nav-buttons button:hover,
+#oner-button:hover,
+.buttons > button:hover,
+button.ilk-bolum:hover,
+button.son-bolum:hover,
+.buttons button:focus,
+.nav-buttons button:focus,
+#oner-button:focus,
+.buttons > button:focus,
+button.ilk-bolum:focus,
+button.son-bolum:focus {
+  background: linear-gradient(90deg, #e55a50 60%, #ff6f61 100%);
+  transform: scale(1.06) translateY(-2px);
+  box-shadow: 0 4px 24px #ff6f6155;
+}
+.carousel-row.slide-left {
+  transform: translateX(-100%);
+}
+.carousel-row.slide-right {
+  transform: translateX(100%);
+}
+
+/* Carousel animasyonları için iki kartlı yapı */
+.carousel-row {
+  position: relative;
+  width: 100%;
+  height: 220px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.carousel-card-anim {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.5s cubic-bezier(0.4,0,0.2,1), opacity 0.5s cubic-bezier(0.4,0,0.2,1);
+  will-change: transform, opacity;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.carousel-card-anim.current {
+  z-index: 2;
+}
+.carousel-card-anim.next {
+  z-index: 3;
+}
+.carousel-card-anim.slide-out-left {
+  transform: translateX(-100%);
+  opacity: 0;
+}
+.carousel-card-anim.slide-in-right {
+  transform: translateX(100%);
+  opacity: 0;
+}
+.carousel-card-anim.slide-in-right.active {
+  transform: translateX(0);
+  opacity: 1;
+}
+.carousel-card-anim.slide-out-right {
+  transform: translateX(100%);
+  opacity: 0;
+}
+.carousel-card-anim.slide-in-left {
+  transform: translateX(-100%);
+  opacity: 0;
+}
+.carousel-card-anim.slide-in-left.active {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+/* 3D Carousel Modern Tasarım */
+.carousel-3d {
+  position: relative;
+  width: 100%;
+  min-height: 260px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  perspective: 1200px;
+  overflow: visible;
+  background: none;
+}
+.carousel-3d-card {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 340px;
+  height: 220px;
+  background: #23233b;
+  border-radius: 18px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+  transition: transform 0.9s cubic-bezier(0.22, 0.61, 0.36, 1), box-shadow 0.7s, filter 0.7s, opacity 0.7s;
+  z-index: 2;
+  opacity: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  will-change: transform, opacity, filter;
+}
+.carousel-3d-card.current {
+  transform: translateX(-50%) scale(1) rotateY(0deg);
+  z-index: 3;
+  box-shadow: 0 12px 36px rgba(0,0,0,0.22);
+  opacity: 1;
+  filter: none;
+}
+.carousel-3d-card.prev {
+  transform: translateX(-210%) scale(0.8) rotateY(30deg);
+  z-index: 2;
+  filter: blur(2px) grayscale(0.4);
+  opacity: 0.6;
+}
+.carousel-3d-card.next {
+  transform: translateX(110%) scale(0.8) rotateY(-30deg);
+  z-index: 2;
+  filter: blur(2px) grayscale(0.4);
+  opacity: 0.6;
+}
+.carousel-3d-card.hide {
+  opacity: 0;
+  pointer-events: none;
+}
+.carousel-3d-card.far-prev {
+  transform: translateX(-350%) scale(0.6) rotateY(40deg);
+  z-index: 1;
+  opacity: 0.2;
+  filter: blur(4px) grayscale(0.7);
+}
+.carousel-3d-card.far-next {
+  transform: translateX(250%) scale(0.6) rotateY(-40deg);
+  z-index: 1;
+  opacity: 0.2;
+  filter: blur(4px) grayscale(0.7);
+}
+.carousel-3d-card:not(.current):hover {
+  filter: blur(1px) grayscale(0.2) brightness(1.1);
+  opacity: 0.8;
+}
+@media (max-width: 700px) {
+  .carousel-3d-card, .carousel-3d {
+    width: 98vw;
+    min-width: 0;
+    max-width: 98vw;
+    left: 1vw;
+  }
+  .carousel-3d-card.prev, .carousel-3d-card.next, .carousel-3d-card.far-prev, .carousel-3d-card.far-next {
+    display: none;
+  }
+}
+
+/* iPad Mini için özel boyutlandırma - Yüksek öncelik */
+@media (min-width: 744px) and (max-width: 834px) and (orientation: portrait) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 15px;
+    padding: 15px;
+  }
+  
+  /* Masaüstü ile tamamen aynı resim ayarları - Yüksek öncelik */
+  .grid .manhwa-card img {
+    width: 100% !important;
+    height: auto !important;
+    aspect-ratio: 3 / 4.2 !important;
+    object-fit: cover !important;
+    border-radius: 8px !important;
+  }
+  
+  .grid .manhwa-card {
+    min-height: 300px !important;
+    height: auto !important;
+    max-width: 100% !important;
+  }
+  
+  .grid .manhwa-info h3 {
+    font-size: 0.9rem !important;
+    min-height: 40px !important;
+  }
+}
+
+/* iPad Mini yatay mod için - Yüksek öncelik */
+@media (min-width: 1024px) and (max-width: 1133px) and (orientation: landscape) {
+  .grid {
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 15px;
+    padding: 15px;
+  }
+  
+  /* Masaüstü ile tamamen aynı resim ayarları - Yüksek öncelik */
+  .grid .manhwa-card img {
+    width: 100% !important;
+    height: auto !important;
+    aspect-ratio: 3 / 4.2 !important;
+    object-fit: cover !important;
+    border-radius: 8px !important;
+  }
+  
+  .grid .manhwa-card {
+    min-height: 280px !important;
+    height: auto !important;
+  }
+  
+  .grid .manhwa-info h3 {
+    font-size: 0.85rem !important;
+    min-height: 36px !important;
+  }
+}
+
+/* iPad Mini 6. nesil (8.3 inç) için özel ayarlar */
+@media only screen 
+  and (min-device-width: 744px) 
+  and (max-device-width: 834px) 
+  and (-webkit-min-device-pixel-ratio: 2) {
+  
+  /* Masaüstü ile tamamen aynı resim ayarları */
+  .grid .manhwa-card img {
+    width: 100% !important;
+    height: auto !important;
+    aspect-ratio: 3 / 4.2 !important;
+    object-fit: cover !important;
+    border-radius: 8px !important;
+  }
+  
+  /* Carousel kartları için de aynı ayarlar */
+  .carousel-row .manhwa-card img {
+    width: 120px !important;
+    height: 170px !important;
+    object-fit: cover !important;
+    border-radius: 8px !important;
+  }
+}
+
+/* Genel iPad Mini uyumluluğu için layout düzeltmeleri */
+@media (min-width: 744px) and (max-width: 834px) and (min-height: 1000px) {
+  .grid .manhwa-card {
+    display: flex !important;
+    flex-direction: column !important;
+    height: auto !important;
+  }
+  
+  .grid .manhwa-info {
+    flex-grow: 1 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+  }
+  
+  .grid .buttons button {
+    font-size: 0.8rem !important;
+    padding: 6px 12px !important;
+  }
+}
+
+/* Tüm tablet cihazlar için masaüstü ile aynı ayarlar (iPad Mini hariç) */
+@media (min-width: 600px) and (max-width: 743px), (min-width: 835px) and (max-width: 1024px) {
+  .grid .manhwa-card img {
+    width: 100% !important;
+    height: auto !important;
+    aspect-ratio: 3 / 4.2 !important;
+    object-fit: cover !important;
+    border-radius: 8px !important;
+  }
+}
+
+/* Mobil cihazlar için carousel kontrol düzeltmeleri */
+@media (max-width: 480px) {
+  .carousel-controls {
+    gap: calc(100vw - 120px); /* Ekran genişliğinden buton genişliklerini çıkar */
+    padding: 0 10px;
+    max-width: 100vw;
+    overflow: hidden;
+  }
+  
+  .carousel-arrow {
+    width: 32px;
+    height: 32px;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+  }
+  
+  .carousel-arrow.left {
+    margin-right: 0;
+  }
+  
+  .carousel-arrow.right {
+    margin-left: 0;
+  }
+}
+
+/* iPhone SE gibi küçük ekranlar için */
+@media (max-width: 375px) {
+  .carousel-controls {
+    gap: calc(100vw - 100px);
+    padding: 0 8px;
+  }
+  
+  .carousel-arrow {
+    width: 28px;
+    height: 28px;
+    font-size: 1rem;
+  }
+}
+
+/* Samsung Galaxy S8+ ve iPhone 14 Pro Max için */
+@media (min-width: 414px) and (max-width: 430px) {
+  .carousel-controls {
+    gap: calc(100vw - 140px);
+    padding: 0 12px;
+  }
+  
+  .carousel-arrow {
+    width: 34px;
+    height: 34px;
+    font-size: 1.3rem;
+  }
+}
+
+/* Büyük mobil ekranlar için (480px - 600px) */
+@media (min-width: 480px) and (max-width: 600px) {
+  .carousel-controls {
+    gap: calc(100vw - 160px);
+    padding: 0 16px;
+  }
+}
+
+/* iPhone 14 Pro Max özel ayarları */
+@media (device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) {
+  .carousel-controls {
+    gap: 290px; /* iPhone 14 Pro Max için özel değer */
+    padding: 0 20px;
+  }
+}
+
+/* Samsung Galaxy S8+ özel ayarları */
+@media (device-width: 414px) and (device-height: 846px) and (-webkit-device-pixel-ratio: 3) {
+  .carousel-controls {
+    gap: 274px; /* Galaxy S8+ için özel değer */
+    padding: 0 18px;
+  }
+}
+
+/* iPhone SE (3rd gen) özel ayarları */
+@media (device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) {
+  .carousel-controls {
+    gap: 235px; /* iPhone SE için özel değer */
+    padding: 0 16px;
+  }
+  
+  .carousel-arrow {
+    width: 30px;
+    height: 30px;
+    font-size: 1.1rem;
+  }
+}
+
+/* Tablet boyutları için responsive grid */
+@media (max-width: 1200px) and (min-width: 901px) {
+  .grid {
+    grid-template-columns: repeat(4, 1fr); /* Tablet için 4 sütun */
+    max-width: 1000px;
+    gap: 18px;
+  }
+}
+
+@media (max-width: 900px) and (min-width: 601px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr); /* Küçük tablet için 3 sütun */
+    max-width: 800px;
+    gap: 16px;
+  }
+}
+
+/* Son satırda eksik kartlar için sol yaslama - 6 sütunlu grid */
+.grid.incomplete-row-1 .manhwa-card:last-child {
+  grid-column: 1 / span 1; /* 1 kart varsa sol başta */
+}
+
+.grid.incomplete-row-2 .manhwa-card:nth-last-child(1),
+.grid.incomplete-row-2 .manhwa-card:nth-last-child(2) {
+  /* 2 kart varsa sol başta yan yana - grid otomatik sol başlayacak */
+  justify-self: start;
+}
+
+.grid.incomplete-row-3 .manhwa-card:nth-last-child(1),
+.grid.incomplete-row-3 .manhwa-card:nth-last-child(2),
+.grid.incomplete-row-3 .manhwa-card:nth-last-child(3) {
+  /* 3 kart varsa sol başta yan yana - grid otomatik sol başlayacak */
+  justify-self: start;
+}
+
+.grid.incomplete-row-4 .manhwa-card:nth-last-child(1),
+.grid.incomplete-row-4 .manhwa-card:nth-last-child(2),
+.grid.incomplete-row-4 .manhwa-card:nth-last-child(3),
+.grid.incomplete-row-4 .manhwa-card:nth-last-child(4) {
+  /* 4 kart varsa sol başta yan yana - grid otomatik sol başlayacak */
+  justify-self: start;
+}
+
+.grid.incomplete-row-5 .manhwa-card:nth-last-child(1),
+.grid.incomplete-row-5 .manhwa-card:nth-last-child(2),
+.grid.incomplete-row-5 .manhwa-card:nth-last-child(3),
+.grid.incomplete-row-5 .manhwa-card:nth-last-child(4),
+.grid.incomplete-row-5 .manhwa-card:nth-last-child(5) {
+  /* 5 kart varsa sol başta yan yana - grid otomatik sol başlayacak */
+  justify-self: start;
+}
+
+/* Masaüstünde kart boyutları sabit kalacak */
+@media (min-width: 1201px) {
+  .grid .manhwa-card {
+    width: 100%;
+    max-width: 200px; /* 6 sütun için uygun boyut */
+    min-width: 180px;
+  }
+}
+
+/* Mobil için grid butonları - daha güçlü kurallar */
+@media (max-width: 480px) {
+  .grid .buttons {
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 8px !important;
+  }
+  
+  .grid .buttons button {
+    width: 90% !important;
+    max-width: 220px !important;
+    font-size: 0.95rem !important;
+    padding: 12px 18px !important;
+  }
+}
+
+/* Kart içi rating gösterimi */
+.rating-display {
+  margin: 8px auto;
+  font-size: 0.85em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: #555;
+  min-height: 20px;
+  text-align: center;
+  width: 100%;
+  padding: 0 8px;
+}
+
+.rating-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 20px;
+  margin: 6px auto;
+  width: 100%;
+  text-align: center;
+}
+
+.rating-display.no-rating {
+  color: #888;
+  font-style: italic;
+  font-size: 0.8em;
+  justify-content: center;
+}
+
+.rating-loading {
+  color: #888;
+  font-style: italic;
+  font-size: 0.8em;
+  margin: 8px auto;
+  min-height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.rating-stars {
+  display: flex;
+  align-items: center;
+  gap: 1px;
+}
+
+.rating-star-wrapper {
+  position: relative;
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  font-size: 14px;
+  line-height: 1;
+}
+
+.rating-star-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: #ddd;
+  pointer-events: none;
+}
+
+.rating-star-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: #ffb400;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.rating-text {
+  color: #555;
+  font-size: 0.9em;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+/* Carousel kartları için daha küçük rating */
+.carousel-3d-inner .rating-display {
+  margin: 6px auto;
+  font-size: 0.8em;
+  justify-content: center;
+  gap: 6px;
+}
+
+.carousel-3d-inner .rating-container {
+  margin: 4px auto;
+  justify-content: center;
+}
+
+.carousel-3d-inner .rating-star-wrapper {
+  width: 12px;
+  height: 12px;
+  font-size: 12px;
+}
+
+.carousel-3d-inner .rating-text {
+  font-size: 0.85em;
+}
+
+/* Mobil görünümde rating'i daha küçük yap */
+@media (max-width: 768px) {
+  .rating-display {
+    font-size: 0.75em;
+    margin: 6px 0;
+  }
+  
+  .rating-star-wrapper {
+    width: 11px;
+    height: 11px;
+    font-size: 11px;
+  }
+  
+  .rating-text {
+    font-size: 0.8em;
+  }
+}
+
+/* Duyuru Bölümü - Ana Sayfa */
+.announcement-section {
+  margin: 30px auto 20px auto;
+  padding: 0 20px;
+  max-width: 1000px;
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.announcement-section.announcement-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.announcement-container {
+  background: linear-gradient(135deg, rgba(255, 111, 97, 0.95), rgba(255, 131, 117, 0.95));
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(255, 111, 97, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
+}
+
+.announcement-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #ff6f61, #ff8375, #ff6f61);
+  animation: gradientShift 3s ease-in-out infinite;
+}
+
+@keyframes gradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.announcement-header {
+  display: flex;
+  align-items: center;
+  padding: 20px 24px 16px;
+  gap: 12px;
+  position: relative;
+}
+
+.announcement-icon {
+  font-size: 1.4rem;
+  color: #fff;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+.announcement-title {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #fff;
+  margin: 0;
+  flex: 1;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+.announcement-close {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: #fff;
+  font-size: 0.9rem;
+}
+
+.announcement-close:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.1);
+}
+
+.announcement-content {
+  padding: 0 24px 16px;
+  color: #fff;
+  font-size: 1rem;
+  line-height: 1.6;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+  white-space: pre-wrap;
+}
+
+.announcement-date {
+  padding: 0 24px 20px;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.85rem;
+  font-weight: 400;
+  text-align: right;
+  font-style: italic;
+}
+
+/* Duyuru Türleri için Farklı Renkler */
+.announcement-section.announcement-info .announcement-container {
+  background: linear-gradient(135deg, rgba(74, 144, 226, 0.95), rgba(100, 162, 235, 0.95));
+  box-shadow: 0 8px 32px rgba(74, 144, 226, 0.2);
+}
+
+.announcement-section.announcement-info .announcement-container::before {
+  background: linear-gradient(90deg, #4a90e2, #64a2eb, #4a90e2);
+}
+
+.announcement-section.announcement-warning .announcement-container {
+  background: linear-gradient(135deg, rgba(255, 193, 7, 0.95), rgba(255, 206, 84, 0.95));
+  box-shadow: 0 8px 32px rgba(255, 193, 7, 0.2);
+}
+
+.announcement-section.announcement-warning .announcement-container::before {
+  background: linear-gradient(90deg, #ffc107, #ffce54, #ffc107);
+}
+
+.announcement-section.announcement-success .announcement-container {
+  background: linear-gradient(135deg, rgba(40, 167, 69, 0.95), rgba(72, 187, 120, 0.95));
+  box-shadow: 0 8px 32px rgba(40, 167, 69, 0.2);
+}
+
+.announcement-section.announcement-success .announcement-container::before {
+  background: linear-gradient(90deg, #28a745, #48bb78, #28a745);
+}
+
+/* Mobil Uyumluluk */
+@media (max-width: 768px) {
+  .announcement-section {
+    margin: 20px auto 15px auto;
+    padding: 0 15px;
+  }
+
+  .announcement-header {
+    padding: 16px 20px 12px;
+    gap: 10px;
+  }
+
+  .announcement-icon {
+    font-size: 1.2rem;
+  }
+
+  .announcement-title {
+    font-size: 1.1rem;
+  }
+
+  .announcement-close {
+    width: 28px;
+    height: 28px;
+    font-size: 0.8rem;
+  }
+
+  .announcement-content {
+    padding: 0 20px 12px;
+    font-size: 0.95rem;
+  }
+
+  .announcement-date {
+    padding: 0 20px 16px;
+    font-size: 0.8rem;
+  }
+}
+
+/* Çok küçük ekranlar */
+@media (max-width: 480px) {
+  .announcement-section {
+    margin: 15px auto 10px auto;
+    padding: 0 10px;
+  }
+
+  .announcement-container {
+    border-radius: 12px;
+  }
+
+  .announcement-header {
+    padding: 14px 16px 10px;
+  }
+
+  .announcement-content {
+    padding: 0 16px 10px;
+    font-size: 0.9rem;
+  }
+
+  .announcement-date {
+    padding: 0 16px 14px;
+  }
+}

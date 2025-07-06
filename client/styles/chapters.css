@@ -1,0 +1,142 @@
+/* Bölüm Listesi Stilleri */
+.chapters-list, .episodes-list {
+  margin-top: 20px;
+}
+
+.no-chapters {
+  text-align: center;
+  padding: 40px 20px;
+  color: #999;
+  font-style: italic;
+}
+
+.chapters-loader {
+  text-align: center;
+  padding: 40px 20px;
+  color: #999;
+  font-style: italic;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .chapter-link {
+    padding: 12px 15px;
+  }
+  
+  .chapter-title {
+    font-size: 0.9rem;
+  }
+  
+  .chapter-date {
+    font-size: 0.75rem;
+  }
+}
+
+/* Loading Animation */
+.chapters-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+  color: #888;
+}
+
+.chapters-loading::after {
+  content: '';
+  width: 20px;
+  height: 20px;
+  border: 2px solid #ff6f61;
+  border-top: 2px solid transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-left: 10px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Chapter Reading Page Styles */
+.chapter-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+  background: #fff;
+  min-height: 100vh;
+}
+
+.chapter-header {
+  text-align: center;
+  margin-bottom: 30px;
+  padding: 20px 0;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.chapter-header h1 {
+  color: #333;
+  font-size: 2rem;
+  margin: 0;
+}
+
+.chapter-images {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.chapter-page {
+  max-width: 100%;
+  height: auto;
+  margin: 10px 0;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.chapter-navigation {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin: 40px 0;
+  padding: 20px 0;
+  border-top: 2px solid #f0f0f0;
+}
+
+.nav-btn {
+  padding: 12px 24px;
+  background: #007bff;
+  color: white;
+  text-decoration: none;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s;
+}
+
+.nav-btn:hover {
+  background: #0056b3;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .chapter-container {
+    padding: 10px;
+  }
+  
+  .chapter-header h1 {
+    font-size: 1.5rem;
+  }
+  
+  .chapter-navigation {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .nav-btn {
+    width: 100%;
+  }
+}

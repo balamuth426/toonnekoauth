@@ -1,0 +1,211 @@
+/* Enhanced Navigation Styles - Real Manga Site Look */
+
+/* Navigation Button Enhancements */
+.okuma-nav button {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease !important;
+    border: none !important;
+    padding: 12px 20px !important;
+    font-weight: 600 !important;
+    border-radius: 25px !important;
+    min-width: 140px !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important;
+}
+
+.okuma-nav button:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.2) !important;
+}
+
+.okuma-nav button:active {
+    transform: translateY(0) !important;
+}
+
+.okuma-nav button .nav-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+}
+
+.okuma-nav button .nav-label {
+    font-size: 0.9em;
+    opacity: 0.9;
+}
+
+.okuma-nav button .nav-chapter {
+    font-size: 0.8em;
+    opacity: 0.7;
+    font-weight: 400;
+}
+
+/* Chapter Selector Enhancements */
+#bolumSec {
+    min-width: 180px !important;
+    position: relative !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important;
+}
+
+#bolumSec:hover {
+    transform: scale(1.02) !important;
+}
+
+#bolumSec option {
+    padding: 8px !important;
+    font-weight: 500 !important;
+}
+
+/* Chapter Title Styling */
+#chapterTitle {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 5px !important;
+}
+
+.chapter-number {
+    font-size: 1.2em !important;
+    font-weight: 700 !important;
+    color: #ff6f61 !important;
+}
+
+.chapter-progress {
+    font-size: 0.9em !important;
+    color: #888 !important;
+    font-weight: 400 !important;
+}
+
+/* Loading States */
+.nav-loading {
+    pointer-events: none;
+    opacity: 0.7;
+}
+
+.nav-loading::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    animation: loading-shimmer 1.5s infinite;
+}
+
+@keyframes loading-shimmer {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+
+/* Progress Bar Styling */
+#chapter-progress-bar {
+    background: rgba(255, 111, 97, 0.2) !important;
+    backdrop-filter: blur(2px);
+}
+
+/* Mobile Responsive Enhancements */
+@media (max-width: 768px) {
+    .okuma-nav button {
+        min-width: 120px !important;
+        padding: 10px 16px !important;
+        font-size: 0.9em !important;
+    }
+    
+    .okuma-nav button .nav-label {
+        font-size: 0.8em;
+    }
+    
+    .okuma-nav button .nav-chapter {
+        font-size: 0.7em;
+    }
+    
+    #bolumSec {
+        min-width: 160px !important;
+    }
+}
+
+/* Touch device improvements */
+@media (hover: none) {
+    .okuma-nav button:hover {
+        transform: none !important;
+    }
+    
+    .okuma-nav button:active {
+        transform: scale(0.95) !important;
+        transition: transform 0.1s ease !important;
+    }
+}
+
+/* Keyboard navigation indicators */
+.keyboard-hint {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0,0,0,0.8);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.8em;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 1000;
+}
+
+.keyboard-hint.show {
+    opacity: 1;
+}
+
+/* Enhanced notification styles */
+.nav-notification {
+    animation: slideInRight 0.3s ease;
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Series link enhancement */
+.okuma-header .seri-link {
+    transition: all 0.3s ease !important;
+    padding: 8px 12px !important;
+    border-radius: 8px !important;
+}
+
+.okuma-header .seri-link:hover {
+    background: rgba(255, 111, 97, 0.1) !important;
+    transform: translateX(-3px) !important;
+}
+
+/* Enhanced button ripple effect */
+.okuma-nav button::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+    z-index: 0;
+}
+
+.okuma-nav button:active::before {
+    width: 300px;
+    height: 300px;
+}
+
+.okuma-nav button > * {
+    position: relative;
+    z-index: 1;
+}

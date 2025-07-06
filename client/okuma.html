@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Solo Leveling - Bölüm 1 | ToonNeko</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles/navbar.css?v=5">
+  <link rel="stylesheet" href="styles/ornek-navbar-ek.css?v=5">
+  <link rel="stylesheet" href="styles/seri.css?v=5">
+  <link rel="stylesheet" href="styles/okuma.css?v=5">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css?v=5">
+  <style>
+    body { opacity: 0; transition: opacity 1s ease-in; }
+    body.loaded { opacity: 1; }
+    button, .section-bar { transition: transform 0.2s, box-shadow 0.2s; }
+    button:hover, .section-bar:hover { transform: scale(1.08); box-shadow: 0 4px 16px rgba(0,0,0,0.15); }
+    #scrollTopBtn { display: none; position: fixed; bottom: 30px; right: 30px; z-index: 99; font-size: 22px; background: #222; color: #fff; border: none; border-radius: 50%; width: 48px; height: 48px; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.2); transition: background 0.3s, transform 0.2s, opacity 0.2s; opacity: 0.65; }
+    #scrollTopBtn:hover { background: #6C63FF; transform: scale(1.1); opacity: 1; }
+    .logo-link { display: flex; align-items: center; text-decoration: none !important; color: inherit !important; cursor: pointer; }
+    .logo-link img { margin-right: 8px; }
+    
+    /* Force consistent logo size */
+    .logo-area img {
+      height: 64px !important;
+      width: auto !important;
+    }
+    .logo-area span {
+      font-size: 3.2rem !important;
+      font-weight: bold !important;
+    }
+    
+    /* Force consistent navbar margin */
+    .desktop-navbar {
+      margin-left: 20px !important;
+    }
+    header {
+      padding: 10px 15px !important;
+    }
+    
+    .okuma-header { display: flex; align-items: center; justify-content: space-between; max-width: 1000px; margin: 40px auto 0 auto; padding-left: 20px; padding-right: 20px; }
+    .okuma-header .seri-link { font-size: 1.2em; color: #6C63FF; text-decoration: none; display: flex; align-items: center; margin: 0 !important; padding: 0 !important; }
+    .okuma-header .fav-btn { background: none; border: none; color: #6C63FF; font-size: 1.5em; cursor: pointer; display: flex; align-items: center; margin: 0 !important; padding: 0 !important; position: static; }
+    .okuma-header .fav-btn i { font-family: 'Font Awesome 6 Free'; font-weight: 900; }
+    .okuma-header .fav-btn .fa-bookmark { color: #6C63FF; }
+    .okuma-nav { display: flex; align-items: center; justify-content: center; gap: 18px; margin: 24px 0 16px 0; flex-wrap: wrap; }
+    .okuma-nav button, .okuma-nav a { padding: 10px 22px; border-radius: 8px; border: none; background: #222; color: #fff; font-size: 1.1em; cursor: pointer; text-decoration: none; transition: background 0.2s; display: flex; align-items: center; gap: 6px; }
+    .okuma-nav button:disabled { background: #888; cursor: not-allowed; }
+    .okuma-nav .info-btn { background: #6C63FF; color: #fff; }
+    .okuma-nav span { font-size: 1.1em; font-weight: 600; color: #6C63FF; width: 100%; text-align: center; margin-bottom: 6px; }
+    .okuma-nav-inner { display: flex; gap: 18px; justify-content: center; width: 100%; }
+    @media (max-width: 600px) {
+      .okuma-header { flex-direction: column; align-items: flex-start; gap: 8px; }
+      .okuma-nav { flex-direction: column; gap: 0; margin: 18px 0 10px 0; }
+      .okuma-nav span { order: -1; margin-bottom: 8px; }
+      .okuma-nav-inner { flex-direction: row; gap: 10px; justify-content: center; width: 100%; }
+    }
+    .okuma-header .fav-btn { margin-left: 24px; margin-right: 0; position: relative; left: 0; right: 0; }
+    @media (max-width: 600px) {
+      .okuma-header { align-items: center; }
+      .okuma-header .fav-btn { margin: 12px auto 0 auto; left: 0; right: 0; display: block; }
+    }
+    .okuma-alani { background: #181818; border-radius: 12px; padding: 16px; margin-bottom: 32px; display: flex; flex-direction: column; align-items: center; }
+    .okuma-alani img {
+      max-width: 100vw;
+      width: 100vw;
+      display: block;
+      margin: 0;
+      border-radius: 0;
+      box-shadow: none;
+    }
+    @media (min-width: 601px) {
+      .okuma-alani img {
+        max-width: 700px;
+        width: 80vw;
+        margin: 0 auto;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+      }
+    }
+    .comments { margin: 32px 0; }
+    @media (max-width: 600px) { .okuma-header { flex-direction: column; align-items: flex-start; gap: 8px; } .okuma-nav { flex-direction: column; gap: 8px; } }
+    .custom-select {
+      border-radius: 18px;
+      background: linear-gradient(90deg, #232323 60%, #6C63FF 100%);
+      color: #fff;
+      border: 2px solid #6C63FF;
+      padding: 8px 18px;
+      font-size: 1em;
+      font-weight: 600;
+      margin: 0 6px;
+      outline: none;
+      transition: border 0.2s, background 0.2s, color 0.2s;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      cursor: pointer;
+    }
+    .custom-select:focus {
+      border: 2px solid #fff;
+      background: linear-gradient(90deg, #6C63FF 60%, #232323 100%);
+      color: #fff;
+    }
+    .custom-select option {
+      background: #232323;
+      color: #6C63FF;
+      border-radius: 12px;
+    }
+    
+    /* Okuma sayfası için özel navbar stilleri */
+    body.okuma-sayfasi header {
+      backdrop-filter: blur(10px);
+      background: rgba(18, 18, 18, 0.95);
+    }
+    
+    body.okuma-sayfasi .search-container {
+      background: rgba(18, 18, 18, 0.95);
+      backdrop-filter: blur(10px);
+    }
+    
+    body.okuma-sayfasi .okuma-alani {
+      margin-top: 20px;
+    }
+    
+    /* Okuma deneyimi için minimize edilmiş navbar */
+    @media (max-width: 768px) {
+      body.okuma-sayfasi header {
+        padding: 8px 0;
+      }
+      
+      body.okuma-sayfasi .logo-area span {
+        font-size: 1.1rem;
+      }
+      
+      body.okuma-sayfasi .hamburger {
+        width: 24px;
+        height: 24px;
+      }
+    }
+  </style>
+</head>
+<body class="okuma-sayfasi">
+  <!-- Ortak Navbar ve Side Menu -->
+  <header>
+    <div class="logo-area">
+      <a href="index.html" class="logo-link">
+        <img src="images/ToonNekoLogo.png" alt="Logo" />
+        <span>ToonNeko</span>
+      </a>
+    </div>
+    <nav class="desktop-navbar">
+      <ul>
+        <li><a href="index.html" style="text-decoration:none;">Anasayfa</a></li>
+        <li><a href="tum-seriler.html" style="text-decoration:none;">Tüm Seriler</a></li>
+        <li><a href="profile.html" style="text-decoration:none;">Profilim</a></li>
+        <li><a href="hakkinda.html" style="text-decoration:none;">Hakkında</a></li>
+        <li><a href="iletisim.html" style="text-decoration:none;">İletişim</a></li>
+        
+        <!-- Auth Buttons (Logged Out) -->
+        <li id="auth-buttons-nav">
+          <button id="open-register-modal-navbar" class="auth-btn" style="background:#ff6f61; color:#fff; border:none; border-radius:20px; padding:6px 14px; margin-left:8px; font-size:0.9rem; cursor:pointer; transition:background 0.2s;">Kayıt Ol</button>
+        </li>
+        <li id="auth-buttons-nav-2">
+          <button id="open-login-modal-navbar" class="auth-btn" style="background:#fff; color:#ff6f61; border:1.5px solid #ff6f61; border-radius:20px; padding:6px 14px; margin-left:4px; font-size:0.9rem; cursor:pointer; transition:background 0.2s, color 0.2s;">Giriş Yap</button>
+        </li>
+        
+        <!-- User Info (Logged In) -->
+        <li id="user-info-nav" style="display: none;">
+          <span id="username-display" style="color:#fff; margin-right:8px; font-weight:500; font-size:0.95rem;"></span>
+        </li>
+        <li id="user-info-nav-2" style="display: none;">
+          <button id="logout-btn" class="auth-btn" style="background:#fff; color:#ff6f61; border:1.5px solid #ff6f61; border-radius:20px; padding:6px 14px; margin-left:4px; font-size:0.9rem; cursor:pointer; transition:background 0.2s, color 0.2s;">Çıkış Yap</button>
+        </li>
+      </ul>
+    </nav>
+    <div class="hamburger"><span></span><span></span><span></span></div>
+  </header>
+  <nav class="side-menu" id="sideMenu">
+    <button class="close-btn" id="closeMenu">×</button>
+    <ul>
+      <li><a href="index.html" style="text-decoration:none;">Anasayfa</a></li>
+      <li><a href="tum-seriler.html" style="text-decoration:none;">Tüm Seriler</a></li>
+      <li><a href="profile.html" style="text-decoration:none;">Profilim</a></li>
+      <li><a href="hakkinda.html" style="text-decoration:none;">Hakkında</a></li>
+      <li><a href="iletisim.html" style="text-decoration:none;">İletişim</a></li>
+      
+      <!-- Auth Buttons (Logged Out) -->
+      <div id="side-auth-buttons">
+        <li><button id="open-register-modal-side" class="auth-btn" style="background:#ff6f61; color:#fff; border:none; border-radius:20px; padding:10px 16px; margin:10px 0 0 0; font-size:1rem; cursor:pointer; width:90%;">Kayıt Ol</button></li>
+        <li><button id="open-login-modal-side" class="auth-btn" style="background:#fff; color:#ff6f61; border:1.5px solid #ff6f61; border-radius:20px; padding:10px 16px; margin:8px 0 0 0; font-size:1rem; cursor:pointer; width:90%;">Giriş Yap</button></li>
+      </div>
+      
+      <!-- User Info (Logged In) -->
+      <div id="side-user-info" style="display: none;">
+        <li><span id="side-username-display" style="color:#fff; margin:15px 0; font-weight:500; display:block; text-align:center; font-size:1.1rem;"></span></li>
+        <li><button id="side-logout-btn" class="auth-btn" style="background:#fff; color:#ff6f61; border:1.5px solid #ff6f61; border-radius:20px; padding:10px 16px; margin:8px 0 0 0; font-size:1rem; cursor:pointer; width:90%;">Çıkış Yap</button></li>
+      </div>
+    </ul>
+  </nav>
+  <div class="side-overlay" id="sideOverlay"></div>
+  <div class="search-container">
+    <input type="text" id="search-input" placeholder="Manhwa ara...">
+    <div id="search-results" class="results-box hidden"></div>
+  </div>
+
+  <!-- Okuma Sayfası Başlık ve Navigasyon -->
+  <div class="okuma-header">
+    <a href="../series/sololeveling/sololevelingseri.html" class="seri-link"><i class="fa-solid fa-arrow-left"></i> Solo Leveling</a>
+    <button class="fav-btn" id="bookmarkBtn" title="Bookmark'a ekle"><i class="fa-regular fa-bookmark"></i></button>
+  </div>
+  <div class="okuma-nav">
+    <span>Bölüm 1</span>
+    <div class="okuma-nav-inner">
+      <button disabled><i class="fa-solid fa-chevron-left"></i> Önceki Bölüm</button>
+      <a href="bölüm2.html"><i class="fa-solid fa-chevron-right"></i> Sonraki Bölüm</a>
+      <a href="../series/sololeveling/sololevelingseri.html" class="info-btn" title="Seri Sayfası"><i class="fa-solid fa-circle-info"></i></a>
+    </div>
+  </div>
+  <div class="okuma-stil-secici">
+    <select id="stil" class="custom-select">
+      <option value="list">Okuma Stili: Liste</option>
+      <option value="page">Okuma Stili: Sayfa Sayfa</option>
+    </select>
+    <select id="bolumSec" class="custom-select">
+      <option value="1">Bölüm 1</option>
+      <option value="2">Bölüm 2</option>
+      <option value="3">Bölüm 3</option>
+    </select>
+    <select id="resimListesi" class="custom-select">
+      <option value="1">1 / 7</option>
+      <option value="2">2 / 7</option>
+      <option value="3">3 / 7</option>
+      <option value="4">4 / 7</option>
+      <option value="5">5 / 7</option>
+      <option value="6">6 / 7</option>
+      <option value="7">7 / 7</option>
+    </select>
+  </div>
+  <div class="okuma-alani" id="okumaAlani">
+    <img src="images/bölümler/solo leveling/bölüm1/1.jpg" alt="Bölüm 1 - Sayfa 1" class="okuma-img">
+    <img src="images/bölümler/solo leveling/bölüm1/2.jpg" alt="Bölüm 1 - Sayfa 2" class="okuma-img">
+    <img src="images/bölümler/solo leveling/bölüm1/3.jpg" alt="Bölüm 1 - Sayfa 3" class="okuma-img">
+    <img src="images/bölümler/solo leveling/bölüm1/4.jpg" alt="Bölüm 1 - Sayfa 4" class="okuma-img">
+    <img src="images/bölümler/solo leveling/bölüm1/5.jpg" alt="Bölüm 1 - Sayfa 5" class="okuma-img">
+    <img src="images/bölümler/solo leveling/bölüm1/6.jpg" alt="Bölüm 1 - Sayfa 6" class="okuma-img">
+    <img src="images/bölümler/solo leveling/bölüm1/7.jpg" alt="Bölüm 1 - Sayfa 7" class="okuma-img">
+  </div>
+  <div class="okuma-nav">
+    <span>Bölüm 1</span>
+    <div class="okuma-nav-inner">
+      <button id="oncekiBtn" disabled><i class="fa-solid fa-chevron-left"></i> Önceki</button>
+      <button id="sonrakiBtn"><i class="fa-solid fa-chevron-right"></i> Sonraki</button>
+      <a href="../series/sololeveling/sololevelingseri.html" class="info-btn" title="Seri Sayfası"><i class="fa-solid fa-circle-info"></i></a>
+    </div>
+  </div>
+  <div class="comments">
+    <h2>Yorumlar</h2>
+    <p>Disqus veya başka bir yorum sistemi buraya entegre edilebilir.</p>
+  </div>
+  <button id="scrollTopBtn" title="Yukarı Çık"><i class="fas fa-arrow-up"></i></button>
+
+  <!-- Auth Modal'ları -->
+  <!-- Kayıt Formu (Modal) -->
+  <div id="register-modal" class="modal" style="display:none; position:fixed; z-index:1000; left:0; top:0; width:100vw; height:100vh; background:rgba(0,0,0,0.5); justify-content:center; align-items:center;">
+    <div style="background:#fff; padding:32px 24px; border-radius:12px; max-width:350px; width:90%; box-shadow:0 4px 24px rgba(0,0,0,0.18); position:relative;">
+      <button id="close-register-modal" style="position:absolute; top:12px; right:12px; background:none; border:none; font-size:22px; cursor:pointer; color:#333;">&times;</button>
+      <h2 style="margin-bottom:18px; text-align:center; color:#333;">Kayıt Ol</h2>
+      <form id="register-form">
+        <input id="register-username" type="text" placeholder="Kullanıcı Adı" required style="width:100%; padding:10px; margin-bottom:12px; border-radius:6px; border:1px solid #ccc; box-sizing:border-box;">
+        <input id="register-email" type="email" placeholder="E-posta" required style="width:100%; padding:10px; margin-bottom:12px; border-radius:6px; border:1px solid #ccc; box-sizing:border-box;">
+        <input id="register-password" type="password" placeholder="Şifre" required style="width:100%; padding:10px; margin-bottom:18px; border-radius:6px; border:1px solid #ccc; box-sizing:border-box;">
+        <button type="submit" style="width:100%; padding:10px; background:#ff6f61; color:#fff; border:none; border-radius:6px; font-size:16px; cursor:pointer;">Kayıt Ol</button>
+      </form>
+      <p style="text-align:center; color:#666; margin-top:15px;">Zaten hesabın var mı? <a href="#" id="switch-to-login" style="color:#ff6f61; text-decoration:none;">Giriş yap</a></p>
+    </div>
+  </div>
+
+  <!-- Giriş Formu (Modal) -->
+  <div id="login-modal" class="modal" style="display:none; position:fixed; z-index:1000; left:0; top:0; width:100vw; height:100vh; background:rgba(0,0,0,0.5); justify-content:center; align-items:center;">
+    <div style="background:#fff; padding:32px 24px; border-radius:12px; max-width:350px; width:90%; box-shadow:0 4px 24px rgba(0,0,0,0.18); position:relative;">
+      <button id="close-login-modal" style="position:absolute; top:12px; right:12px; background:none; border:none; font-size:22px; cursor:pointer; color:#333;">&times;</button>
+      <h2 style="margin-bottom:18px; text-align:center; color:#333;">Giriş Yap</h2>
+      <form id="login-form">
+        <input id="login-identifier" type="text" placeholder="E-posta veya Kullanıcı Adı" required style="width:100%; padding:10px; margin-bottom:12px; border-radius:6px; border:1px solid #ccc; box-sizing:border-box;">
+        <input id="login-password" type="password" placeholder="Şifre" required style="width:100%; padding:10px; margin-bottom:18px; border-radius:6px; border:1px solid #ccc; box-sizing:border-box;">
+        <button type="submit" style="width:100%; padding:10px; background:#ff6f61; color:#fff; border:none; border-radius:6px; font-size:16px; cursor:pointer;">Giriş Yap</button>
+      </form>
+      <p style="text-align:center; color:#666; margin-top:15px;">Hesabın yok mu? <a href="#" id="switch-to-register" style="color:#ff6f61; text-decoration:none;">Kayıt ol</a></p>
+    </div>
+  </div>
+
+  <script src="scripts/navbar.js?v=5"></script>
+  <script src="scripts/auth-navbar.js?v=5"></script>
+  <script src="scripts/auth-forms.js?v=5"></script>
+  <script src="scripts/arama.js?v=5"></script>
+  <script src="scripts.js?v=5"></script>
+</body>
+</html>

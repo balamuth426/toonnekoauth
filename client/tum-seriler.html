@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <title>Tüm Seriler - ToonNeko</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles/navbar.css?v=5">
+  <link rel="stylesheet" href="styles/ornek-navbar-ek.css?v=5">
+  <link rel="stylesheet" href="styles/seri.css?v=5">
+  <link rel="stylesheet" href="styles/anasayfa.css?v=5">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css?v=5">
+  <style>
+    /* Logo ve navbar link düzeltmesi */
+    .logo-link {
+      display: flex;
+      align-items: center;
+      text-decoration: none !important;
+      color: inherit !important;
+      cursor: pointer;
+    }
+    .logo-link:visited, .logo-link:active, .logo-link:hover {
+      color: inherit !important;
+      text-decoration: none !important;
+    }
+    
+    /* Force consistent logo size */
+    .logo-area img {
+      height: 64px !important;
+      width: auto !important;
+    }
+    .logo-area span {
+      font-size: 3.2rem !important;
+      font-weight: bold !important;
+    }
+    
+    /* Force consistent navbar margin */
+    .desktop-navbar {
+      margin-left: 20px !important;
+    }
+    header {
+      padding: 10px 15px !important;
+    }
+    .logo-link img {
+      margin-right: 8px;
+    }
+    /* Genres ve sıralama butonları */
+    .genres-container {
+      max-width: 1000px;
+      margin: 0 auto 24px auto;
+      padding: 0 20px;
+    }
+    #genres-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    #genres-list button {
+      background: #2c2c2c;
+      color: #fff;
+      border: 1.5px solid #ff6f61;
+      border-radius: 6px;
+      padding: 6px 14px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s, border 0.2s;
+    }
+    #genres-list button:hover, #genres-list button.active {
+      background: #ff6f61;
+      color: #fff;
+      border-color: #e55a50;
+    }
+    
+    /* Filter buton stilleri */
+    .filter-btn.all-btn {
+      background: #444 !important;
+      border-color: #666 !important;
+      font-weight: 600;
+    }
+    .filter-btn.all-btn.active, .filter-btn.all-btn:hover {
+      background: #666 !important;
+      border-color: #888 !important;
+    }
+    
+    .filter-btn.status-btn {
+      background: #2a3d54 !important;
+      border-color: #4a90e2 !important;
+    }
+    .filter-btn.status-btn.active, .filter-btn.status-btn:hover {
+      background: #4a90e2 !important;
+      border-color: #357abd !important;
+    }
+    
+    /* Kategori ayırıcısı */
+    .genre-separator {
+      width: 100%;
+      text-align: center;
+      margin: 12px 0 8px 0;
+      position: relative;
+    }
+    .genre-separator span {
+      background: #1a1a1a;
+      color: #aaa;
+      padding: 0 12px;
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+    .genre-separator::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: #444;
+      z-index: -1;
+    }
+    .sort-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 18px 0 18px 0;
+      justify-content: center;
+    }
+    .sort-buttons button {
+      background: #23223a;
+      color: #fff;
+      border: 1.5px solid #6C63FF;
+      border-radius: 8px;
+      padding: 7px 14px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s, border 0.2s;
+      white-space: nowrap;
+    }
+    @media (max-width: 768px) {
+      .sort-buttons {
+        gap: 6px;
+      }
+      .sort-buttons button {
+        padding: 6px 10px;
+        font-size: 0.8rem;
+      }
+    }
+    .sort-buttons button:hover, .sort-buttons button.active {
+      background: #6C63FF;
+      color: #fff;
+      border-color: #4e47c4;
+    }
+    .sort-buttons button:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+    .sort-buttons button .button-loading {
+      font-size: 0.9rem;
+    }
+    /* Scroll to top button stilini index.html ile aynı yap */
+    #scrollTopBtn {
+      display: none;
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      z-index: 99;
+      font-size: 22px;
+      background: #222;
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      width: 48px;
+      height: 48px;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      transition: background 0.2s, transform 0.2s;
+    }
+    #scrollTopBtn:hover {
+      background: #ff6f61;
+      transform: scale(1.1);
+    }
+    /* Masaüstünde başlık ve toplam seri sayısı sola hizalı */
+    @media (min-width: 900px) {
+      .tum-seriler-basliklar {
+        max-width: 1000px;
+        margin: 40px auto 0 auto;
+        padding-left: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .tum-seriler-basliklar .section-title {
+        margin: 0 0 8px 0;
+        padding: 0;
+      }
+      #seri-count {
+        margin: 0 0 0 0;
+        padding: 0;
+        font-size: 1.1rem;
+        color: #aaa;
+      }
+    }
+
+    /* Seri Etiket Stilleri */
+    .image-wrapper {
+      position: relative;
+      display: inline-block;
+    }
+
+    .series-label {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      padding: 4px 8px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 600;
+      color: white;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      z-index: 2;
+      backdrop-filter: blur(4px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    /* Popülerler Bölümü Stilleri */
+    .popular-container {
+      max-width: 1000px;
+      margin: 0 auto 40px auto;
+      padding: 0 20px;
+    }
+
+    .popular-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr); /* Masaüstünde 4 sütun sabit */
+      gap: 16px;
+      margin-bottom: 20px;
+      max-width: 1000px; /* 4 kart için optimize */
+      margin: 0 auto;
+      justify-content: start; /* Sol tarafa yasla */
+      align-content: start;
+    }
+
+    /* Haftalık popülerler için sabit 4'lü grid */
+    #weekly-popular-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    /* Tüm zamanların popülerleri için sabit 4'lü grid */  
+    #all-time-popular-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .popular-card {
+      background: rgba(44, 44, 44, 0.9);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      position: relative;
+      cursor: pointer;
+    }
+
+    .popular-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(255, 111, 97, 0.2);
+      border-color: rgba(255, 111, 97, 0.3);
+    }
+
+    .popular-rank {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: linear-gradient(135deg, #ff6f61, #ff8a80);
+      color: white;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 14px;
+      z-index: 3;
+      box-shadow: 0 2px 8px rgba(255, 111, 97, 0.4);
+    }
+
+    .popular-card-image {
+      width: 100%;
+      height: 240px;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    .popular-card:hover .popular-card-image {
+      transform: scale(1.05);
+    }
+
+    .popular-card-content {
+      padding: 15px;
+    }
+
+    .popular-card-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: white;
+      margin: 0 0 6px 0;
+      line-height: 1.3;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* Popüler kartlar için ek istatistik alanları (Ana sayfa ile eşleştirildi) */
+    .popular-stats {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .popular-stats > div {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      color: #ccc;
+    }
+
+    .popular-stats i {
+      width: 12px;
+      flex-shrink: 0;
+      color: #ff6f61;
+    }
+
+    .popular-score {
+      font-weight: 600;
+      color: #ffd700 !important;
+    }
+
+    .popular-avg {
+      color: #90c695 !important;
+    }
+
+    .popular-reads {
+      color: #87ceeb !important;
+    }
+
+    .popular-chapters {
+      color: #dda0dd !important;
+    }
+
+    .popular-reads {
+      display: flex;
+      align-items: center;
+      gap: 3px;
+    }
+
+    .popular-reads i {
+      color: #ff6f61;
+    }
+
+    .popular-chapters {
+      display: flex;
+      align-items: center;
+      gap: 3px;
+    }
+
+    .popular-chapters i {
+      color: #4a9eff;
+    }
+
+    .popular-chapter-info {
+      font-size: 10px;
+      color: #888;
+      margin-top: 4px;
+    }
+
+    /* Loading ve empty state */
+    .popular-loading {
+      text-align: center;
+      padding: 30px;
+      color: #bbb;
+      font-size: 13px;
+      grid-column: 1 / -1;
+    }
+
+    .popular-empty {
+      text-align: center;
+      padding: 30px;
+      color: #888;
+      font-size: 13px;
+      grid-column: 1 / -1;
+    }
+
+    /* Responsive - Popüler Grid için (Ana sayfa ile eşleştirildi) */
+    @media (max-width: 768px) {
+      .popular-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 15px;
+      }
+      
+      .popular-card-image {
+        height: 200px;
+      }
+      
+      .popular-rank {
+        width: 25px;
+        height: 25px;
+        font-size: 12px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .popular-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 10px;
+      }
+      
+      .popular-card {
+        height: 220px;
+      }
+      
+      .popular-card-image {
+        height: 140px;
+      }
+      
+      .popular-card-content {
+        padding: 8px;
+      }
+      
+      .popular-card-title {
+        font-size: 11px;
+      }
+    }
+
+    /* Masaüstü özel durumlar için: Eğer 1 kart varsa, 2 sütunmuş gibi ortala */
+    @media (min-width: 769px) {
+      .popular-grid.only-one {
+        grid-template-columns: repeat(2, 1fr) !important;
+      }
+      .popular-grid.only-one .popular-card {
+        grid-column: 1 / span 1;
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo-area">
+      <a href="index.html" class="logo-link">
+        <img src="images/ToonNekoLogo.png" alt="Logo" />
+        <span>ToonNeko</span>
+      </a>
+    </div>
+    <nav class="desktop-navbar">
+      <ul>
+        <li><a href="index.html" style="text-decoration:none;">Anasayfa</a></li>
+        <li><a href="tum-seriler.html" style="text-decoration:none;" class="active">Tüm Seriler</a></li>
+        <li><a href="profile.html" style="text-decoration:none;">Profilim</a></li>
+        <li><a href="hakkinda.html" style="text-decoration:none;">Hakkında</a></li>
+        <li><a href="iletisim.html" style="text-decoration:none;">İletişim</a></li>
+        
+        <!-- Auth Buttons (Logged Out) -->
+        <li id="auth-buttons-nav">
+          <button id="open-register-modal-navbar" class="auth-btn" style="background:#ff6f61; color:#fff; border:none; border-radius:20px; padding:6px 14px; margin-left:8px; font-size:0.9rem; cursor:pointer; transition:background 0.2s;">Kayıt Ol</button>
+        </li>
+        <li id="auth-buttons-nav-2">
+          <button id="open-login-modal-navbar" class="auth-btn" style="background:#fff; color:#ff6f61; border:1.5px solid #ff6f61; border-radius:20px; padding:6px 14px; margin-left:4px; font-size:0.9rem; cursor:pointer; transition:background 0.2s, color 0.2s;">Giriş Yap</button>
+        </li>
+        
+        <!-- User Info (Logged In) -->
+        <li id="user-info-nav" style="display: none;">
+          <span id="username-display" style="color:#fff; margin-right:8px; font-weight:500; font-size:0.95rem;"></span>
+        </li>
+        <li id="user-info-nav-2" style="display: none;">
+          <button id="logout-btn" class="auth-btn" style="background:#fff; color:#ff6f61; border:1.5px solid #ff6f61; border-radius:20px; padding:6px 14px; margin-left:4px; font-size:0.9rem; cursor:pointer; transition:background 0.2s, color 0.2s;">Çıkış Yap</button>
+        </li>
+      </ul>
+    </nav>
+    <div class="hamburger"><span></span><span></span><span></span></div>
+  </header>
+  <nav class="side-menu" id="sideMenu">
+    <button class="close-btn" id="closeMenu">×</button>
+    <ul>
+      <li><a href="index.html" style="text-decoration:none;">Anasayfa</a></li>
+      <li><a href="tum-seriler.html" style="text-decoration:none;" class="active">Tüm Seriler</a></li>
+      <li><a href="profile.html" style="text-decoration:none;">Profilim</a></li>
+      <li><a href="hakkinda.html" style="text-decoration:none;">Hakkında</a></li>
+      <li><a href="iletisim.html" style="text-decoration:none;">İletişim</a></li>
+      
+      <!-- Auth Buttons (Logged Out) -->
+      <div id="side-auth-buttons">
+        <li><button id="open-register-modal-side" class="auth-btn" style="background:#ff6f61; color:#fff; border:none; border-radius:20px; padding:10px 16px; margin:10px 0 0 0; font-size:1rem; cursor:pointer; width:90%;">Kayıt Ol</button></li>
+        <li><button id="open-login-modal-side" class="auth-btn" style="background:#fff; color:#ff6f61; border:1.5px solid #ff6f61; border-radius:20px; padding:10px 16px; margin:8px 0 0 0; font-size:1rem; cursor:pointer; width:90%;">Giriş Yap</button></li>
+      </div>
+      
+      <!-- User Info (Logged In) -->
+      <div id="side-user-info" style="display: none;">
+        <li><span id="side-username-display" style="color:#fff; margin:15px 0; font-weight:500; display:block; text-align:center; font-size:1.1rem;"></span></li>
+        <li><button id="side-logout-btn" class="auth-btn" style="background:#fff; color:#ff6f61; border:1.5px solid #ff6f61; border-radius:20px; padding:10px 16px; margin:8px 0 0 0; font-size:1rem; cursor:pointer; width:90%;">Çıkış Yap</button></li>
+      </div>
+    </ul>
+  </nav>
+  <div class="side-overlay" id="sideOverlay"></div>
+
+<!-- Alert Box -->
+<div id="alert-box"></div>
+    </ul>
+  </nav>
+  <div class="side-overlay" id="sideOverlay"></div>
+
+<!-- Alert Box -->
+<div id="alert-box"></div>
+  <div class="search-container">
+    <input type="text" id="search-input" placeholder="Manhwa ara...">
+    <div id="search-results" class="results-box hidden"></div>
+  </div>
+  <!-- Manhwa Önerisi Al -->
+  <section>
+    <div class="oner-kutusu">
+      <h2>Manhwa Önerisi Al</h2>
+      <div class="slider">
+        <img id="preview-image" src="images/kapaklar/sololeveling.jpg" alt="Kapak">
+      </div>
+      <div id="preview-title" class="seri-baslik hidden">Solo Leveling</div>
+      <button id="oner-button">Manhwa Öner</button>
+    </div>
+  </section>
+  
+  <!-- Popülerler Bölümü -->
+  <section class="tum-seriler-basliklar">
+    <h2 class="section-title">🔥 Haftanın Popülerleri</h2>
+  </section>
+  <div class="popular-container" id="weekly-popular-container">
+    <div class="popular-grid" id="weekly-popular-grid">
+      <!-- Haftalık popüler seriler buraya gelecek -->
+    </div>
+  </div>
+
+  <section class="tum-seriler-basliklar">
+    <h2 class="section-title">⭐ Tüm Zamanların En Çok Okunanları</h2>
+  </section>
+  <div class="popular-container" id="all-time-popular-container">
+    <div class="popular-grid" id="all-time-popular-grid">
+      <!-- Tüm zamanların popülerleri buraya gelecek -->
+    </div>
+  </div>
+
+  <!-- Genres (Kategoriler) -->
+  <section>
+    <div class="genres-container">
+      <h3>Kategoriler</h3>
+      <div id="genres-list"></div>
+    </div>
+  </section>
+
+  <!-- Tüm Seriler ve Sıralama -->
+  <section class="tum-seriler-basliklar">
+    <h2 class="section-title">Tüm Seriler</h2>
+    <div id="seri-count"></div>
+  </section>
+  <div class="sort-buttons">
+    <button onclick="sortSeries('alphabetical')">Alfabetik</button>
+    <button onclick="sortSeries('reverse')">En Sondan</button>
+    <button onclick="sortSeries('popular')">En Çok Okunan</button>
+    <button onclick="sortSeries('highest-rated')">
+      <span class="button-text">En Yüksek Puanlı</span>
+      <span class="button-loading" style="display: none;">⏳ Sıralanıyor...</span>
+    </button>
+    <button onclick="sortSeries('status-completed-first')">Önce Tamamlanmış</button>
+    <button onclick="sortSeries('status-ongoing-first')">Önce Devam Eden</button>
+  </div>
+  <div class="grid" id="tum-seriler-list"></div>
+  <div id="pagination" class="pagination"></div>
+  <!-- Scroll to top button -->
+  <button id="scrollTopBtn" title="Yukarı Çık"><i class="fas fa-arrow-up"></i></button>
+  <!-- Kayıt Formu (Modal) -->
+  <div id="register-modal" class="modal" style="display:none; position:fixed; z-index:1000; left:0; top:0; width:100vw; height:100vh; background:rgba(0,0,0,0.5); justify-content:center; align-items:center;">
+    <div style="background:#fff; padding:32px 24px; border-radius:12px; max-width:350px; width:90%; box-shadow:0 4px 24px rgba(0,0,0,0.18); position:relative;">
+      <button id="close-register-modal" style="position:absolute; top:12px; right:12px; background:none; border:none; font-size:22px; cursor:pointer;">&times;</button>
+      <h2 style="margin-bottom:18px; text-align:center;">Kayıt Ol</h2>
+      <form id="register-form">
+        <input id="register-username" type="text" placeholder="Kullanıcı Adı" required style="width:100%; padding:10px; margin-bottom:12px; border-radius:6px; border:1px solid #ccc;">
+        <input id="register-email" type="email" placeholder="E-posta" required style="width:100%; padding:10px; margin-bottom:12px; border-radius:6px; border:1px solid #ccc;">
+        <input id="register-password" type="password" placeholder="Şifre" required style="width:100%; padding:10px; margin-bottom:18px; border-radius:6px; border:1px solid #ccc;">
+        <button type="submit" style="width:100%; padding:10px; background:#ff6f61; color:#fff; border:none; border-radius:6px; font-size:16px; cursor:pointer;">Kayıt Ol</button>
+      </form>
+    </div>
+  </div>
+  <!-- Giriş Formu (Modal) -->
+  <div id="login-modal" class="modal" style="display:none; position:fixed; z-index:1000; left:0; top:0; width:100vw; height:100vh; background:rgba(0,0,0,0.5); justify-content:center; align-items:center;">
+    <div style="background:#fff; padding:32px 24px; border-radius:12px; max-width:350px; width:90%; box-shadow:0 4px 24px rgba(0,0,0,0.18); position:relative;">
+      <button id="close-login-modal" style="position:absolute; top:12px; right:12px; background:none; border:none; font-size:22px; cursor:pointer;">&times;</button>
+      <h2 style="margin-bottom:18px; text-align:center;">Giriş Yap</h2>
+      <form id="login-form">
+        <input id="login-identifier" type="text" placeholder="E-posta veya Kullanıcı Adı" required style="width:100%; padding:10px; margin-bottom:12px; border-radius:6px; border:1px solid #ccc;">
+        <input id="login-password" type="password" placeholder="Şifre" required style="width:100%; padding:10px; margin-bottom:18px; border-radius:6px; border:1px solid #ccc;">
+        <button type="submit" style="width:100%; padding:10px; background:#ff6f61; color:#fff; border:none; border-radius:6px; font-size:16px; cursor:pointer;">Giriş Yap</button>
+      </form>
+    </div>
+  </div>
+  <!-- Uyarı kutusu -->
+  <div id="alert-box" style="display:none;position:fixed;top:30px;left:50%;transform:translateX(-50%);z-index:2000;min-width:220px;max-width:90vw;padding:16px 28px;border-radius:8px;font-size:16px;font-weight:500;text-align:center;box-shadow:0 2px 12px rgba(0,0,0,0.13);background:#fff;color:#ff6f61;border:1.5px solid #ff6f61;transition:opacity 0.3s;"></div>
+  <script>
+    // Sayfa açılışında fade-in
+    window.addEventListener('DOMContentLoaded', function() {
+      document.body.classList.add('loaded');
+    });
+    // Scroll to top butonu
+    const scrollBtn = document.getElementById('scrollTopBtn');
+    window.onscroll = function() {
+      if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+        scrollBtn.style.display = 'block';
+      } else {
+        scrollBtn.style.display = 'none';
+      }
+    };
+    scrollBtn.onclick = function() {
+      window.scrollTo({top: 0, behavior: 'smooth'});
+    };
+  </script>
+  <script src="scripts/oner.js?v=5"></script>
+  <script src="scripts/navbar.js?v=5"></script>
+  <script src="scripts/auth-navbar.js?v=5"></script>
+  <script src="scripts/auth-forms.js?v=5"></script>
+  <script src="scripts/reading-progress-tracker.js?v=5"></script>
+  <script src="scripts/rating-manager.js?v=5"></script>
+  <script src="scripts/popular-sections.js?v=5"></script>
+  <script src="scripts/tum-seriler.js?v=5"></script>
+  <script src="scripts/arama.js?v=5"></script>
+  <script src="scripts.js?v=5"></script>
+</body>
+</html>

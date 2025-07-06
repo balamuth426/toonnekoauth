@@ -1,0 +1,713 @@
+/* Yorumlar Bölümü Modern ve Tutarlı Stil */
+.comments-section {
+  background: #232323;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.13);
+  padding: 28px 18px 22px 18px;
+  margin: 32px auto 0 auto;
+  max-width: 600px;
+  width: 100%;
+}
+.comments-title {
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: #ff6f61;
+  margin-bottom: 8px;
+  text-align: center;
+}
+.comments-title .comments-rules {
+  font-size: 0.95rem;
+  color: #888;
+  margin-top: 4px;
+  display: block;
+}
+.login-prompt {
+  background: linear-gradient(135deg, #2d2d2d 0%, #262626 100%);
+  border: 2px solid #ff6f61;
+  border-radius: 10px;
+  padding: 20px;
+  margin: 15px 0;
+  text-align: center;
+}
+.login-message {
+  color: #fff;
+}
+.login-message i {
+  font-size: 2rem;
+  color: #ff6f61;
+  margin-bottom: 10px;
+  display: block;
+}
+.login-message p {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #ddd;
+}
+.login-message a {
+  color: #ff6f61;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s;
+}
+.login-message a:hover {
+  color: #ff8f81;
+  text-decoration: underline;
+}
+.comment-form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+.comment-form textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 7px;
+  border: 1.5px solid #444;
+  background: #333;
+  color: #fff;
+  font-size: 1rem;
+  resize: vertical;
+  min-height: 60px;
+  transition: border 0.2s;
+}
+.comment-form textarea:focus {
+  border-color: #ff6f61;
+  outline: none;
+}
+.comment-form-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.comment-form button {
+  padding: 8px 20px;
+  background: #ff6f61;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+.comment-form button:hover {
+  background: #e85c50;
+  transform: scale(1.04);
+}
+.comments-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+  font-size: 0.98rem;
+  color: #bbb;
+}
+.comments-list {
+  margin-top: 8px;
+}
+.comments-list p {
+  color: #999;
+  text-align: center;
+  font-size: 0.98rem;
+}
+.comment {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 18px;
+  background: linear-gradient(135deg, #262626 60%, #232323 100%);
+  border-radius: 10px;
+  padding: 14px 12px 12px 12px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.13);
+  position: relative;
+  transition: box-shadow 0.2s;
+}
+.comment:hover {
+  box-shadow: 0 6px 24px rgba(255,111,97,0.10);
+}
+.comment-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2.5px solid #ff6f61;
+  background: #181818;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.10);
+}
+.comment-content {
+  flex: 1;
+  min-width: 0;
+}
+.comment-author {
+  font-weight: 700;
+  color: #ff6f61;
+  margin-right: 8px;
+  font-size: 1.08rem;
+}
+.comment-date {
+  font-size: 0.93rem;
+  color: #aaa;
+  margin-left: 2px;
+}
+.comment-text {
+  margin: 7px 0 5px 0;
+  font-size: 1.08rem;
+  color: #f3f3f3;
+  word-break: break-word;
+  line-height: 1.5;
+}
+.comment-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 2px;
+}
+.comment-actions button {
+  background: #232323;
+  border: none;
+  color: #bbb;
+  font-size: 1.05rem;
+  cursor: pointer;
+  padding: 4px 12px;
+  border-radius: 5px;
+  transition: background 0.2s, color 0.2s;
+  font-weight: 500;
+}
+.comment-actions button:hover:not(:disabled) {
+  background: #ff6f61;
+  color: #fff;
+}
+.comment-actions button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.comment-reply {
+  display: flex;
+  gap: 8px;
+  margin: 10px 0 0 32px;
+  background: linear-gradient(135deg, #232323 60%, #181818 100%);
+  border-radius: 8px;
+  padding: 10px 10px 10px 10px;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.08);
+}
+.reply-form {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 10px 0 0 32px;
+}
+.reply-form textarea {
+  font-size: 0.98rem;
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid #444;
+  background: #333;
+  color: #fff;
+  resize: vertical;
+}
+.reply-form button {
+  align-self: flex-end;
+  padding: 5px 14px;
+  font-size: 0.95rem;
+  border-radius: 5px;
+  background: #ff6f61;
+  color: #fff;
+  border: none;
+  margin-left: 6px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.reply-form button:hover {
+  background: #e85c50;
+}
+.comments-loader {
+  text-align: center;
+  color: #ff6f61;
+  font-size: 1.1rem;
+  margin: 18px 0;
+  letter-spacing: 0.02em;
+}
+@media (max-width: 600px) {
+  .comments-section {
+    padding: 10px 2px 10px 2px;
+    max-width: 99vw;
+  }
+  .comments-title {
+    font-size: 1.08rem;
+  }
+  .comment-form button {
+    font-size: 0.95rem;
+    padding: 7px 12px;
+  }
+  .comment {
+    padding: 8px 4px 8px 4px;
+  }
+  .comment-avatar {
+    width: 32px;
+    height: 32px;
+  }
+  .comment-reply {
+    margin-left: 12px;
+    padding: 7px 7px 7px 7px;
+  }
+}
+
+/* Yanıt düzenleme ve silme */
+.reply-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.edit-reply-btn, .delete-reply-btn, .edit-comment-btn {
+  background: none;
+  border: 1px solid #555;
+  color: #aaa;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.edit-reply-btn:hover, .edit-comment-btn:hover {
+  border-color: #ff6f61;
+  color: #ff6f61;
+}
+
+.delete-reply-btn:hover {
+  border-color: #e74c3c;
+  color: #e74c3c;
+}
+
+.edit-reply-form, .edit-comment-form {
+  margin-top: 10px;
+}
+
+.edit-reply-textarea, .edit-comment-textarea {
+  width: 100%;
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #444;
+  background: #333;
+  color: #fff;
+  font-size: 0.9rem;
+  resize: vertical;
+  min-height: 40px;
+}
+
+.edit-reply-textarea:focus, .edit-comment-textarea:focus {
+  border-color: #ff6f61;
+  outline: none;
+}
+
+.edit-reply-actions, .edit-comment-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.save-edit-btn, .cancel-edit-btn, .save-comment-edit-btn, .cancel-comment-edit-btn {
+  padding: 6px 12px;
+  border-radius: 4px;
+  border: none;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.save-edit-btn, .save-comment-edit-btn {
+  background: #ff6f61;
+  color: white;
+}
+
+.save-edit-btn:hover, .save-comment-edit-btn:hover {
+  background: #e85c50;
+}
+
+.cancel-edit-btn, .cancel-comment-edit-btn {
+  background: #555;
+  color: white;
+}
+
+.cancel-edit-btn:hover, .cancel-comment-edit-btn:hover {
+  background: #666;
+}
+
+.edited-label {
+  font-size: 0.75rem;
+  color: #888;
+  font-style: italic;
+  margin-left: 8px;
+}
+
+/* Rapor Modalı Stilleri */
+.report-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+}
+
+.report-modal-content {
+  background: #2a2a2a;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 500px;
+  color: #fff;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.report-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 25px;
+  border-bottom: 1px solid #444;
+}
+
+.report-modal-header h3 {
+  margin: 0;
+  color: #ff6f61;
+  font-size: 1.25rem;
+}
+
+.report-modal-close {
+  background: none;
+  border: none;
+  color: #ccc;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background 0.2s;
+}
+
+.report-modal-close:hover {
+  background: #555;
+}
+
+.report-modal-body {
+  padding: 25px;
+}
+
+.report-modal-body p {
+  margin: 0 0 20px 0;
+  color: #ddd;
+  font-size: 1.1rem;
+}
+
+.report-reasons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.report-reasons label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 6px;
+  transition: background 0.2s;
+}
+
+.report-reasons label:hover {
+  background: #333;
+}
+
+.report-reasons input[type="radio"] {
+  margin: 0;
+}
+
+.report-description {
+  width: 100%;
+  min-height: 80px;
+  padding: 12px;
+  border: 1px solid #555;
+  border-radius: 6px;
+  background: #333;
+  color: #fff;
+  font-size: 14px;
+  resize: vertical;
+  font-family: inherit;
+}
+
+.report-description:focus {
+  outline: none;
+  border-color: #ff6f61;
+}
+
+.report-modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding: 20px 25px;
+  border-top: 1px solid #444;
+}
+
+.report-cancel-btn,
+.report-submit-btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.report-cancel-btn {
+  background: #666;
+  color: #fff;
+}
+
+.report-cancel-btn:hover {
+  background: #555;
+}
+
+.report-submit-btn {
+  background: #ff6f61;
+  color: #fff;
+}
+
+.report-submit-btn:hover {
+  background: #e55a4b;
+}
+
+/* Rapor Butonu Stilleri */
+.report-btn,
+.report-reply-btn {
+  background: none;
+  border: none;
+  color: #ff6f61;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+
+.report-btn:hover,
+.report-reply-btn:hover {
+  background: #ff6f61;
+  color: #fff;
+}
+
+/* Reply actions için flexbox düzeni */
+.reply-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 5px;
+  align-items: center;
+}
+
+/* Rapor Butonu Stilleri */
+.report-btn, .report-reply-btn {
+  background: #ff4444;
+  color: white;
+  border: none;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: background 0.2s;
+  margin-left: 8px;
+}
+
+.report-btn:hover, .report-reply-btn:hover {
+  background: #ff2222;
+}
+
+/* Rapor Modalı */
+.report-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+}
+
+.report-modal-content {
+  background: #333;
+  border-radius: 12px;
+  max-width: 500px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.report-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  border-bottom: 1px solid #444;
+}
+
+.report-modal-header h3 {
+  color: #ff6f61;
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+.report-modal-close {
+  background: none;
+  border: none;
+  color: #ccc;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.report-modal-close:hover {
+  color: #ff6f61;
+}
+
+.report-modal-body {
+  padding: 24px;
+}
+
+.report-modal-body p {
+  color: #ccc;
+  margin-bottom: 16px;
+  font-size: 1rem;
+}
+
+.report-reasons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.report-reasons label {
+  display: flex;
+  align-items: center;
+  color: #ccc;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 6px;
+  transition: background 0.2s;
+}
+
+.report-reasons label:hover {
+  background: #444;
+}
+
+.report-reasons input[type="radio"] {
+  margin-right: 12px;
+  accent-color: #ff6f61;
+}
+
+.report-description {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #444;
+  border-radius: 6px;
+  background: #222;
+  color: #ccc;
+  font-size: 0.9rem;
+  resize: vertical;
+  min-height: 60px;
+  box-sizing: border-box;
+}
+
+.report-description:focus {
+  outline: none;
+  border-color: #ff6f61;
+}
+
+.report-modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding: 20px 24px;
+  border-top: 1px solid #444;
+}
+
+.report-cancel-btn, .report-submit-btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.report-cancel-btn {
+  background: #555;
+  color: #ccc;
+}
+
+.report-cancel-btn:hover {
+  background: #666;
+}
+
+.report-submit-btn {
+  background: #ff6f61;
+  color: white;
+}
+
+.report-submit-btn:hover {
+  background: #ff5a4d;
+}
+
+@media (max-width: 600px) {
+  .comments-section {
+    padding: 10px 2px 10px 2px;
+    max-width: 99vw;
+  }
+  .comments-title {
+    font-size: 1.08rem;
+  }
+  .comment-form button {
+    font-size: 0.95rem;
+    padding: 7px 12px;
+  }
+  .comment {
+    padding: 8px 4px 8px 4px;
+  }
+  .comment-avatar {
+    width: 32px;
+    height: 32px;
+  }
+  .comment-reply {
+    margin-left: 12px;
+    padding: 7px 7px 7px 7px;
+  }
+  .report-modal-content {
+    width: 95%;
+    margin: 10px;
+  }
+  
+  .report-modal-header,
+  .report-modal-body,
+  .report-modal-footer {
+    padding: 16px;
+  }
+}

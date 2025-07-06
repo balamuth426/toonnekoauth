@@ -1,0 +1,826 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(-45deg, #1f1f1f, #2c2c2c, #1a1a1a, #2a2a2a);
+  color: #f0f0f0;
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  overflow-x: hidden;
+}
+header {
+  background-color: #2c2c2c;
+  padding: 10px 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 1001;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  min-height: 70px;
+  width: 100vw;
+  min-width: 100%;
+  max-width: 100vw;
+  box-sizing: border-box;
+  margin: 0;
+  overflow: hidden;
+}
+.logo-area {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-shrink: 0;
+}
+.logo-area img {
+  height: 64px;
+  width: auto;
+}
+.logo-area span {
+  font-size: 3.2rem;
+  font-weight: bold;
+  white-space: nowrap;
+}
+.hamburger {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  background: none;
+  border: none;
+  position: relative;
+  z-index: 1101;
+  padding: 4px;
+  border-radius: 6px;
+  transition: background 0.2s;
+}
+.hamburger:hover {
+  background: rgba(255,255,255,0.1);
+}
+.hamburger span {
+  display: block;
+  width: 28px;
+  height: 4px;
+  margin: 3px 0;
+  background: #fff;
+  border-radius: 2px;
+  transition: 0.3s cubic-bezier(.4,2,.6,1);
+  transform-origin: center;
+}
+.hamburger.active span:nth-child(1) {
+  transform: translateY(10px) rotate(45deg);
+}
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+.hamburger.active span:nth-child(3) {
+  transform: translateY(-10px) rotate(-45deg);
+}
+.side-menu {
+  position: fixed;
+  top: 0;
+  left: -320px;
+  width: 280px;
+  height: 100vh;
+  background: linear-gradient(135deg, #23223a 0%, #1e1e36 100%);
+  box-shadow: 2px 0 20px rgba(0,0,0,0.3);
+  transition: left 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  z-index: 1300;
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  backdrop-filter: blur(10px);
+}
+.side-menu.open {
+  left: 0;
+}
+.side-menu .close-btn {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  font-size: 2rem;
+  background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  transition: background 0.2s, transform 0.2s;
+  z-index: 1;
+}
+.side-menu .close-btn:hover {
+  background: rgba(255,255,255,0.1);
+  transform: rotate(90deg);
+}
+.side-menu ul {
+  background: none;
+  box-shadow: none;
+  border-radius: 0;
+  list-style: none;
+  padding: 0;
+  margin: 40px 0 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.side-menu li {
+  background: none;
+  border-radius: 0;
+  margin-right: 0;
+}
+.side-menu a {
+  color: #f0f0f0;
+  text-decoration: none;
+  font-size: 1.1rem;
+  padding: 12px 20px;
+  border-radius: 6px;
+  transition: background 0.2s;
+  display: block;
+  margin: 0 10px;
+}
+.side-menu a:hover, .side-menu a.active {
+  background: #ff6f61;
+  color: #fff;
+}
+
+/* Side menu auth buttons */
+#side-auth-buttons {
+  padding: 0 10px;
+  margin-top: 20px;
+}
+
+#side-auth-buttons .auth-btn {
+  background: #ff6f61;
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  padding: 10px 16px;
+  margin: 10px 0 0 0;
+  font-size: 1rem;
+  cursor: pointer;
+  width: 90%;
+}
+
+#side-auth-buttons .auth-btn.secondary {
+  background: #fff;
+  color: #ff6f61;
+  border: 1.5px solid #ff6f61;
+  margin: 8px 0 0 0;
+}
+
+#side-auth-buttons .auth-btn.secondary:hover {
+  background: #ff6f61;
+  color: #fff;
+}
+
+#side-user-info .username-display {
+  color: #fff;
+  margin: 15px 0;
+  font-weight: 500;
+  display: block;
+  text-align: center;
+  font-size: 1.1rem;
+}
+
+#side-user-info .auth-btn {
+  background: #fff;
+  color: #ff6f61;
+  border: 1.5px solid #ff6f61;
+  border-radius: 20px;
+  padding: 10px 16px;
+  margin: 8px 0 0 0;
+  font-size: 1rem;
+  cursor: pointer;
+  width: 90%;
+}
+
+#side-user-info {
+  padding: 0 10px;
+  margin-top: 20px;
+  text-align: center;
+}
+#side-user-info span {
+  display: block;
+  margin: 15px 10px;
+  padding: 10px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 8px;
+  font-size: 1.1rem;
+}
+#side-user-info button {
+  width: calc(100% - 20px) !important;
+  margin: 8px 10px !important;
+  font-size: 1rem !important;
+  padding: 10px 16px !important;
+}
+.side-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.6);
+  z-index: 1250;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s ease, visibility 0.4s ease;
+  backdrop-filter: blur(2px);
+}
+.side-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+.search-container {
+  position: relative;
+  width: 90%;
+  max-width: 500px;
+  margin: 15px auto;
+  padding: 0 10px;
+  z-index: 1150;
+}
+#search-input {
+  width: 100%;
+  padding: 12px 16px;
+  font-size: 1rem;
+  background-color: #333;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  box-sizing: border-box;
+}
+#search-input::placeholder {
+  color: #999;
+}
+.results-box {
+  position: absolute;
+  top: 105%;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  width: 100%;
+  background-color: #2c2c2c;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  max-height: 220px;
+  overflow-y: auto;
+  z-index: 1200;
+  box-sizing: border-box;
+}
+.result-item {
+  display: flex;
+  gap: 10px;
+  padding: 10px;
+  border-bottom: 1px solid #444;
+  align-items: center;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.result-item:hover {
+  background-color: #3a3a3a;
+}
+.result-item:last-child {
+  border-bottom: none;
+}
+.result-item img {
+  width: 50px;
+  height: 75px;
+  object-fit: cover;
+  border-radius: 6px;
+  flex-shrink: 0;
+}
+.result-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+  flex: 1;
+}
+.result-info a {
+  color: #6C63FF;
+  text-decoration: none;
+  font-weight: bold;
+  margin-bottom: 4px;
+  transition: color 0.3s;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 0.95rem;
+}
+.result-info a:hover {
+  color: #9b94ff;
+}
+.hidden {
+  display: none;
+}
+
+/* Masaüstü navbarı */
+.desktop-navbar {
+  display: flex;
+  align-items: center;
+  margin-left: 20px;
+  flex: 1;
+  overflow: hidden;
+}
+.desktop-navbar ul {
+  display: flex;
+  gap: 15px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.desktop-navbar ul::-webkit-scrollbar {
+  display: none;
+}
+.desktop-navbar li {
+  flex-shrink: 0;
+}
+.desktop-navbar a {
+  color: #f0f0f0;
+  text-decoration: none;
+  font-size: 1rem;
+  padding: 8px 12px;
+  border-radius: 6px;
+  transition: background 0.2s;
+  white-space: nowrap;
+}
+.desktop-navbar a:hover, .desktop-navbar a.active {
+  background: #ff6f61;
+  color: #fff;
+}
+
+/* Auth buttons responsive */
+.auth-btn {
+  background: #ff6f61;
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  padding: 6px 14px;
+  margin-left: 8px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  white-space: nowrap;
+  min-width: auto;
+}
+
+.auth-btn.secondary {
+  background: #fff;
+  color: #ff6f61;
+  border: 1.5px solid #ff6f61;
+  margin-left: 4px;
+}
+
+.auth-btn.secondary:hover {
+  background: #ff6f61;
+  color: #fff;
+}
+
+.auth-btn:hover {
+  background: #e55a50;
+}
+
+.username-display {
+  color: #fff;
+  margin-right: 8px;
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+/* Hamburger ve side-menu sadece mobil/tablet'te görünsün */
+.hamburger {
+  display: none;
+}
+.side-menu,
+.side-overlay {
+  display: none;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .desktop-navbar {
+    margin-left: 15px;
+  }
+  .desktop-navbar ul {
+    gap: 12px;
+  }
+  .desktop-navbar a {
+    font-size: 0.95rem;
+    padding: 6px 10px;
+  }
+  .auth-btn {
+    font-size: 0.85rem !important;
+    padding: 5px 12px !important;
+  }
+}
+
+@media (max-width: 1366px) {
+  /* Tüm tablet cihazlarda hamburger menü aktif olsun */
+  .desktop-navbar {
+    display: none;
+  }
+  .hamburger {
+    display: flex;
+  }
+  .side-menu,
+  .side-overlay {
+    display: block;
+  }
+}
+
+/* iPad ve benzeri tablet cihazlar için hamburger menü */
+@media (min-device-width: 768px) and (max-device-width: 1024px) {
+  .desktop-navbar {
+    display: none !important;
+  }
+  .hamburger {
+    display: flex !important;
+  }
+  .side-menu,
+  .side-overlay {
+    display: block !important;
+  }
+}
+
+/* iPad Pro ve büyük tabletler için hamburger menü */
+@media (min-device-width: 1024px) and (max-device-width: 1366px) and (orientation: portrait) {
+  .desktop-navbar {
+    display: none !important;
+  }
+  .hamburger {
+    display: flex !important;
+  }
+  .side-menu,
+  .side-overlay {
+    display: block !important;
+  }
+}
+
+/* Büyük tablet yatay mod için hamburger menü */
+@media (min-device-width: 1024px) and (max-device-width: 1366px) and (orientation: landscape) {
+  .desktop-navbar {
+    display: none !important;
+  }
+  .hamburger {
+    display: flex !important;
+  }
+  .side-menu,
+  .side-overlay {
+    display: block !important;
+  }
+}
+
+@media (max-width: 1024px) {
+  header {
+    padding: 8px 12px;
+  }
+  .logo-area img {
+    height: 55px;
+  }
+  .logo-area span {
+    font-size: 2.6rem;
+  }
+}
+
+/* Tablet Landscape optimizations */
+@media (min-width: 901px) and (max-width: 1024px) and (orientation: landscape) {
+  header {
+    padding: 10px 20px;
+  }
+  /* Landscape tabletlerde de hamburger menü olsun ama biraz daha büyük */
+  .hamburger {
+    width: 36px;
+    height: 36px;
+  }
+  .hamburger span {
+    width: 30px;
+    height: 4px;
+  }
+  .side-menu {
+    width: 320px;
+    left: -340px;
+  }
+}
+
+/* Large screens optimizations */
+@media (min-width: 1400px) {
+  header {
+    padding: 15px 30px;
+  }
+  .logo-area img {
+    height: 70px;
+  }
+  .logo-area span {
+    font-size: 3.6rem;
+  }
+  .desktop-navbar {
+    margin-left: 50px;
+  }
+  .desktop-navbar ul {
+    gap: 25px;
+  }
+  .desktop-navbar a {
+    font-size: 1.2rem;
+    padding: 10px 18px;
+  }
+  .auth-btn {
+    font-size: 1rem !important;
+    padding: 8px 16px !important;
+  }
+  .search-container {
+    max-width: 600px;
+    margin: 25px auto;
+  }
+}
+
+/* Ultra-wide screens */
+@media (min-width: 1920px) {
+  .logo-area span {
+    font-size: 4rem;
+  }
+  .desktop-navbar ul {
+    gap: 30px;
+  }
+  .desktop-navbar a {
+    font-size: 1.3rem;
+    padding: 12px 20px;
+  }
+}
+
+/* Height-based responsive adjustments */
+@media (max-height: 600px) {
+  .side-menu {
+    padding-top: 10px;
+  }
+  .side-menu ul {
+    margin: 30px 0 0 0;
+    gap: 8px;
+  }
+  .side-menu a {
+    padding: 8px 16px;
+    font-size: 1rem;
+  }
+}
+.user-info-box {
+  display: flex;
+  align-items: center;
+  background: #23223a;
+  border-radius: 22px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+  padding: 6px 12px 6px 14px;
+  margin: 0 0 0 8px;
+  gap: 8px;
+  white-space: nowrap;
+}
+.user-info-box span {
+  color: #ff6f61;
+  font-weight: 600;
+  font-size: 0.95rem;
+  letter-spacing: 0.2px;
+  margin-right: 0;
+}
+.user-info-box button {
+  background: #fff;
+  color: #ff6f61;
+  border: 1.5px solid #ff6f61;
+  border-radius: 20px;
+  padding: 6px 14px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  margin-left: 0;
+  transition: background 0.2s, color 0.2s;
+  white-space: nowrap;
+}
+.user-info-box button:hover {
+  background: #ff6f61;
+  color: #fff;
+}
+
+/* User info box responsive */
+@media (max-width: 1200px) {
+  .user-info-box {
+    padding: 5px 10px 5px 12px;
+    gap: 6px;
+  }
+  .user-info-box span {
+    font-size: 0.9rem;
+  }
+  .user-info-box button {
+    padding: 5px 12px;
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 1024px) {
+  .user-info-box {
+    margin: 0 0 0 5px;
+    padding: 4px 8px 4px 10px;
+  }
+  .user-info-box span {
+    font-size: 0.85rem;
+  }
+  .user-info-box button {
+    padding: 4px 10px;
+    font-size: 0.8rem;
+  }
+}
+
+/* Modal styles */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.5);
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: #fff;
+  padding: 32px 24px;
+  border-radius: 12px;
+  max-width: 350px;
+  width: 90%;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+  position: relative;
+}
+
+.modal-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: none;
+  border: none;
+  font-size: 22px;
+  cursor: pointer;
+  color: #333;
+}
+
+.modal h2 {
+  margin-bottom: 18px;
+  text-align: center;
+  color: #333;
+}
+
+.modal input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+.modal input:last-of-type {
+  margin-bottom: 18px;
+}
+
+.modal button[type="submit"] {
+  width: 100%;
+  padding: 10px;
+  background: #ff6f61;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.modal-switch {
+  text-align: center;
+  color: #666;
+  margin-top: 15px;
+}
+
+.modal-switch a {
+  color: #ff6f61;
+  text-decoration: none;
+}
+
+.modal-switch a:hover {
+  text-decoration: underline;
+}
+
+/* Alert Box Styling */
+#alert-box {
+  display: none;
+  position: fixed;
+  top: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2000;
+  min-width: 220px;
+  max-width: 90vw;
+  padding: 16px 28px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  text-align: center;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.13);
+  background: #fff;
+  color: #ff6f61;
+  border: 1.5px solid #ff6f61;
+  transition: opacity 0.3s;
+}
+
+#alert-box.success {
+  background: #4CAF50;
+  color: #fff;
+  border: none;
+}
+
+/* Samsung Galaxy S8+ ve benzer cihazlar için navbar düzeltmeleri */
+@media (max-width: 414px) and (min-height: 800px) {
+  body {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    overflow-x: hidden;
+  }
+  
+  header {
+    width: 100vw;
+    min-width: 100%;
+    max-width: 100vw;
+    box-sizing: border-box;
+    padding: 8px 12px;
+    margin: 0;
+    background-color: #2c2c2c !important;
+    overflow: hidden;
+  }
+  
+  .logo-area {
+    flex-shrink: 0;
+    max-width: calc(100vw - 60px);
+  }
+  
+  .logo-area span {
+    font-size: 1.4rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+/* iPhone SE ve küçük ekranlar için */
+@media (max-width: 375px) {
+  body {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    overflow-x: hidden;
+  }
+  
+  header {
+    width: 100vw;
+    min-width: 100%;
+    max-width: 100vw;
+    box-sizing: border-box;
+    padding: 6px 10px;
+    margin: 0;
+    background-color: #2c2c2c !important;
+  }
+  
+  .logo-area span {
+    font-size: 2rem;
+  }
+  
+  .logo-area img {
+    height: 50px;
+  }
+}
+
+/* iPhone 14 Pro Max ve büyük ekranlar için */
+@media (min-width: 414px) and (max-width: 430px) and (min-height: 900px) {
+  header {
+    width: 100vw;
+    min-width: 100%;
+    max-width: 100vw;
+    box-sizing: border-box;
+    background-color: #2c2c2c !important;
+    overflow: hidden;
+  }
+}

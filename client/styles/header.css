@@ -1,0 +1,43 @@
+/* header.css - Navbar ve header stilleri örneği */
+
+header {
+  background-color: #222;
+  color: #fff;
+  padding: 16px 0;
+  text-align: center;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.navbar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 32px;
+  background: #222;
+  padding: 0 0 8px 0;
+}
+
+.navbar a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.1rem;
+  padding: 8px 16px;
+  border-radius: 4px;
+  transition: background 0.2s, color 0.2s;
+}
+
+.navbar a:hover {
+  background: #fff;
+  color: #222;
+}
+
+.logo {
+  height: 40px;
+  margin-right: 24px;
+}
+
+.logo-link img {
+  height: 40px;
+  width: auto;
+}

@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <title>Black Crow - Bölüm 1 | ToonNeko</title>
+  
+  <link rel="dns-prefetch" href="//fonts.googleapis.com">
+  <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+  <link rel="dns-prefetch" href="//localhost">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="preload" href="../../styles/navbar.css?v=5" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="../../styles/navbar.css?v=5"></noscript>
+  <link rel="preload" href="../../styles/ornek-navbar-ek.css?v=5" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="../../styles/ornek-navbar-ek.css?v=5"></noscript>
+  <link rel="preload" href="../../styles/seri.css?v=5" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="../../styles/seri.css?v=5"></noscript>
+  <link rel="preload" href="../../styles/enhanced-navigation.css?v=5" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="../../styles/enhanced-navigation.css?v=5"></noscript>
+  <link rel="preload" href="../../styles/dynamic-navigation.css?v=5" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="../../styles/dynamic-navigation.css?v=5"></noscript>
+  <link rel="preload" href="../../styles/okuma.css?v=5" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="../../styles/okuma.css?v=5"></noscript>
+  <link rel="preload" href="../../styles/comments.css?v=5" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="../../styles/comments.css?v=5"></noscript>
+  <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css?v=5" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css?v=5"></noscript>
+  <style>
+    body { opacity: 1; } /* Sayfa hemen görünsün */
+    body.loaded { opacity: 1; }
+    button, .section-bar { transition: transform 0.2s, box-shadow 0.2s; }
+    button:hover, .section-bar:hover { transform: scale(1.08); box-shadow: 0 4px 16px rgba(0,0,0,0.15); }
+    #scrollTopBtn { display: none; position: fixed; bottom: 30px; right: 30px; z-index: 99; font-size: 22px; background: #222; color: #fff; border: none; border-radius: 50%; width: 48px; height: 48px; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.2); transition: background 0.3s, transform 0.2s, opacity 0.2s; opacity: 1.8; }
+    #scrollTopBtn:hover { background: #ff6f61; transform: scale(1.1); opacity: 1; }
+    .logo-link { display: flex; align-items: center; text-decoration: none !important; color: inherit !important; cursor: pointer; }
+    .logo-link:visited, .logo-link:active, .logo-link:hover { color: inherit !important; text-decoration: none !important; }
+    .logo-link img { margin-right: 8px; }
+    
+    /* Force consistent logo size */
+    .logo-area img {
+      height: 64px !important;
+      width: auto !important;
+    }
+    .logo-area span {
+      font-size: 3.2rem !important;
+      font-weight: bold !important;
+    }
+    
+    /* Force consistent navbar margin */
+    .desktop-navbar {
+      margin-left: 20px !important;
+    }
+    header {
+      padding: 10px 15px !important;
+    }
+    
+    /* Chapter sayfasında hamburger ve side menu'yu görünür yap */
+    @media (max-width: 1366px) {
+      .hamburger {
+        display: flex !important;
+      }
+      .side-menu,
+      .side-overlay {
+        display: block !important;
+      }
+      .desktop-navbar {
+        display: none !important;
+      }
+    }
+    
+    @media (min-width: 1367px) {
+      .hamburger {
+        display: none !important;
+      }
+      .desktop-navbar {
+        display: flex !important;
+      }
+    }
+    
+    .okuma-header { display: flex; align-items: center; justify-content: space-between; max-width: 1000px; margin: 40px auto 0 auto; padding-left: 20px; padding-right: 20px; }
+    .okuma-header .seri-link { font-size: 1.2em; color: #ff6f61; text-decoration: none; display: flex; align-items: center; margin: 0 !important; padding: 0 !important; }
+    .okuma-header .fav-btn { background: none; border: none; color: #ff6f61; font-size: 1.5em; cursor: pointer; display: flex; align-items: center; margin: 0 !important; padding: 8px 12px !important; position: relative; border-radius: 8px; transition: all 0.3s ease; z-index: 100; }
+    .okuma-header .fav-btn i { font-family: 'Font Awesome 6 Free'; font-weight: 900; transition: all 0.3s ease; }
+    .okuma-header .fav-btn .fa-bookmark { color: #ff6f61; transition: all 0.3s ease; }
+    .okuma-header .fav-btn:hover { background: rgba(255, 111, 97, 0.1); transform: scale(1.1); }
+    .okuma-header .fav-btn.bookmarked { color: #ff6f61; background: rgba(255, 111, 97, 0.2); animation: bookmark-pulse 2s ease-in-out; }
+    .okuma-header .fav-btn.bookmarked i { color: #ff6f61; text-shadow: 0 0 8px rgba(255, 111, 97, 0.5); animation: bookmark-glow 2s ease-in-out; }
+    .okuma-header .fav-btn.has-other-bookmark { color: #ffa500; animation: bookmark-warning 1s ease-in-out; }
+    
+    /* Bookmark Animasyonları */
+    @keyframes bookmark-pulse {
+      0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 111, 97, 0.7); }
+      50% { transform: scale(1.1); box-shadow: 0 0 0 10px rgba(255, 111, 97, 0); }
+      100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 111, 97, 0); }
+    }
+    
+    @keyframes bookmark-glow {
+      0%, 100% { text-shadow: 0 0 8px rgba(255, 111, 97, 0.5); }
+      50% { text-shadow: 0 0 15px rgba(255, 111, 97, 0.8), 0 0 25px rgba(255, 111, 97, 0.5); }
+    }
+    
+    @keyframes bookmark-warning {
+      0%, 100% { transform: scale(1); }
+      25% { transform: scale(1.05) rotate(-2deg); }
+      75% { transform: scale(1.05) rotate(2deg); }
+    }
+    
+    /* Bookmark buton hover ve active states */
+    .okuma-header .fav-btn:active {
+      transform: scale(0.95);
+      transition: transform 0.1s ease;
+    }
+    
+    .okuma-header .fav-btn.clicked {
+      animation: bookmark-click 0.6s ease-out;
+    }
+    
+    @keyframes bookmark-click {
+      0% { transform: scale(1); }
+      20% { transform: scale(1.2) rotate(5deg); }
+      40% { transform: scale(1.1) rotate(-3deg); }
+      60% { transform: scale(1.05) rotate(2deg); }
+      80% { transform: scale(1.02) rotate(-1deg); }
+      100% { transform: scale(1) rotate(0deg); }
+    }
+    .okuma-header .fav-btn.has-other-bookmark:hover { background: rgba(255, 165, 0, 0.1); }
+    .okuma-header .fav-btn.bookmarked:hover { background: rgba(255, 111, 97, 0.3); }
+    .okuma-nav { display: flex; align-items: center; justify-content: center; gap: 18px; margin: 24px 0 16px 0; flex-wrap: wrap; }
+    .okuma-nav button, .okuma-nav a { padding: 10px 22px; border-radius: 8px; border: none; background: #222; color: #fff; font-size: 1.1em; cursor: pointer; text-decoration: none; transition: background 0.2s; display: flex; align-items: center; gap: 6px; }
+    .okuma-nav button:disabled { background: #888; cursor: not-allowed; }
+    .okuma-nav button:hover:not(:disabled) { background: #333; }
+    .okuma-nav .info-btn { background: #ff6f61; color: #fff; }
+    .okuma-nav .info-btn:hover { background: #e55a4d; }
+    .okuma-nav span { font-size: 1.1em; font-weight: 600; color: #ff6f61; width: 100%; text-align: center; margin-bottom: 6px; }
+    .okuma-nav-inner { display: flex; gap: 18px; justify-content: center; width: 100%; }
+    @media (max-width: 600px) {
+      .okuma-header { flex-direction: column; align-items: flex-start; gap: 8px; }
+      .okuma-nav { flex-direction: column; gap: 0; margin: 18px 0 10px 0; }
+      .okuma-nav span { order: -1; margin-bottom: 8px; }
+      .okuma-nav-inner { flex-direction: row; gap: 10px; justify-content: center; width: 100%; }
+    }
+    .okuma-header .fav-btn { margin-left: 24px; margin-right: 0; position: relative; left: 0; right: 0; }
+    @media (max-width: 600px) {
+      .okuma-header { align-items: center; }
+      .okuma-header .fav-btn { margin: 12px auto 0 auto; left: 0; right: 0; display: block; }
+    }
+    .okuma-alani { background: #181818; border-radius: 12px; padding: 16px; margin-bottom: 32px; display: flex; flex-direction: column; align-items: center; }
+    .okuma-alani img {
+      max-width: 100vw;
+      width: 100vw;
+      display: block;
+      margin: 0;
+      border-radius: 0;
+      box-shadow: none;
+    }
+    @media (min-width: 601px) {
+      .okuma-alani img {
+        max-width: 700px;
+        width: 80vw;
+        margin: 0 auto;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+      }
+    }
+    .comments { margin: 32px 0; }
+    @media (max-width: 600px) { .okuma-header { flex-direction: column; align-items: flex-start; gap: 8px; } .okuma-nav { flex-direction: column; gap: 8px; } }
+    .custom-select {
+      border-radius: 18px;
+      background: linear-gradient(90deg, #232323 60%, #ff6f61 100%);
+      color: #fff;
+      border: 2px solid #ff6f61;
+      padding: 8px 18px;
+      font-size: 1em;
+      font-weight: 600;
+      margin: 0 6px;
+      outline: none;
+      transition: border 0.2s, background 0.2s, color 0.2s;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      cursor: pointer;
+    }
+    .custom-select:focus {
+      border: 2px solid #fff;
+      background: linear-gradient(90deg, #ff6f61 60%, #232323 100%);
+      color: #fff;
+    }
+    .custom-select option {
+      background: #232323;
+      color: #ff6f61;
+      border-radius: 12px;
+    }
+    
+    /* Bölüm1.html için özel navbar styling - sticky position'ı kaldır */
+    body.okuma-sayfasi header {
+      position: static !important;
+      box-shadow: none;
+    }
+    
+    /* Okuma sayfası için özel navbar stilleri - navbar.css'teki styling'leri override etmiyoruz */
+    body.okuma-sayfasi .search-container {
+      background: rgba(18, 18, 18, 0.95);
+      backdrop-filter: blur(10px);
+    }
+    
+    body.okuma-sayfasi .okuma-alani {
+      margin-top: 20px;
+    }
+    
+    /* Responsive adjustments - header styling'lerini navbar.css'e bırakıyoruz */
+    @media (max-width: 480px) {
+      #scrollTopBtn {
+        bottom: 20px;
+        right: 20px;
+        width: 40px;
+        height: 40px;
+        font-size: 18px;
+      }
+    }
+
+    .okuma-stil-secici {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      margin: 16px 0 24px 0;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 600px) {
+      .okuma-stil-secici {
+        flex-direction: column;
+        gap: 8px;
+      }
+      .custom-select {
+        margin: 4px 0;
+        width: 200px;
+      }
+    }
+
+    /* Bookmark Alert Styles */
+    .alert {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      margin: 8px 0;
+      border-radius: 8px;
+      font-weight: 500;
+      opacity: 1;
+      transition: opacity 0.3s ease;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      position: relative;
+      z-index: 1000;
+    }
+    
+    .alert-success {
+      background: linear-gradient(135deg, #4CAF50, #45a049);
+      color: white;
+      border-left: 4px solid #2e7d32;
+    }
+    
+    .alert-info {
+      background: linear-gradient(135deg, #2196F3, #1976d2);
+      color: white;
+      border-left: 4px solid #1565c0;
+    }
+    
+    .alert-error {
+      background: linear-gradient(135deg, #f44336, #d32f2f);
+      color: white;
+      border-left: 4px solid #c62828;
+    }
+    
+    .alert-close {
+      background: none;
+      border: none;
+      color: inherit;
+      cursor: pointer;
+      padding: 4px;
+      border-radius: 50%;
+      transition: background 0.2s ease;
+      margin-left: auto;
+    }
+    
+    .alert-close:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+    
+    #alert-box {
+      position: fixed;
+      top: 80px;
+      right: 20px;
+      z-index: 10000;
+      max-width: 350px;
+    }
+    
+    /* Notification styles for chapter pages */
+    .chapter-notification {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.9) 100%);
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      border-radius: 12px;
+      padding: 15px 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #333;
+      z-index: 10000;
+      transform: translateX(100%);
+      opacity: 1;
+      transition: all 0.3s ease;
+      max-width: 400px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+    }
+
+    .chapter-notification.show {
+      transform: translateX(0);
+      opacity: 1;
+    }
+
+    .chapter-notification.success {
+      border-left: 4px solid #4CAF50;
+    }
+
+    .chapter-notification.error {
+      border-left: 4px solid #f44336;
+    }
+
+    .chapter-notification .notification-content {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex: 1;
+    }
+
+    .chapter-notification.success .notification-content i {
+      color: #4CAF50;
+    }
+
+    .chapter-notification.error .notification-content i {
+      color: #f44336;
+    }
+
+    .chapter-notification .notification-close {
+      background: none;
+      border: none;
+      color: rgba(0, 0, 0, 0.5);
+      cursor: pointer;
+      padding: 5px;
+      border-radius: 4px;
+      transition: all 0.2s ease;
+    }
+
+    .chapter-notification .notification-close:hover {
+      background: rgba(0, 0, 0, 0.1);
+      color: #333;
+    }
+
+    @media (max-width: 480px) {
+      .chapter-notification {
+        top: 10px;
+        right: 10px;
+        left: 10px;
+        max-width: none;
+      }
+    }
+  </style>
+</head>
+<body class="okuma-sayfasi">
+  <!-- Ortak Navbar ve Side Menu -->
+  <header>
+    <div class="logo-area">
+      <a href="../../index.html" class="logo-link">
+        <img src="../../images/ToonNekoLogo.png" alt="Logo" />
+        <span>ToonNeko</span>
+      </a>
+    </div>
+    <nav class="desktop-navbar">
+      <ul>
+        <li><a href="../../index.html" style="text-decoration:none;" class="active">Anasayfa</a></li>
+        <li><a href="../../tum-seriler.html" style="text-decoration:none;">Tüm Seriler</a></li>
+        <li><a href="../../profile.html" style="text-decoration:none;">Profilim</a></li>
+        <li><a href="../../hakkinda.html" style="text-decoration:none;">Hakkında</a></li>
+        <li><a href="../../iletisim.html" style="text-decoration:none;">İletişim</a></li>
+        
+        <!-- Auth Buttons (Logged Out) -->
+        <li id="auth-buttons-nav">
+          <button id="open-register-modal-navbar" class="auth-btn">Kayıt Ol</button>
+        </li>
+        <li id="auth-buttons-nav-2">
+          <button id="open-login-modal-navbar" class="auth-btn secondary">Giriş Yap</button>
+        </li>
+        
+        <!-- User Info (Logged In) -->
+        <li id="user-info-nav" style="display: none;">
+          <span id="username-display" class="username-display"></span>
+        </li>
+        <li id="user-info-nav-2" style="display: none;">
+          <button id="logout-btn" class="auth-btn secondary">Çıkış Yap</button>
+        </li>
+      </ul>
+    </nav>
+    <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+  </header>
+  <nav class="side-menu" id="sideMenu">
+    <button class="close-btn" id="closeMenu">×</button>
+    <ul>
+      <li><a href="../../index.html" style="text-decoration:none;" class="active">Anasayfa</a></li>
+      <li><a href="../../tum-seriler.html" style="text-decoration:none;">Tüm Seriler</a></li>
+      <li><a href="../../profile.html" style="text-decoration:none;">Profilim</a></li>
+      <li><a href="../../hakkinda.html" style="text-decoration:none;">Hakkında</a></li>
+      <li><a href="../../iletisim.html" style="text-decoration:none;">İletişim</a></li>
+      
+      <!-- Auth Buttons (Logged Out) -->
+      <div id="side-auth-buttons">
+        <li><button id="open-register-modal-side" class="auth-btn">Kayıt Ol</button></li>
+        <li><button id="open-login-modal-side" class="auth-btn secondary">Giriş Yap</button></li>
+      </div>
+      
+      <!-- User Info (Logged In) -->
+      <div id="side-user-info" style="display: none;">
+        <li><span id="side-username-display" class="username-display"></span></li>
+        <li><button id="side-logout-btn" class="auth-btn secondary">Çıkış Yap</button></li>
+      </div>
+    </ul>
+  </nav>
+  <div class="side-overlay" id="sideOverlay"></div>
+
+<!-- Alert Box -->
+<div id="alert-box"></div>
+  <div class="search-container">
+    <input type="text" id="search-input" placeholder="Manhwa ara...">
+    <div id="search-results" class="results-box hidden"></div>
+  </div>
+
+  <!-- Okuma Sayfası Başlık ve Navigasyon -->
+  <div class="okuma-header">
+    <a href="../../series/blackcrow/blackcrowseri.html" class="seri-link"><i class="fa-solid fa-arrow-left"></i> Black Crow</a>
+    <button class="fav-btn" id="bookmarkBtn" title="Bookmark'a ekle"><i class="fa-regular fa-bookmark"></i></button>
+  </div>
+  <div class="okuma-nav">
+    <span id="chapterTitle">Bölüm 1</span>
+    <div class="okuma-nav-inner" id="nav-area">
+      <!-- Dynamic navigation buttons will be inserted here -->
+    </div>
+  </div>
+  <div class="okuma-stil-secici">
+    <select id="stil" class="custom-select">
+      <option value="list">Okuma Stili: Liste</option>
+      <option value="page">Okuma Stili: Sayfa Sayfa</option>
+    </select>
+    <select id="bolumSec" class="custom-select"><option value="1" selected>Bölüm 1</option></select>
+    <select id="resimListesi" class="custom-select"><option value="1">1 / 1</option></select>
+  </div>
+  <div class="okuma-alani" id="okumaAlani">
+    <img src="http://localhost:5506/api/image/proxy-image/1uXZV6RL-MzOaBrrxoSvmpED9YgJ21lQD" alt="Bölüm 1 - Sayfa 1" class="okuma-img" data-page="1">
+  </div>
+
+  <!-- Bottom Navigation -->
+  <div class="okuma-nav">
+    <div class="okuma-nav-inner" id="nav-area-bottom">
+      <!-- Dynamic navigation buttons will be inserted here -->
+    </div>
+  </div>
+
+  <!-- Yorumlar Bölümü -->
+  <div class="comments-section" id="comments-blackcrow-1">
+    <!-- Yorum sistemi buraya dinamik olarak yüklenecek -->
+  </div>
+  
+  <!-- Keyboard Navigation Hint -->
+  <div id="keyboardHint" class="keyboard-hint">
+    <i class="fas fa-keyboard"></i> ←/→ veya A/D ile gezin
+  </div>
+  <button id="scrollTopBtn" title="Yukarı Çık"><i class="fas fa-arrow-up"></i></button>
+
+  <!-- Auth Modal'ları -->
+  <!-- Kayıt Formu (Modal) -->
+  <div id="register-modal" class="modal">
+    <div class="modal-content">
+      <button id="close-register-modal" class="modal-close">&times;</button>
+      <h2>Kayıt Ol</h2>
+      <form id="register-form">
+        <input id="register-username" type="text" placeholder="Kullanıcı Adı" required>
+        <input id="register-email" type="email" placeholder="E-posta" required>
+        <input id="register-password" type="password" placeholder="Şifre" required>
+        <button type="submit">Kayıt Ol</button>
+      </form>
+      <p class="modal-switch">Zaten hesabın var mı? <a href="#" id="switch-to-login">Giriş yap</a></p>
+    </div>
+  </div>
+
+  <!-- Giriş Formu (Modal) -->
+  <div id="login-modal" class="modal">
+    <div class="modal-content">
+      <button id="close-login-modal" class="modal-close">&times;</button>
+      <h2>Giriş Yap</h2>
+      <form id="login-form">
+        <input id="login-identifier" type="text" placeholder="E-posta veya Kullanıcı Adı" required>
+        <input id="login-password" type="password" placeholder="Şifre" required>
+        <button type="submit">Giriş Yap</button>
+      </form>
+      <p class="modal-switch">Hesabın yok mu? <a href="#" id="switch-to-register">Kayıt ol</a></p>
+    </div>
+  </div>
+
+  
+  
+  
+
+  <!-- Script dosyalarını yükle -->
+  <script>
+    // Advanced cache busting
+    const cacheBuster = Date.now();
+    console.log('🔄 Cache buster timestamp v10:', cacheBuster);
+    
+    // Clear any existing DynamicNavigation instance
+    if (window.DynamicNavigation) {
+      console.warn('⚠️ DynamicNavigation already exists, clearing...');
+      delete window.DynamicNavigation;
+    }
+  </script>
+  <script src="../../scripts/dynamic-navigation.js?v=50" defer></script>
+
+  <script src="../../scripts/arama.js?v=5" defer></script>
+  <script src="../../scripts/bookmark-manager.js?v=5" defer></script>
+  <script src="../../scripts/reading-progress-tracker.js?v=5" defer></script>
+  <script src="../../scripts/completed-series-tracker.js?v=5" defer></script>
+  <script src="../../scripts/navbar.js?v=5" defer></script>
+  <script src="../../scripts/auth-navbar.js?v=5" defer></script>
+  <script src="../../scripts/auth-forms.js?v=5" defer></script>
+  <script src="../../scripts/comments.js?v=50&unified=true" defer></script>
+  <script src="../../scripts/chapter-scripts.js?v=5" defer></script>
+  <script src="../../scripts/common-chapter-functions.js?v=5" defer></script>
+  
+  <script>
+    // Sayfa yüklendikten sonra navigation'ı başlat
+    document.addEventListener('DOMContentLoaded', function() {
+      // Yorumlar sistemini başlat - isolated instance
+      if (typeof CommentsUI !== 'undefined') {
+        console.log('🔥 Black Crow Bölüm 1 - CommentsUI başlatılıyor...');
+        
+        // Clear any potential shared state
+        if (window.commentsUI) {
+          console.log('⚠️ Cleaning up previous commentsUI instance');
+          delete window.commentsUI;
+        }
+        
+        const seriesName = 'blackcrow';
+        const chapterNumber = 1;
+        
+        console.log(`🎯 Creating CommentsUI: ${seriesName}, chapter: ${chapterNumber}`);
+        
+        // Create isolated instance
+        const commentsInstance = new CommentsUI(seriesName, chapterNumber);
+        
+        // Store for debugging only
+        window.currentCommentsInstance = commentsInstance;
+        
+        console.log('✅ Black Crow Bölüm 1 CommentsUI created');
+      }
+      
+      // Okuma takibini başlat
+      if (typeof ReadingTracker !== 'undefined') {
+        const readingTracker = new ReadingTracker();
+        const seriesTitle = window.location.pathname.includes('blackcrow') ? 'Black Crow' :
+                           window.location.pathname.includes('solo') ? 'Solo Leveling' :
+                           window.location.pathname.includes('nanomachine') ? 'Nanomachine' :
+                           window.location.pathname.includes('omniscient') ? 'Omniscient Reader' : 'Unknown';
+        const chapterNumber = parseInt(window.location.pathname.match(/bölüm(\d+)/)?.[1] || '1');
+        const chapterTitle = `Bölüm ${chapterNumber}`;
+        const seriesName = window.location.pathname.includes('blackcrow') ? 'blackcrow' :
+                          window.location.pathname.includes('solo') ? 'sololeveling' :
+                          window.location.pathname.includes('nanomachine') ? 'nanomachine' :
+                          window.location.pathname.includes('omniscient') ? 'omniscientreader' : 'unknown';
+        readingTracker.trackReading(seriesName, chapterNumber, seriesTitle, chapterTitle);
+      }
+    });
+  </script>
+  
+  
+</body>
+</html>

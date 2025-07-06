@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hakkında - ToonNeko</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles/navbar.css?v=5">
+  <link rel="stylesheet" href="styles/ornek-navbar-ek.css?v=5">
+  <link rel="stylesheet" href="styles/anasayfa.css?v=5">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css?v=5">
+  <style>
+    .logo-link {
+      display: flex;
+      align-items: center;
+      text-decoration: none !important;
+      color: inherit !important;
+      cursor: pointer;
+    }
+    .logo-link:visited, .logo-link:active, .logo-link:hover {
+      color: inherit !important;
+      text-decoration: none !important;
+    }
+    .logo-link img {
+      margin-right: 8px;
+    }
+    
+    /* Force consistent logo size */
+    .logo-area img {
+      height: 64px !important;
+      width: auto !important;
+    }
+    .logo-area span {
+      font-size: 3.2rem !important;
+      font-weight: bold !important;
+    }
+    
+    /* Force consistent navbar margin */
+    .desktop-navbar {
+      margin-left: 20px !important;
+    }
+    header {
+      padding: 10px 15px !important;
+    }
+    
+    /* About page specific styles */
+    .about-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 20px;
+      color: #f0f0f0;
+    }
+    
+    .hero-section {
+      text-align: center;
+      margin-bottom: 60px;
+      padding: 60px 20px;
+      background: linear-gradient(135deg, rgba(255, 111, 97, 0.1) 0%, rgba(155, 148, 255, 0.1) 100%);
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .hero-title {
+      font-size: 3.5rem;
+      font-weight: 700;
+      background: linear-gradient(45deg, #ff6f61, #9b94ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 20px;
+      text-shadow: 0 2px 10px rgba(255, 111, 97, 0.3);
+    }
+    
+    .hero-subtitle {
+      font-size: 1.3rem;
+      color: #ccc;
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+    
+    .content-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 30px;
+      margin-bottom: 50px;
+    }
+    
+    .content-card {
+      background: linear-gradient(135deg, #2a2a2a 0%, #333 100%);
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .content-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(255, 111, 97, 0.2);
+    }
+    
+    .card-icon {
+      font-size: 3rem;
+      background: linear-gradient(45deg, #ff6f61, #9b94ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 20px;
+    }
+    
+    .card-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 15px;
+      color: #fff;
+    }
+    
+    .card-text {
+      color: #ccc;
+      line-height: 1.6;
+      font-size: 1rem;
+    }
+    
+    .stats-section {
+      background: linear-gradient(135deg, #2a2a2a 0%, #333 100%);
+      padding: 40px;
+      border-radius: 20px;
+      margin: 50px 0;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 30px;
+    }
+    
+    .stat-item {
+      text-align: center;
+      padding: 20px;
+    }
+    
+    .stat-number {
+      font-size: 3rem;
+      font-weight: 700;
+      background: linear-gradient(45deg, #ff6f61, #9b94ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      display: block;
+    }
+    
+    .stat-label {
+      color: #ccc;
+      font-size: 1.1rem;
+      margin-top: 10px;
+    }
+    
+    .team-section {
+      text-align: center;
+      margin: 60px 0;
+    }
+    
+    .section-title {
+      font-size: 2.5rem;
+      font-weight: 600;
+      margin-bottom: 40px;
+      background: linear-gradient(45deg, #ff6f61, #9b94ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+      margin-top: 40px;
+    }
+    
+    .team-member {
+      background: linear-gradient(135deg, #2a2a2a 0%, #333 100%);
+      padding: 30px 20px;
+      border-radius: 15px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: transform 0.3s ease;
+    }
+    
+    .team-member:hover {
+      transform: translateY(-5px);
+    }
+    
+    .member-avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: linear-gradient(45deg, #ff6f61, #9b94ff);
+      margin: 0 auto 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      color: white;
+      font-weight: 600;
+    }
+    
+    .member-name {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 5px;
+    }
+    
+    .member-role {
+      color: #ff6f61;
+      font-size: 1rem;
+      margin-bottom: 15px;
+    }
+    
+    .member-bio {
+      color: #ccc;
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+    
+    .contact-section {
+      background: linear-gradient(135deg, rgba(255, 111, 97, 0.1) 0%, rgba(155, 148, 255, 0.1) 100%);
+      padding: 40px;
+      border-radius: 20px;
+      text-align: center;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .contact-title {
+      font-size: 2rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+      color: #fff;
+    }
+    
+    .contact-text {
+      color: #ccc;
+      font-size: 1.1rem;
+      margin-bottom: 30px;
+    }
+    
+    .contact-buttons {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    
+    .contact-btn {
+      background: linear-gradient(135deg, #ff6f61 0%, #e55a50 100%);
+      color: white;
+      text-decoration: none;
+      padding: 12px 25px;
+      border-radius: 25px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(255, 111, 97, 0.3);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .contact-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(255, 111, 97, 0.4);
+      text-decoration: none;
+      color: white;
+    }
+    
+    .scroll-top-btn {
+      display: none;
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      z-index: 99;
+      font-size: 22px;
+      background: linear-gradient(135deg, #ff6f61, #9b94ff);
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(255, 111, 97, 0.3);
+      transition: all 0.3s ease;
+    }
+    
+    .scroll-top-btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 20px rgba(255, 111, 97, 0.4);
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero-title {
+        font-size: 2.5rem;
+      }
+      
+      .hero-subtitle {
+        font-size: 1.1rem;
+      }
+      
+      .content-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+      
+      .about-container {
+        padding: 20px 15px;
+      }
+      
+      .hero-section {
+        padding: 40px 15px;
+        margin-bottom: 40px;
+      }
+      
+      .contact-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .contact-btn {
+        width: 200px;
+        justify-content: center;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .hero-title {
+        font-size: 2rem;
+      }
+      
+      .section-title {
+        font-size: 2rem;
+      }
+      
+      .stats-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+      }
+      
+      .stat-number {
+        font-size: 2.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+<header>
+  <div class="logo-area">
+    <a href="index.html" class="logo-link">
+      <img src="images/ToonNekoLogo.png" alt="Logo" />
+      <span>ToonNeko</span>
+    </a>
+  </div>
+  <nav class="desktop-navbar">
+    <ul>
+      <li><a href="index.html" style="text-decoration:none;">Anasayfa</a></li>
+      <li><a href="tum-seriler.html" style="text-decoration:none;">Tüm Seriler</a></li>
+      <li><a href="profile.html" style="text-decoration:none;">Profilim</a></li>
+      <li><a href="hakkinda.html" style="text-decoration:none;" class="active">Hakkında</a></li>
+      <li><a href="iletisim.html" style="text-decoration:none;">İletişim</a></li>
+      
+      <!-- Auth Buttons (Logged Out) -->
+      <li id="auth-buttons-nav">
+        <button id="open-register-modal-navbar" class="auth-btn" style="background:#ff6f61; color:#fff; border:none; border-radius:20px; padding:6px 14px; margin-left:8px; font-size:0.9rem; cursor:pointer; transition:background 0.2s;">Kayıt Ol</button>
+      </li>
+      <li id="auth-buttons-nav-2">
+        <button id="open-login-modal-navbar" class="auth-btn" style="background:#fff; color:#ff6f61; border:1.5px solid #ff6f61; border-radius:20px; padding:6px 14px; margin-left:4px; font-size:0.9rem; cursor:pointer; transition:background 0.2s, color 0.2s;">Giriş Yap</button>
+      </li>
+      
+      <!-- User Info (Logged In) -->
+      <li id="user-info-nav" style="display: none;">
+        <span id="username-display" style="color:#fff; margin-right:8px; font-weight:500; font-size:0.95rem;"></span>
+      </li>
+      <li id="user-info-nav-2" style="display: none;">
+        <button id="logout-btn" class="auth-btn" style="background:#fff; color:#ff6f61; border:1.5px solid #ff6f61; border-radius:20px; padding:6px 14px; margin-left:4px; font-size:0.9rem; cursor:pointer; transition:background 0.2s, color 0.2s;">Çıkış Yap</button>
+      </li>
+    </ul>
+  </nav>
+  <div class="hamburger"><span></span><span></span><span></span></div>
+</header>
+
+<nav class="side-menu" id="sideMenu">
+  <button class="close-btn" id="closeMenu">×</button>
+  <ul>
+    <li><a href="index.html" style="text-decoration:none;">Anasayfa</a></li>
+    <li><a href="tum-seriler.html" style="text-decoration:none;">Tüm Seriler</a></li>
+    <li><a href="profile.html" style="text-decoration:none;">Profilim</a></li>
+    <li><a href="hakkinda.html" style="text-decoration:none;" class="active">Hakkında</a></li>
+    <li><a href="iletisim.html" style="text-decoration:none;">İletişim</a></li>
+    
+    <!-- Auth Buttons (Logged Out) -->
+    <div id="side-auth-buttons">
+      <li><button id="open-register-modal-side" class="auth-btn" style="background:#ff6f61; color:#fff; border:none; border-radius:20px; padding:10px 16px; margin:10px 0 0 0; font-size:1rem; cursor:pointer; width:90%;">Kayıt Ol</button></li>
+      <li><button id="open-login-modal-side" class="auth-btn" style="background:#fff; color:#ff6f61; border:1.5px solid #ff6f61; border-radius:20px; padding:10px 16px; margin:8px 0 0 0; font-size:1rem; cursor:pointer; width:90%;">Giriş Yap</button></li>
+    </div>
+    
+    <!-- User Info (Logged In) -->
+    <div id="side-user-info" style="display: none;">
+      <li><span id="side-username-display" style="color:#fff; margin:15px 0; font-weight:500; display:block; text-align:center; font-size:1.1rem;"></span></li>
+      <li><button id="side-logout-btn" class="auth-btn" style="background:#fff; color:#ff6f61; border:1.5px solid #ff6f61; border-radius:20px; padding:10px 16px; margin:8px 0 0 0; font-size:1rem; cursor:pointer; width:90%;">Çıkış Yap</button></li>
+    </div>
+  </ul>
+</nav>
+<div class="side-overlay" id="sideOverlay"></div>
+
+<!-- Alert Box -->
+<div id="alert-box"></div>
+
+<div class="about-container">
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <h1 class="hero-title">ToonNeko Hakkında</h1>
+    <p class="hero-subtitle">
+      Türkiye'nin en kapsamlı manhwa okuma platformu. En sevilen Kore webtoonlarını Türkçe çevirisiyle keşfedin, favori serilerinizi takip edin ve büyüleyici hikayeler dünyasına dalın.
+    </p>
+  </section>
+
+  <!-- Content Cards -->
+  <div class="content-grid">
+    <div class="content-card">
+      <div class="card-icon">
+        <i class="fas fa-book-open"></i>
+      </div>
+      <h3 class="card-title">Misyonumuz</h3>
+      <p class="card-text">
+        Kaliteli manhwa içeriklerini Türk okuyucularla buluşturmak ve manhwa kültürünün Türkiye'de yayılmasına katkıda bulunmak. Her yaştan okuyucunun keyifle zaman geçirebileceği bir platform sunuyoruz.
+      </p>
+    </div>
+
+    <div class="content-card">
+      <div class="card-icon">
+        <i class="fas fa-eye"></i>
+      </div>
+      <h3 class="card-title">Vizyonumuz</h3>
+      <p class="card-text">
+        Türkiye'nin manhwa alanındaki en büyük ve en güvenilir platformu olmak. Okuyucularımıza en güncel, kaliteli ve çeşitli içerikleri sunarak manhwa deneyimini bir üst seviyeye taşımak.
+      </p>
+    </div>
+
+    <div class="content-card">
+      <div class="card-icon">
+        <i class="fas fa-star"></i>
+      </div>
+      <h3 class="card-title">Kalite Anlayışımız</h3>
+      <p class="card-text">
+        Sadece en popüler ve kaliteli manhwaları seçiyoruz. Profesyonel çeviri ekibimiz, her bölümün Türkçe okuyucular için en uygun şekilde uyarlanmasını sağlıyor.
+      </p>
+    </div>
+
+    <div class="content-card">
+      <div class="card-icon">
+        <i class="fas fa-users"></i>
+      </div>
+      <h3 class="card-title">Topluluğumuz</h3>
+      <p class="card-text">
+        Binlerce manhwa severin bir araya geldiği ToonNeko topluluğu. Favori serilerinizi paylaşın, yeni keşifler yapın ve diğer okuyucularla deneyimlerinizi aktarın.
+      </p>
+    </div>
+  </div>
+
+  <!-- Stats Section -->
+  <section class="stats-section">
+    <div class="stats-grid">
+      <div class="stat-item">
+        <span class="stat-number">50+</span>
+        <div class="stat-label">Aktif Manhwa Serisi</div>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number">500+</span>
+        <div class="stat-label">Çevrilmiş Bölüm</div>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number">10K+</span>
+        <div class="stat-label">Kayıtlı Kullanıcı</div>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number">99%</span>
+        <div class="stat-label">Kullanıcı Memnuniyeti</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Team Section -->
+  <section class="team-section">
+    <h2 class="section-title">Ekibimiz</h2>
+    <div class="team-grid">
+      <div class="team-member">
+        <div class="member-avatar">AE</div>
+        <div class="member-name">Ahmet Emre</div>
+        <div class="member-role">Kurucu & Geliştirici</div>
+        <div class="member-bio">
+          Platform mimarisi ve teknoloji altyapısından sorumlu. 5+ yıl web geliştirme deneyimi.
+        </div>
+      </div>
+
+      <div class="team-member">
+        <div class="member-avatar">ZK</div>
+        <div class="member-name">Zeynep Kaya</div>
+        <div class="member-role">Çeviri Koordinatörü</div>
+        <div class="member-bio">
+          Çeviri kalitesi ve içerik editörlüğünden sorumlu. Korece dil uzmanı ve manhwa editörü.
+        </div>
+      </div>
+
+      <div class="team-member">
+        <div class="member-avatar">MO</div>
+        <div class="member-name">Murat Özcan</div>
+        <div class="member-role">Tasarım & UX</div>
+        <div class="member-bio">
+          Kullanıcı deneyimi ve görsel tasarımdan sorumlu. Modern web tasarımı konusunda uzman.
+        </div>
+      </div>
+
+      <div class="team-member">
+        <div class="member-avatar">SY</div>
+        <div class="member-name">Selin Yılmaz</div>
+        <div class="member-role">İçerik Editörü</div>
+        <div class="member-bio">
+          Manhwa seçimi ve içerik kalite kontrolünden sorumlu. Manga ve manhwa konularında uzman.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="contact-section">
+    <h2 class="contact-title">Bizimle İletişime Geçin</h2>
+    <p class="contact-text">
+      Sorularınız, önerileriniz veya işbirliği teklifleriniz için bizimle iletişime geçebilirsiniz.
+    </p>
+    <div class="contact-buttons">
+      <a href="mailto:toonnekoinfo@gmail.com" class="contact-btn">
+        <i class="fas fa-envelope"></i>
+        E-posta Gönder
+      </a>
+      <a href="https://discord.gg/39pbwnax" class="contact-btn" target="_blank" rel="noopener noreferrer">
+        <i class="fab fa-discord"></i>
+        Discord'a Katıl
+      </a>
+    </div>
+  </section>
+</div>
+
+<button class="scroll-top-btn" id="scrollTopBtn">
+  <i class="fas fa-arrow-up"></i>
+</button>
+
+<!-- Auth Modal'ları -->
+<!-- Kayıt Formu (Modal) -->
+<div id="register-modal" class="modal">
+  <div class="modal-content">
+    <button id="close-register-modal" class="modal-close">&times;</button>
+    <h2>Kayıt Ol</h2>
+    <form id="register-form">
+      <input id="register-username" type="text" placeholder="Kullanıcı Adı" required>
+      <input id="register-email" type="email" placeholder="E-posta" required>
+      <input id="register-password" type="password" placeholder="Şifre" required>
+      <button type="submit">Kayıt Ol</button>
+    </form>
+    <div class="modal-switch">
+      <p>Zaten hesabın var mı? <a href="#" id="switch-to-login">Giriş yap</a></p>
+    </div>
+  </div>
+</div>
+
+<!-- Giriş Formu (Modal) -->
+<div id="login-modal" class="modal">
+  <div class="modal-content">
+    <button id="close-login-modal" class="modal-close">&times;</button>
+    <h2>Giriş Yap</h2>
+    <form id="login-form">
+      <input id="login-identifier" type="text" placeholder="E-posta veya Kullanıcı Adı" required>
+      <input id="login-password" type="password" placeholder="Şifre" required>
+      <button type="submit">Giriş Yap</button>
+    </form>
+    <div class="modal-switch">
+      <p>Hesabın yok mu? <a href="#" id="switch-to-register">Kayıt ol</a></p>
+    </div>
+  </div>
+</div>
+
+<script src="scripts/navbar.js?v=5"></script>
+<script src="scripts/auth-navbar.js?v=5"></script>
+<script src="scripts/auth-forms.js?v=5"></script>
+<script>
+  // Scroll to top button
+  const scrollBtn = document.getElementById('scrollTopBtn');
+  
+  window.onscroll = function() {
+    if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+      scrollBtn.style.display = 'block';
+    } else {
+      scrollBtn.style.display = 'none';
+    }
+  };
+  
+  scrollBtn.onclick = function() {
+    window.scrollTo({top: 0, behavior: 'smooth'});
+  };
+
+  // Contact button animations
+  document.querySelectorAll('.contact-btn').forEach(btn => {
+    btn.addEventListener('mouseenter', function() {
+      this.style.transform = 'translateY(-2px) scale(1.05)';
+    });
+    
+    btn.addEventListener('mouseleave', function() {
+      this.style.transform = 'translateY(0) scale(1)';
+    });
+  });
+
+  // Team member hover effects
+  document.querySelectorAll('.team-member').forEach(member => {
+    member.addEventListener('mouseenter', function() {
+      this.style.boxShadow = '0 15px 40px rgba(255, 111, 97, 0.2)';
+    });
+    
+    member.addEventListener('mouseleave', function() {
+      this.style.boxShadow = '0 8px 32px rgba(0, 0, 0, 0.3)';
+    });
+  });
+</script>
+</body>
+</html>
