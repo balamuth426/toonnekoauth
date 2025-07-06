@@ -191,7 +191,7 @@ class ChaptersManager {
     
     try {
       // API'den tüm seri verilerini al
-      const response = await fetch('http://localhost:5506/api/manhwa/');
+      const response = await fetch(window.APP_CONFIG.API_BASE + '/manhwa/');
       if (response.ok) {
         const seriesData = await response.json();
         const currentSeries = seriesData.find(series => series.seriesId === this.seriesId);
@@ -241,7 +241,7 @@ class ChaptersManager {
     // Reading progress API'sine kaydet
     const token = localStorage.getItem('token');
     if (token) {
-      fetch('http://localhost:5506/api/reading/progress', {
+      fetch(window.APP_CONFIG.API_BASE + '/reading/progress', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

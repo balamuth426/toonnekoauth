@@ -170,7 +170,7 @@ function showCurrentUserRating() {
   const token = getUserToken();
   if (!token || !seriesId) return;
   
-  fetch('http://localhost:5506/api/profile', { 
+  fetch(window.APP_CONFIG.API_BASE + '/profile', { 
     headers: { 'Authorization': 'Bearer ' + token } 
   })
     .then(r => r.json())

@@ -1398,7 +1398,7 @@ document.addEventListener('DOMContentLoaded', function() {
       const password = document.getElementById('register-password').value;
 
       try {
-        const response = await fetch('http://localhost:5506/api/auth/register', {
+        const response = await fetch(window.APP_CONFIG.API_BASE + '/auth/register', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -1451,7 +1451,7 @@ document.addEventListener('DOMContentLoaded', function() {
       const password = document.getElementById('login-password').value;
 
       try {
-        const response = await fetch('http://localhost:5506/api/auth/login', {
+        const response = await fetch(window.APP_CONFIG.API_BASE + '/auth/login', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'

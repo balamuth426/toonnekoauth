@@ -458,7 +458,7 @@ class CommentsUI {
   async likeComment(id, like) {
     if (!this.user) return this.showAlert('Giriş yapmalısınız.', 'error');
     try {
-      await fetch(`http://localhost:5506/api/comments/${id}/like`, {
+      await fetch(`${window.APP_CONFIG.API_BASE}/comments/${id}/like`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -477,7 +477,7 @@ class CommentsUI {
     if (!this.user) return this.showAlert('Giriş yapmalısınız.', 'error');
     if (!confirm('Yorumu silmek istediğinize emin misiniz?')) return;
     try {
-      await fetch(`http://localhost:5506/api/comments/${id}`, {
+      await fetch(`${window.APP_CONFIG.API_BASE}/comments/${id}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token') || ''}`
@@ -513,7 +513,7 @@ class CommentsUI {
   async sendReply(commentId, text) {
     if (!this.user) return this.showAlert('Giriş yapmalısınız.', 'error');
     try {
-      await fetch(`http://localhost:5506/api/comments/${commentId}/reply`, {
+      await fetch(`${window.APP_CONFIG.API_BASE}/comments/${commentId}/reply`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -580,7 +580,7 @@ class CommentsUI {
     if (!confirm('Bu yanıtı silmek istediğinizden emin misiniz?')) return;
     
     try {
-      const res = await fetch(`http://localhost:5506/api/comments/${commentId}/reply/${replyId}`, {
+      const res = await fetch(`${window.APP_CONFIG.API_BASE}/comments/${commentId}/reply/${replyId}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token') || ''}`
@@ -631,7 +631,7 @@ class CommentsUI {
       if (!newText) return this.showAlert('Yanıt boş olamaz.', 'error');
       
       try {
-        const res = await fetch(`http://localhost:5506/api/comments/${commentId}/reply/${replyId}`, {
+        const res = await fetch(`${window.APP_CONFIG.API_BASE}/comments/${commentId}/reply/${replyId}`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
@@ -692,7 +692,7 @@ class CommentsUI {
       if (!newText) return this.showAlert('Yorum boş olamaz.', 'error');
       
       try {
-        const res = await fetch(`http://localhost:5506/api/comments/${commentId}`, {
+        const res = await fetch(`${window.APP_CONFIG.API_BASE}/comments/${commentId}`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
@@ -792,7 +792,7 @@ class CommentsUI {
       const description = modal.querySelector('.report-description').value.trim();
       
       try {
-        const response = await fetch('http://localhost:5506/api/reports/report-comment', {
+        const response = await fetch(`${window.APP_CONFIG.API_BASE}/reports/report-comment`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
