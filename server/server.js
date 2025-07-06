@@ -72,7 +72,9 @@ const corsOptions = {
       'https://toonnekoauth.netlify.app',
       'https://toonneko.netlify.app',
       'https://toonnekoauth-api.onrender.com',
-      'https://your-custom-domain.com'
+      'https://your-custom-domain.com',
+      // Buraya kendi Netlify URL'inizi ekleyin:
+      'https://KENDI-NETLIFY-URL-INİZ.netlify.app'
     ];
     
     // Allow file:// protocol for local development
