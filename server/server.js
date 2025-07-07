@@ -44,47 +44,22 @@ const statsRoutes = require('./routes/stats');
 const healthRoutes = require('./routes/health');
 const app = express();
 
-// CORS ayarları - development ve production için
+// CORS ayarları - production için sadece Netlify ve Render domainlerine izin ver
+const allowedOrigins = [
+  'https://toonneko.netlify.app',
+  'https://www.toonneko.netlify.app',
+  'https://toonnekoauth-api.onrender.com'
+];
+
 const corsOptions = {
   origin: function (origin, callback) {
-    // Allow requests with no origin (like mobile apps or curl requests)
+    // allow requests with no origin (like mobile apps, curl, health checks)
     if (!origin) return callback(null, true);
-    
-    const allowedOrigins = [
-      // Development origins
-      'http://127.0.0.1:5500',
-      'http://localhost:5500',
-      'http://127.0.0.1:5505',
-      'http://localhost:5505',
-      'http://127.0.0.1:5506',
-      'http://localhost:5506',
-      'http://127.0.0.1:5507',
-      'http://localhost:5507',
-      'http://127.0.0.1:3000',
-      'http://localhost:3000',
-      'http://127.0.0.1:8080',
-      'http://localhost:8080',
-      'http://127.0.0.1:8000',
-      'http://localhost:8000',
-      'http://127.0.0.1:8001',
-      'http://localhost:8001',
-      // Production domains - deploy edildiğinde güncellenecek
-      'https://toonnekoauth.netlify.app',
-      'https://toonneko.netlify.app',
-      'https://toonnekoauth-api.onrender.com',
-      'https://your-custom-domain.com',
-      // Buraya kendi Netlify URL'inizi ekleyin:
-      'https://KENDI-NETLIFY-URL-INİZ.netlify.app'
-    ];
-    
-    // Allow file:// protocol for local development
-    if (origin.startsWith('file://') || allowedOrigins.indexOf(origin) !== -1) {
+    if (allowedOrigins.indexOf(origin) !== -1) {
       return callback(null, true);
+    } else {
+      return callback(new Error('Not allowed by CORS'));
     }
-    
-    // Log the blocked origin for debugging
-    console.log('CORS blocked origin:', origin);
-    return callback(null, true); // Allow all origins for development - production'da daha kısıtlayıcı yapın
   },
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
@@ -94,6 +69,9 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
+
+// Preflight (OPTIONS) istekleri için CORS header'ı döndür
+app.options('*', cors(corsOptions));
 
 // Request logging middleware - En üste ekle
 app.use((req, res, next) => {
